@@ -1,0 +1,310 @@
+# Copyright (C) 2017 WP Auto Updater
+# This file is distributed under the same license as the WP Auto Updater package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Auto Updater 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-auto-updater\n"
+"POT-Creation-Date: 2017-09-14 08:17:23+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: thingsym\n"
+
+#: inc/class-wp-auto-updater-history.php:176
+#: inc/class-wp-auto-updater-history.php:177
+#: inc/class-wp-auto-updater-history.php:331
+msgid "Update History"
+msgstr "アップデート履歴"
+
+#: inc/class-wp-auto-updater-history.php:229
+msgid "First page"
+msgstr "はじめのページへ"
+
+#: inc/class-wp-auto-updater-history.php:243
+msgid "Previous page"
+msgstr "前のページへ"
+
+#: inc/class-wp-auto-updater-history.php:257
+msgid "Next page"
+msgstr "次のページへ"
+
+#: inc/class-wp-auto-updater-history.php:271
+msgid "Last page"
+msgstr "最後のページへ"
+
+#: inc/class-wp-auto-updater-history.php:292
+msgid "Table no exists."
+msgstr "テーブルはありません。"
+
+#: inc/class-wp-auto-updater-history.php:309
+msgid "Clear Logs"
+msgstr "ログをクリア"
+
+#: inc/class-wp-auto-updater-history.php:309
+msgid "Logs cleared."
+msgstr "ログをクリアしました。"
+
+#: inc/class-wp-auto-updater-history.php:339
+#: inc/class-wp-auto-updater-history.php:390
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%d 個の項目"
+msgstr[1] "%d 個の項目"
+
+#: inc/class-wp-auto-updater-history.php:350
+#: inc/class-wp-auto-updater-history.php:370 inc/class-wp-auto-updater.php:406
+msgid "Date"
+msgstr "日時"
+
+#: inc/class-wp-auto-updater-history.php:351
+#: inc/class-wp-auto-updater-history.php:371
+msgid "Status"
+msgstr "ステイタス"
+
+#: inc/class-wp-auto-updater-history.php:352
+#: inc/class-wp-auto-updater-history.php:372
+msgid "Mode"
+msgstr "モード"
+
+#: inc/class-wp-auto-updater-history.php:353
+#: inc/class-wp-auto-updater-history.php:373
+msgid "Label"
+msgstr "ラベル"
+
+#: inc/class-wp-auto-updater-history.php:354
+#: inc/class-wp-auto-updater-history.php:374
+msgid "Info"
+msgstr "内容"
+
+#: inc/class-wp-auto-updater-history.php:382
+msgid "Would you like to delete the logs?"
+msgstr "ログを削除しますか?"
+
+#: inc/class-wp-auto-updater.php:197
+msgid "Once Weekly"
+msgstr "週一回"
+
+#: inc/class-wp-auto-updater.php:202
+msgid "Once Monthly"
+msgstr "月一回"
+
+#: inc/class-wp-auto-updater.php:321
+msgid "WordPress Version"
+msgstr "WordPressのバージョン"
+
+#: inc/class-wp-auto-updater.php:328
+msgid "Current Version"
+msgstr "今のバージョン"
+
+#: inc/class-wp-auto-updater.php:336
+msgid "Newer Version"
+msgstr "最新のバージョン"
+
+#: inc/class-wp-auto-updater.php:344
+msgid "Auto Update Scenario"
+msgstr "自動更新シナリオ"
+
+#: inc/class-wp-auto-updater.php:351
+msgid "WordPress Core"
+msgstr "WordPress本体"
+
+#: inc/class-wp-auto-updater.php:359
+msgid "Theme"
+msgstr "テーマ"
+
+#: inc/class-wp-auto-updater.php:367
+msgid "Plugin"
+msgstr "プラグイン"
+
+#: inc/class-wp-auto-updater.php:375
+msgid "Translation"
+msgstr "翻訳"
+
+#: inc/class-wp-auto-updater.php:383
+msgid "Schedule"
+msgstr "スケジュール"
+
+#: inc/class-wp-auto-updater.php:390
+msgid "Next Update Date"
+msgstr "次の更新日"
+
+#: inc/class-wp-auto-updater.php:398
+msgid "Update Interval"
+msgstr "更新間隔"
+
+#: inc/class-wp-auto-updater.php:398
+msgid "Update Date"
+msgstr "更新日時"
+
+#: inc/class-wp-auto-updater.php:421
+msgid "Disable Auto Update Themes"
+msgstr "自動更新を停止するテーマ"
+
+#: inc/class-wp-auto-updater.php:428
+msgid "Themes"
+msgstr "テーマ"
+
+#: inc/class-wp-auto-updater.php:436
+msgid "Disable Auto Update Plugins"
+msgstr "自動更新を停止するプラグイン"
+
+#: inc/class-wp-auto-updater.php:443
+msgid "Plugins"
+msgstr "プラグイン"
+
+#: inc/class-wp-auto-updater.php:457 inc/class-wp-auto-updater.php:458
+#: inc/class-wp-auto-updater.php:534
+msgid "Auto Updater"
+msgstr "自動更新"
+
+#: inc/class-wp-auto-updater.php:572
+msgid "Minor Version Update (Recommended)"
+msgstr "マイナーバージョンをアップデート (推奨)"
+
+#: inc/class-wp-auto-updater.php:573
+msgid "Major Version Update"
+msgstr "メジャーバージョンをアップデート"
+
+#: inc/class-wp-auto-updater.php:574
+msgid "Minor Only Version Update"
+msgstr "マイナーバージョンだけをアップデート"
+
+#: inc/class-wp-auto-updater.php:575
+msgid "Previous Generation Version Update"
+msgstr "一世代前のバージョンをアップデート"
+
+#: inc/class-wp-auto-updater.php:576 inc/class-wp-auto-updater.php:586
+#: inc/class-wp-auto-updater.php:596 inc/class-wp-auto-updater.php:606
+msgid "Manual Update"
+msgstr "手動でアップデート"
+
+#: inc/class-wp-auto-updater.php:585 inc/class-wp-auto-updater.php:595
+#: inc/class-wp-auto-updater.php:605
+msgid "Auto Update"
+msgstr "自動でアップデート"
+
+#: inc/class-wp-auto-updater.php:618
+msgid "Local time"
+msgstr ""
+
+#: inc/class-wp-auto-updater.php:619
+msgid "GMT"
+msgstr ""
+
+#: inc/class-wp-auto-updater.php:626
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d 日"
+msgstr[1] "%d 日"
+
+#: inc/class-wp-auto-updater.php:629 inc/class-wp-auto-updater.php:641
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d 時間"
+msgstr[1] "%d 時間"
+
+#: inc/class-wp-auto-updater.php:633 inc/class-wp-auto-updater.php:644
+#: inc/class-wp-auto-updater.php:652
+msgid "%d Minute"
+msgid_plural "%d Minutes"
+msgstr[0] "%d 分"
+msgstr[1] "%d 分"
+
+
+#: inc/class-wp-auto-updater.php:636 inc/class-wp-auto-updater.php:647
+#: inc/class-wp-auto-updater.php:654
+msgid "ago"
+msgstr "前"
+
+#: inc/class-wp-auto-updater.php:636 inc/class-wp-auto-updater.php:647
+#: inc/class-wp-auto-updater.php:654
+msgid "later"
+msgstr "後"
+
+#: inc/class-wp-auto-updater.php:670
+msgid "Day: "
+msgstr "日: "
+
+#: inc/class-wp-auto-updater.php:679
+msgid "Weekday: "
+msgstr "曜日: "
+
+#: inc/class-wp-auto-updater.php:698
+msgid "Hour: "
+msgstr "時: "
+
+#: inc/class-wp-auto-updater.php:707
+msgid "Minute: "
+msgstr "分: "
+
+#: inc/class-wp-auto-updater.php:720
+msgid "Select a theme that you do not want to automatically update."
+msgstr "自動更新を停止するテーマを選んでください。"
+
+#: inc/class-wp-auto-updater.php:735
+msgid "Select a plugin that you do not want to automatically update."
+msgstr "自動更新を停止するプラグインを選んでください。"
+
+#: inc/class-wp-auto-updater.php:800
+msgid "Settings"
+msgstr "設定"
+
+#: inc/class-wp-auto-updater.php:990
+msgid "Automatic updating is not possible."
+msgstr "自動更新はできません。"
+
+#. Plugin Name of the plugin/theme
+msgid "WP Auto Updater"
+msgstr "自動更新"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/thingsym/wp-auto-updater"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. "
+"Version control of WordPress Core makes automatic update more safely."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "thingsym"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://management.thingslabo.com/"
+msgstr ""
+
+msgid "Twice Daily (12 hours interval)"
+msgstr "1日2回 (12時間間隔)"
+
+msgid "Daily"
+msgstr "毎日"
+
+msgid "Weekly"
+msgstr "毎週"
+
+msgid "Monthly"
+msgstr "毎月"
+
+msgid "Monday"
+msgstr "月曜日"
+
+msgid "Tuesday"
+msgstr "火曜日"
+
+msgid "Wednesday"
+msgstr "水曜日"
+
+msgid "Thursday"
+msgstr "木曜日"
+
+msgid "Friday"
+msgstr "金曜日"
+
+msgid "Saturday"
+msgstr "土曜日"
+
+msgid "Sunday"
+msgstr "日曜日"
