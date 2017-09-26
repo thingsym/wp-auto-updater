@@ -1,12 +1,16 @@
 # Introducing WP Auto Updater
 
+[![Build Status](https://travis-ci.org/thingsym/wp-auto-updater.svg?branch=master)](https://travis-ci.org/thingsym/wp-auto-updater)
+
+[![WordPress](https://img.shields.io/wordpress/v/wp-auto-updater.svg)](https://wordpress.org/plugins/wp-auto-updater/)
+
 This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 ## Features
 
 * Automatically update WordPress Core
 * Automatically updates Themes, Plugins and Translations
-* Schedule automatic updates
+* Set up a schedule automatic updates
 * Disable automatic updating of each Themes and Plugins
 * Record update history
 
@@ -61,19 +65,23 @@ At the time of automatic update, Automatically updates WordPress Core, Themes, P
 
 ## How do I use it ?
 
-1. Make Auto Update Scenario
-2. Schedule automatic updates
+1. Make an Auto Update Scenario
+2. Set up a schedule automatic updates
 3. Disable Auto Update Themes and Plugins if necessary
 4. Automatically updates WordPress Core, Themes, Plugins and Translations to be updated at the time of automatic update
 5. The update history will be recorded
 
 ## Screenshot
 
+### Auto Update settings
 <img src="screenshot-1.png">
-Auto Update settings
 
+### Auto Update History
 <img src="screenshot-2.png">
-Auto Update History
+
+## Test Matrix
+
+For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/wp-auto-updater)
 
 ## Resources
 
