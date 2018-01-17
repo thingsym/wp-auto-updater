@@ -113,5 +113,8 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.0.1
+	* fix readme
+	* add PHPDoc comments
 * Version 1.0.0
 	* initial release
