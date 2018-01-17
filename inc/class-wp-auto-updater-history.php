@@ -347,7 +347,7 @@ class WP_Auto_Updater_History {
 	 * @since 1.0.0
 	 */
 	 public function paginate( $row_count = 0, $per_page = 0, $current_paged = 0 ) {
-		 if ( empty( $row_count ) || empty( $per_page ) || empty( $current_paged ) ) {
+		if ( empty( $row_count ) || empty( $per_page ) || empty( $current_paged ) ) {
 			return '';
 		}
 
