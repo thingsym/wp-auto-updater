@@ -88,15 +88,44 @@ class WP_Auto_Updater_History {
 		register_activation_hook( __WP_AUTO_UPDATER__, array( $this, 'activate' ) );
 	}
 
+	/**
+	 * Initialize.
+	 *
+	 * Hooks to init
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function init() {
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
 	}
 
+	/**
+	 * Plugin activate.
+	 *
+	 * Hooks to activation_hook and create table.
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function activate() {
 		$this->create_table( $this->history_table_name );
 		$this->set_table_version();
 	}
 
+	/**
+	 * Checks table.
+	 *
+	 * @access public
+	 *
+	 * @param string $table_name The name of table.
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
 	public function table_exists( $table_name = null ) {
 		if ( ! isset( $table_name ) ) {
 			return false;
@@ -116,14 +145,43 @@ class WP_Auto_Updater_History {
 		return false;
 	}
 
+	/**
+	 * Returns table version.
+	 *
+	 * @access public
+	 *
+	 * @return int
+	 *
+	 * @since 1.0.0
+	 */
 	public function get_table_version() {
 		return get_option( 'wp_auto_updater_history_table_version', null );
 	}
 
+	/**
+	 * Sets table version.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function set_table_version() {
 		add_option( 'wp_auto_updater_history_table_version', $this->table_version );
 	}
 
+	/**
+	 * Create table.
+	 *
+	 * @access public
+	 *
+	 * @param string $table_name The name of table.
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
 	public function create_table( $table_name = null ) {
 		if ( ! isset( $table_name ) ) {
 			return;
@@ -153,6 +211,17 @@ class WP_Auto_Updater_History {
 		return dbDelta( $sql );
 	}
 
+	/**
+	 * Delete table.
+	 *
+	 * @access public
+	 *
+	 * @param string $table_name The name of table.
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
 	public function drop_table( $table_name = null ) {
 		global $wpdb;
 		if ( $this->table_exists( $table_name ) ) {
@@ -160,6 +229,21 @@ class WP_Auto_Updater_History {
 		}
 	}
 
+	/**
+	 * Insert log data to tables.
+	 *
+	 * @access public
+	 *
+	 * @param string $date
+	 * @param string $status
+	 * @param string $mode
+	 * @param string $label
+	 * @param string $info
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
 	public function logging( $date = null, $status = null, $mode = null, $label = null, $info = null ) {
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
 			return;
@@ -185,10 +269,28 @@ class WP_Auto_Updater_History {
 		return $wpdb->insert( $this->history_table_name, $data, $format );
 	}
 
+	/**
+	 * Returns capability.
+	 *
+	 * @access public
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
 	public function option_page_capability() {
 		return $this->capability;
 	}
 
+	/**
+	 * Adds history page.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_option_page() {
 		$page_hook = add_dashboard_page(
 			__( 'Update History', 'wp-auto-updater' ),
@@ -205,6 +307,17 @@ class WP_Auto_Updater_History {
 		add_action( 'load-' . $page_hook, array( $this, 'page_hook_suffix' ) );
 	}
 
+	/**
+	 * Page Hook Suffix.
+	 *
+	 * Hooks to load-{$page_hook}.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function page_hook_suffix() {}
 
 	/**
@@ -225,7 +338,11 @@ class WP_Auto_Updater_History {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @param string $row_count
+	 * @param string $per_page
+	 * @param string $current_paged
+	 *
+	 * @return string
 	 *
 	 * @since 1.0.0
 	 */
@@ -416,7 +533,9 @@ if ( ! empty( $row_count ) ) {
 	}
 
 	/**
-	 * Uninstal.
+	 * Uninstall.
+	 *
+	 * Hooks to uninstall_hook
 	 *
 	 * @access public static
 	 *
