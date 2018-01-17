@@ -126,6 +126,15 @@ class WP_Auto_Updater {
 		register_uninstall_hook( __WP_AUTO_UPDATER__, array( __CLASS__, 'uninstall' ) );
 	}
 
+	/**
+	 * Initialize.
+	 *
+	 * Hooks to init
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function init() {
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this, 'plugin_action_links' ) );
@@ -133,15 +142,44 @@ class WP_Auto_Updater {
 		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
 	}
 
+	/**
+	 * Plugin activate.
+	 *
+	 * Hooks to activation_hook
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function activate() {
 		$option = $this->get_options( 'schedule' );
 		do_action( 'wp_auto_updater_set_cron', $option );
 	}
 
+	/**
+	 * Plugin deactivate.
+	 *
+	 * Hooks to deactivation_hook
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function deactivate() {
 		do_action( 'wp_auto_updater_clear_schedule' );
 	}
 
+	/**
+	 * Auto Updates.
+	 *
+	 * Hooks to wp_loaded
+	 *
+	 * @access public
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
 	public function auto_update() {
 		if ( is_multisite() && ! is_main_site() ) {
 			return false;
@@ -169,6 +207,19 @@ class WP_Auto_Updater {
 		return true;
 	}
 
+	/**
+	 * Gets update results.
+	 *
+	 * Logging update results
+	 *
+	 * @access public
+	 *
+	 * @param array   $update_results
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function auto_update_result( $update_results ) {
 		$date = current_time( 'mysql' );
 
@@ -203,6 +254,10 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
+	 * @param array   $schedules
+	 *
+	 * @return array
+	 *
 	 * @since 1.0.0
 	 */
 	public function add_cron_interval( $schedules ) {
@@ -221,6 +276,10 @@ class WP_Auto_Updater {
 
 	/**
 	 * Set schedule.
+	 *
+	 * @access public
+	 *
+	 * @param array   $schedule
 	 *
 	 * @return void
 	 */
@@ -249,7 +308,11 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Gets timestamp.
+	 * Returns timestamp.
+	 *
+	 * @access public
+	 *
+	 * @param array   $schedule
 	 *
 	 * @return int
 	 */
@@ -315,6 +378,8 @@ class WP_Auto_Updater {
 	/**
 	 * Clear schedule.
 	 *
+	 * @access public
+	 *
 	 * @return void
 	 */
 	public function clear_schedule() {
@@ -324,7 +389,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Auto update WordPress core
+	 * Auto update WordPress core.
 	 *
 	 * @access public
 	 *
@@ -394,6 +459,17 @@ class WP_Auto_Updater {
 		do_action( 'wp_auto_updater_after_auto_update_wordpress_core' );
 	}
 
+	/**
+	 * Trim current version update.
+	 *
+	 * @access public
+	 *
+	 * @param object $updates
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function updates_previous_version( $updates ) {
 
 		if ( ! is_object( $updates ) ) {
@@ -411,7 +487,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Auto update theme
+	 * Auto update theme.
 	 *
 	 * @access public
 	 *
@@ -429,6 +505,18 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Check auto update specific theme.
+	 *
+	 * @access public
+	 *
+	 * @param bool $update
+	 * @param bool $item
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
 	public function auto_update_specific_theme( $update, $item ) {
 		$option = $this->get_options( 'disable_auto_update' );
 
@@ -441,7 +529,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Auto update plugin
+	 * Auto update plugin.
 	 *
 	 * @access public
 	 *
@@ -459,6 +547,18 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Check auto update specific plugin.
+	 *
+	 * @access public
+	 *
+	 * @param bool $update
+	 * @param bool $item
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
 	public function auto_update_specific_plugin( $update, $item ) {
 		$option = $this->get_options( 'disable_auto_update' );
 
@@ -471,7 +571,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Auto update translation
+	 * Auto update translation.
 	 *
 	 * @access public
 	 *
@@ -626,10 +726,28 @@ class WP_Auto_Updater {
 
 	}
 
+	/**
+	 * Returns capability.
+	 *
+	 * @access public
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
 	public function option_page_capability() {
 		return $this->capability;
 	}
 
+	/**
+	 * Adds option page.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function add_option_page() {
 		$page_hook = add_dashboard_page(
 			__( 'Auto Updater', 'wp-auto-updater' ),
@@ -646,6 +764,17 @@ class WP_Auto_Updater {
 		add_action( 'load-' . $page_hook, array( $this, 'page_hook_suffix' ) );
 	}
 
+	/**
+	 * Page Hook Suffix.
+	 *
+	 * Hooks to load-{$page_hook}.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function page_hook_suffix() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
@@ -739,7 +868,15 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Get the settings option array and print one of its values
+	 * Callback to settings_field 'newer_wp_version'
+	 *
+	 * Display newer WordPress version.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
 	 */
 	public function settings_field_cb_newer_wp_version() {
 		$updates = get_core_updates();
@@ -749,13 +886,32 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Get the settings option array and print one of its values
+	 * Callback to settings_field 'current_wp_version'
+	 *
+	 * Display current WordPress version.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
 	 */
 	public function settings_field_cb_current_wp_version() {
 		global $wp_version;
 		echo esc_html( $wp_version );
 	}
 
+	/**
+	 * Callback to settings_field 'scenario_core'
+	 *
+	 * Get the settings option array and print one of its values
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_scenario_core() {
 		$option = $this->get_options( 'core' );
 ?>
@@ -945,6 +1101,8 @@ class WP_Auto_Updater {
 	/**
 	 * Validate options.
 	 *
+	 * @access public
+	 *
 	 * @param array $input
 	 *
 	 * @return array
@@ -978,6 +1136,15 @@ class WP_Auto_Updater {
 		return $output;
 	}
 
+	/**
+	 * Enqueue scripts.
+	 *
+	 * Hooks to admin_enqueue_scripts.
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.0
+	 */
 	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'wp-auto-updater-admin', plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ), array( 'jquery' ), '2017-09-06' );
 	}
@@ -1006,7 +1173,9 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Uninstall hook
+	 * Uninstall.
+	 *
+	 * Hooks to uninstall_hook
 	 *
 	 * @access public static
 	 *

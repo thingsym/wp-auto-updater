@@ -44,8 +44,9 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-    # Parameter 1 to wp_default_scripts() expected to be a reference, value given
-    # see https://core.trac.wordpress.org/ticket/37772
+    # WordPress 4.6 earlier not compatible with PHP 7.1.
+    # Warning: Parameter 1 to wp_default_styles() expected to be a reference
+    # https://core.trac.wordpress.org/ticket/37772
     - php: 7.1
       env: WP_VERSION=4.6 WP_MULTISITE=0
     - php: 7.1
