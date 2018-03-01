@@ -93,23 +93,32 @@ At the time of automatic update, Automatically updates WordPress Core, Themes, P
 ### Auto Update History
 <img src="screenshot-2.png">
 
-## Test Matrix
-
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/wp-auto-updater)
-
 ## Resources
 
 * [Updating WordPress - WordPress Codex](https://codex.wordpress.org/Updating_WordPress)
 * [Configuring Automatic Background Updates - WordPress Codex](https://codex.wordpress.org/Configuring_Automatic_Background_Updates)
 
-## Contributing
+## WordPress Plugin Directory
+
+WP Auto Updater is hosted on the WordPress Plugin Directory.
+
+[https://wordpress.org/plugins/wp-auto-updater/](https://wordpress.org/plugins/wp-auto-updater/)
+
+## Test Matrix
+
+For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/wp-auto-updater)
+
+## Contribution
 
 ### Patches and Bug Fixes
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-* [wp-auto-updater - GitHub](https://github.com/thingsym/wp-auto-updater)
-* [WP Auto Updater - WordPress Plugin](https://wordpress.org/plugins/wp-auto-updater/)
+1. Fork [WP Auto Updater](https://github.com/thingsym/wp-auto-updater) from GitHub repository
+2. Create a feature branch: git checkout -b my-new-feature
+3. Commit your changes: git commit -am 'Add some feature'
+4. Push to the branch: git push origin my-new-feature
+5. Create new Pull Request
 
 ## Changelog
 
@@ -118,3 +127,7 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 	* add PHPDoc comments
 * Version 1.0.0
 	* initial release
+
+## License
+
+Licensed under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
