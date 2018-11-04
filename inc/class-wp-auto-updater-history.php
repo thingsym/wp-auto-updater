@@ -343,8 +343,18 @@ class WP_Auto_Updater_History {
 			return;
 		}
 
+		if ( is_user_logged_in() ) {
+			$user_name = wp_get_current_user()->user_login;
+			$user_id = wp_get_current_user()->id;
+			$user = $user_name . '(' . $user_id . ')';
+		}
+		else {
+			$user = 'nobody';
+		}
+
 		$data = array(
 			'date'   => isset( $date ) ? $date : current_time( 'mysql' ),
+			'user'   => $user,
 			'status' => $status,
 			'mode'   => $mode,
 			'label'  => $label,
@@ -352,6 +362,7 @@ class WP_Auto_Updater_History {
 		);
 
 		$format = array(
+			'%s',
 			'%s',
 			'%s',
 			'%s',
@@ -573,6 +584,7 @@ if ( ! empty( $row_count ) ) {
 <thead>
 <tr>
 	<th scope="col" class="manage-column column-date"><?php esc_html_e( 'Date', 'wp-auto-updater' ); ?></th>
+	<th scope="col" class="manage-column column-user"><?php esc_html_e( 'User', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-status"><?php esc_html_e( 'Status', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-mode"><?php esc_html_e( 'Mode', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-label"><?php esc_html_e( 'Label', 'wp-auto-updater' ); ?></th>
@@ -583,6 +595,7 @@ if ( ! empty( $row_count ) ) {
 <?php foreach ( $logs as $row ) { ?>
 <tr>
 	<td><?php echo esc_html( $row->date ); ?></td>
+	<td><?php echo esc_html( $row->user ); ?></td>
 	<td><?php echo esc_html( $row->status ); ?></td>
 	<td><?php echo esc_html( $row->mode ); ?></td>
 	<td><?php echo esc_html( $row->label ); ?></td>
@@ -593,6 +606,7 @@ if ( ! empty( $row_count ) ) {
 <tfoot>
 <tr>
 	<th scope="col" class="manage-column column-date"><?php esc_html_e( 'Date', 'wp-auto-updater' ); ?></th>
+	<th scope="col" class="manage-column column-user"><?php esc_html_e( 'User', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-status"><?php esc_html_e( 'Status', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-mode"><?php esc_html_e( 'Mode', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-label"><?php esc_html_e( 'Label', 'wp-auto-updater' ); ?></th>
