@@ -42,13 +42,13 @@ class WP_Auto_Updater_History {
 	protected $table_name = 'auto_updater_history';
 
 	/**
-	 * Protected value.
+	 * public value.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $table_version   The version of the table
 	 */
-	protected $table_version = '1.0.0';
+	public $table_version = '1.0.1';
 
 	/**
 	 * Protected value.
@@ -190,21 +190,35 @@ class WP_Auto_Updater_History {
 			return;
 		}
 
-		global $wpdb;
-		$charset_collate = $wpdb->get_charset_collate();
+		// version 1.0.0
+		// $schema = "CREATE TABLE $table_name (
+		// 	ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+		// 	date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+		// 	status  varchar(255)        NOT NULL,
+		// 	mode    varchar(255)        NOT NULL,
+		// 	label   varchar(255)        NOT NULL,
+		// 	info    text                NULL,
+		// 	PRIMARY KEY (ID),
+		// 	KEY status (status),
+		// 	KEY mode (mode),
+		// 	KEY label (label)
+		// );";
 
-		$sql = "CREATE TABLE $table_name (
-				ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-				date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-				status varchar(255) NOT NULL,
-				mode varchar(255) NOT NULL,
-				label varchar(255) NOT NULL,
-				info text NULL,
-				PRIMARY KEY (ID),
-				KEY status (status),
-				KEY mode (mode),
-				KEY label (label)
-			) $charset_collate;";
+		// version 1.0.1
+		$schema = "CREATE TABLE $table_name (
+			ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+			user    varchar(255)        NOT NULL,
+			status  varchar(255)        NOT NULL,
+			mode    varchar(255)        NOT NULL,
+			label   varchar(255)        NOT NULL,
+			info    text                NOT NULL,
+			PRIMARY KEY (ID),
+			KEY status (status),
+			KEY user (user),
+			KEY mode (mode),
+			KEY label (label)
+		);";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
