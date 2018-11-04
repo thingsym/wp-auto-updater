@@ -633,7 +633,7 @@ if ( ! empty( $row_count ) ) {
 </div>
 <br class="clear">
 </div>
-
+<p class="alignright">Table Version: <?php echo $this->get_table_version(); ?></p>
 </div>
 <?php
 	}
