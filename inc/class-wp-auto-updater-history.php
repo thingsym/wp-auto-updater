@@ -86,6 +86,8 @@ class WP_Auto_Updater_History {
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'check_table_version' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notice') );
+
 		register_activation_hook( __WP_AUTO_UPDATER__, array( $this, 'activate' ) );
 	}
 
@@ -144,6 +146,34 @@ class WP_Auto_Updater_History {
 
 		$this->set_table_version();
 		set_transient( 'wp_auto_updater/history_table/updated', 1, 5 );
+	}
+
+	/**
+	 * Hooks to admin_notices and display notice to admin panel.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.2
+	 */
+	public function admin_notice() {
+		if ( get_transient( 'wp_auto_updater/history_table/created' ) ) {
+?>
+<div class="notice notice-success is-dismissible">
+<p><?php _e( 'Table <strong>' . $this->history_table_name . ' (' . $this->table_version . ')</strong> create succeeded.', 'wp-auto-updater' ); ?></p>
+</div>
+<?php
+			delete_transient( 'wp_auto_updater/history_table/created' );
+		}
+
+		if ( get_transient( 'wp_auto_updater/history_table/updated' ) ) {
+			?>
+			<div class="notice notice-success is-dismissible">
+			<p><?php _e( 'Table <strong>' . $this->history_table_name . ' (' . $this->table_version . ')</strong> update succeeded.', 'wp-auto-updater' ); ?></p>
+			</div>
+			<?php
+			delete_transient( 'wp_auto_updater/history_table/updated' );
+		}
+
 	}
 
 	/**
