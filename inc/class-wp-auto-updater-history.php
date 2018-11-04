@@ -187,7 +187,6 @@ class WP_Auto_Updater_History {
 	 */
 	public function activate() {
 		$this->create_table( $this->history_table_name );
-		$this->set_table_version();
 	}
 
 	/**
@@ -243,7 +242,7 @@ class WP_Auto_Updater_History {
 	 * @since 1.0.0
 	 */
 	public function set_table_version() {
-		add_option( 'wp_auto_updater_history_table_version', $this->table_version );
+		update_option( 'wp_auto_updater_history_table_version', $this->table_version );
 	}
 
 	/**
@@ -253,7 +252,7 @@ class WP_Auto_Updater_History {
 	 *
 	 * @param string $table_name The name of table.
 	 *
-	 * @return string
+	 * @return array
 	 *
 	 * @since 1.0.0
 	 */
@@ -296,8 +295,14 @@ class WP_Auto_Updater_History {
 		);";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$results = dbDelta( $schema );
 
-		return dbDelta( $sql );
+		if ( in_array( 'Created table ' . $this->history_table_name, $results ) ) {
+			$this->set_table_version();
+			set_transient( 'wp_auto_updater/history_table/created', 1, 5 );
+		}
+
+		return $results;
 	}
 
 	/**
