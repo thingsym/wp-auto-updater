@@ -85,6 +85,7 @@ class WP_Auto_Updater_History {
 
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
+		add_action( 'plugins_loaded', array( $this, 'check_table_version' ) );
 		register_activation_hook( __WP_AUTO_UPDATER__, array( $this, 'activate' ) );
 	}
 
@@ -99,6 +100,50 @@ class WP_Auto_Updater_History {
 	 */
 	public function init() {
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
+	}
+
+	/**
+	 * Check table version.
+	 *
+	 * Compare table version.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.2
+	 */
+	public function check_table_version() {
+		if ( version_compare( $this->get_table_version(), $this->table_version, '<' ) ) {
+			$this->migrate_table( $this->history_table_name );
+		}
+	}
+
+	/**
+	 * Migrate table.
+	 *
+	 * @param string $table_name The name of table.
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.2
+	 */
+	public function migrate_table( $table_name = null ) {
+		if ( ! isset( $table_name ) ) {
+			return;
+		}
+		if ( ! $this->table_exists( $table_name ) ) {
+			return;
+		}
+
+		global $wpdb;
+
+		if ( version_compare( $this->get_table_version(), '1.0.1', '<' ) ) {
+			$wpdb->query( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
+			$wpdb->query( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
+			$wpdb->query( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
+		}
+
+		$this->set_table_version();
+		set_transient( 'wp_auto_updater/history_table/updated', 1, 5 );
 	}
 
 	/**
