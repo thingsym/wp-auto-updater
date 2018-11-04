@@ -529,10 +529,8 @@ class WP_Auto_Updater_History {
 		$message = '';
 
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
-			$message = '<div id="message" class="updated"><p><strong>' . __( 'Table no exists.',  'wp-auto-updater' ) . '</strong></p></div>';
-
+			$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Table no exists.',  'wp-auto-updater' ) . '</strong></p></div>';
 			echo $message;
-
 			return;
 		}
 
@@ -542,7 +540,7 @@ class WP_Auto_Updater_History {
 			$cleared = $wpdb->query( "DELETE FROM {$this->history_table_name}" );
 
 			if ( $cleared ) {
-				$message = '<div id="message" class="updated"><p><strong>' . __( 'Logs cleared.', 'wp-auto-updater' ) . '</strong></p></div>';
+				$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Logs cleared.', 'wp-auto-updater' ) . '</strong></p></div>';
 			}
 		}
 
