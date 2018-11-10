@@ -264,13 +264,25 @@ class WP_Auto_Updater {
 			$info_success = array();
 			$info_failed = array();
 
-			foreach ( $items as $item ) {
-				$new_version = isset( $item->item->new_version ) ? ' v' . $item->item->new_version : '';
-				if ( $item->result ) {
-					$info_success[] = $item->name . $new_version;
+			foreach ( $items as $update ) {
+				$new_version = isset( $update->item->new_version ) ? ' v' . $update->item->new_version : '';
+				$from_version = '';
+
+				if ( 'core' == $type ) {
+					$from_version = isset( $this->upgraded_version['core'] ) ? ' (upgraded from v' . $this->upgraded_version['core'] . ')' : '';
+				}
+				elseif ( 'theme' == $type ) {
+					$from_version = ' (upgraded from v' . $this->upgraded_version['theme'][ $update->item->theme ]->get( 'Version' ) . ')';
+				}
+				elseif ( 'plugin' == $type ) {
+					$from_version = isset( $this->upgraded_version['plugin'][ $update->item->plugin ]['Version'] ) ? ' (upgraded from v' . $this->upgraded_version['plugin'][ $update->item->plugin ]['Version'] . ')' : '';
+				}
+
+				if ( $update->result ) {
+					$info_success[] = $update->name . $new_version . $from_version;
 				}
 				else {
-					$info_failed[] = $item->name . $new_version;
+					$info_failed[] = $update->name . $new_version;
 				}
 			}
 
