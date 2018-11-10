@@ -1037,7 +1037,7 @@ class WP_Auto_Updater {
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
 			echo '</p>';
 		}
-		else if ( $diff->h ) {
+		elseif ( $diff->h ) {
 			echo '<p>';
 			printf( esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ), $diff->h );
 			if ( $diff->i ) {
@@ -1048,7 +1048,7 @@ class WP_Auto_Updater {
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
 			echo '</p>';
 		}
-		else if ( $diff->i ) {
+		elseif ( $diff->i ) {
 			echo '<p>';
 			printf( esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ), $diff->i );
 			echo ' ';
