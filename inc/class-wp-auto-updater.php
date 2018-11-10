@@ -99,6 +99,19 @@ class WP_Auto_Updater {
 	);
 
 	/**
+	 * private value.
+	 *
+	 * @access private
+	 *
+	 * @var array $upgraded_version {
+	 *   @type string core
+	 *   @type array  theme
+	 *   @type array  plugin
+	 * }
+	 */
+	private $upgraded_version = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @access public
@@ -136,6 +149,8 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function init() {
+		add_action( 'pre_auto_update', array( $this, 'gather_upgraded_version' ) );
+
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this, 'plugin_action_links' ) );
 
@@ -205,6 +220,28 @@ class WP_Auto_Updater {
 		do_action( 'wp_auto_updater_after_auto_update' );
 
 		return true;
+	}
+
+	/**
+	 * Gather present version of core/themes/plugins
+	 *
+	 * Hooks to pre_auto_update
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.2
+	 */
+	public function gather_upgraded_version( $type = null ) {
+		$this->upgraded_version = get_site_transient( 'wp_auto_updater/upgraded_version' );
+
+		if ( false === $this->upgraded_version ) {
+			global $wp_version;
+			$this->upgraded_version['core'] = $wp_version;
+			$this->upgraded_version['theme'] = wp_get_themes();
+			$this->upgraded_version['plugin'] = get_plugins();
+
+			set_site_transient( 'wp_auto_updater/upgraded_version', $this->upgraded_version, 5 * MINUTE_IN_SECONDS );
+		}
 	}
 
 	/**
