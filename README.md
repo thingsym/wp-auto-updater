@@ -122,6 +122,15 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.1.0
+	* improve CI environment
+	* add version number before the update in the logs
+	* gather present version
+	* add user in the logging
+	* improve table creation prosess
+	* add admin notice
+	* add table migration function
+	* add user column, update history table v1.0.1
 * Version 1.0.1
 	* fix readme
 	* add PHPDoc comments
