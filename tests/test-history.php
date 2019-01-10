@@ -37,6 +37,9 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 
 		$this->assertEquals( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater_history, 'add_option_page' ) ) );
 
+		$this->assertEquals( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater_history, 'check_table_version' ) ) );
+		$this->assertEquals( 10, has_filter( 'admin_notices', array( $this->wp_auto_updater_history, 'admin_notice' ) ) );
+
 		$this->assertEquals( 10, has_filter( 'activate_' . plugin_basename(__WP_AUTO_UPDATER__), array( $this->wp_auto_updater_history, 'activate' ) ) );
 	}
 
@@ -66,7 +69,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		);
 
 		$this->assertEquals( $table_name, $wpdb->get_var( $sql ) );
-		$this->assertEquals( '1.0.0', get_option('wp_auto_updater_history_table_version') );
+		$this->assertEquals( $this->wp_auto_updater_history->table_version, get_option( 'wp_auto_updater_history_table_version' ) );
 	}
 
 	/**
@@ -92,6 +95,97 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @test
 	 * @group history
 	 */
+	public function version() {
+		delete_option( 'wp_auto_updater_history_table_version' );
+		$this->assertNull( $this->wp_auto_updater_history->get_table_version() );
+
+		$this->wp_auto_updater_history->set_table_version();
+		$this->assertEquals( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
+	}
+
+	/**
+	 * @test
+	 * @group history
+	 */
+	public function check_table_version() {
+		$this->wp_auto_updater_history->activate();
+		$this->assertNull( $this->wp_auto_updater_history->check_table_version() );
+
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'auto_updater_history';
+		$this->wp_auto_updater_history->drop_table( $table_name );
+
+
+		// version 1.0.0
+		$schema = "CREATE TABLE $table_name (
+			ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+			status  varchar(255)        NOT NULL,
+			mode    varchar(255)        NOT NULL,
+			label   varchar(255)        NOT NULL,
+			info    text                NULL,
+			PRIMARY KEY (ID),
+			KEY status (status),
+			KEY mode (mode),
+			KEY label (label)
+		);";
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$results = dbDelta( $schema );
+
+		update_option( 'wp_auto_updater_history_table_version', '1.0.0' );
+
+		$this->assertNull( $this->wp_auto_updater_history->check_table_version() );
+		$this->assertEquals( $this->wp_auto_updater_history->get_table_version(), $this->wp_auto_updater_history->table_version );
+	}
+
+	/**
+	 * @test
+	 * @group history
+	 */
+	public function migrate_table() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'auto_updater_history';
+
+		// version 1.0.0
+		$schema = "CREATE TABLE $table_name (
+			ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+			status  varchar(255)        NOT NULL,
+			mode    varchar(255)        NOT NULL,
+			label   varchar(255)        NOT NULL,
+			info    text                NULL,
+			PRIMARY KEY (ID),
+			KEY status (status),
+			KEY mode (mode),
+			KEY label (label)
+		);";
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$results = dbDelta( $schema );
+
+		update_option( 'wp_auto_updater_history_table_version', '1.0.0' );
+
+		$this->wp_auto_updater_history->migrate_table( $table_name );
+
+		$this->assertEquals( $this->wp_auto_updater_history->get_table_version(), $this->wp_auto_updater_history->table_version );
+		$this->assertEquals( 1, get_transient( 'wp_auto_updater/history_table/updated' ) );
+
+		// $sql = $wpdb->prepare(
+		// 	'SHOW COLUMNS FROM "%s"',
+		// 	$table_name
+		// );
+		// $a = $wpdb->get_results( $sql );
+
+		// // var_dump( $wpdb->query( "SHOW COLUMNS FROM {$table_name}" ) );
+		// var_dump( $a );
+
+	}
+
+	/**
+	 * @test
+	 * @group history
+	 */
 	public function create_table() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auto_updater_history';
@@ -110,6 +204,9 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		);
 
 		$this->assertEquals( $created, $expected );
+		$this->assertEquals( 1, get_transient( 'wp_auto_updater/history_table/created' ) );
+		$this->assertEquals( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
+
 		$this->assertNull( $this->wp_auto_updater_history->create_table( $table_name ) );
 		$this->assertNull( $this->wp_auto_updater_history->create_table() );
 	}

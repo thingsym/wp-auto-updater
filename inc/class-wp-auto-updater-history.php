@@ -42,13 +42,13 @@ class WP_Auto_Updater_History {
 	protected $table_name = 'auto_updater_history';
 
 	/**
-	 * Protected value.
+	 * public value.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $table_version   The version of the table
 	 */
-	protected $table_version = '1.0.0';
+	public $table_version = '1.0.1';
 
 	/**
 	 * Protected value.
@@ -85,6 +85,9 @@ class WP_Auto_Updater_History {
 
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
+		add_action( 'plugins_loaded', array( $this, 'check_table_version' ) );
+		add_action( 'admin_notices', array( $this, 'admin_notice') );
+
 		register_activation_hook( __WP_AUTO_UPDATER__, array( $this, 'activate' ) );
 	}
 
@@ -102,6 +105,78 @@ class WP_Auto_Updater_History {
 	}
 
 	/**
+	 * Check table version.
+	 *
+	 * Compare table version.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.2
+	 */
+	public function check_table_version() {
+		if ( version_compare( $this->get_table_version(), $this->table_version, '<' ) ) {
+			$this->migrate_table( $this->history_table_name );
+		}
+	}
+
+	/**
+	 * Migrate table.
+	 *
+	 * @param string $table_name The name of table.
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.2
+	 */
+	public function migrate_table( $table_name = null ) {
+		if ( ! isset( $table_name ) ) {
+			return;
+		}
+		if ( ! $this->table_exists( $table_name ) ) {
+			return;
+		}
+
+		global $wpdb;
+
+		if ( version_compare( $this->get_table_version(), '1.0.1', '<' ) ) {
+			$wpdb->query( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
+			$wpdb->query( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
+			$wpdb->query( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
+		}
+
+		$this->set_table_version();
+		set_transient( 'wp_auto_updater/history_table/updated', 1, 5 );
+	}
+
+	/**
+	 * Hooks to admin_notices and display notice to admin panel.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.2
+	 */
+	public function admin_notice() {
+		if ( get_transient( 'wp_auto_updater/history_table/created' ) ) {
+?>
+<div class="notice notice-success is-dismissible">
+<p><?php _e( 'Table <strong>' . $this->history_table_name . ' (' . $this->table_version . ')</strong> create succeeded.', 'wp-auto-updater' ); ?></p>
+</div>
+<?php
+			delete_transient( 'wp_auto_updater/history_table/created' );
+		}
+
+		if ( get_transient( 'wp_auto_updater/history_table/updated' ) ) {
+			?>
+			<div class="notice notice-success is-dismissible">
+			<p><?php _e( 'Table <strong>' . $this->history_table_name . ' (' . $this->table_version . ')</strong> update succeeded.', 'wp-auto-updater' ); ?></p>
+			</div>
+			<?php
+			delete_transient( 'wp_auto_updater/history_table/updated' );
+		}
+
+	}
+
+	/**
 	 * Plugin activate.
 	 *
 	 * Hooks to activation_hook and create table.
@@ -112,7 +187,6 @@ class WP_Auto_Updater_History {
 	 */
 	public function activate() {
 		$this->create_table( $this->history_table_name );
-		$this->set_table_version();
 	}
 
 	/**
@@ -168,7 +242,7 @@ class WP_Auto_Updater_History {
 	 * @since 1.0.0
 	 */
 	public function set_table_version() {
-		add_option( 'wp_auto_updater_history_table_version', $this->table_version );
+		update_option( 'wp_auto_updater_history_table_version', $this->table_version );
 	}
 
 	/**
@@ -178,7 +252,7 @@ class WP_Auto_Updater_History {
 	 *
 	 * @param string $table_name The name of table.
 	 *
-	 * @return string
+	 * @return array
 	 *
 	 * @since 1.0.0
 	 */
@@ -190,25 +264,45 @@ class WP_Auto_Updater_History {
 			return;
 		}
 
-		global $wpdb;
-		$charset_collate = $wpdb->get_charset_collate();
+		// version 1.0.0
+		// $schema = "CREATE TABLE $table_name (
+		// 	ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+		// 	date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+		// 	status  varchar(255)        NOT NULL,
+		// 	mode    varchar(255)        NOT NULL,
+		// 	label   varchar(255)        NOT NULL,
+		// 	info    text                NULL,
+		// 	PRIMARY KEY (ID),
+		// 	KEY status (status),
+		// 	KEY mode (mode),
+		// 	KEY label (label)
+		// );";
 
-		$sql = "CREATE TABLE $table_name (
-				ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-				date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-				status varchar(255) NOT NULL,
-				mode varchar(255) NOT NULL,
-				label varchar(255) NOT NULL,
-				info text NULL,
-				PRIMARY KEY (ID),
-				KEY status (status),
-				KEY mode (mode),
-				KEY label (label)
-			) $charset_collate;";
+		// version 1.0.1
+		$schema = "CREATE TABLE $table_name (
+			ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+			user    varchar(255)        NOT NULL,
+			status  varchar(255)        NOT NULL,
+			mode    varchar(255)        NOT NULL,
+			label   varchar(255)        NOT NULL,
+			info    text                NOT NULL,
+			PRIMARY KEY (ID),
+			KEY status (status),
+			KEY user (user),
+			KEY mode (mode),
+			KEY label (label)
+		);";
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$results = dbDelta( $schema );
 
-		return dbDelta( $sql );
+		if ( in_array( 'Created table ' . $this->history_table_name, $results ) ) {
+			$this->set_table_version();
+			set_transient( 'wp_auto_updater/history_table/created', 1, 5 );
+		}
+
+		return $results;
 	}
 
 	/**
@@ -249,8 +343,18 @@ class WP_Auto_Updater_History {
 			return;
 		}
 
+		if ( is_user_logged_in() ) {
+			$user_name = wp_get_current_user()->user_login;
+			$user_id = wp_get_current_user()->id;
+			$user = $user_name . '(' . $user_id . ')';
+		}
+		else {
+			$user = 'nobody';
+		}
+
 		$data = array(
 			'date'   => isset( $date ) ? $date : current_time( 'mysql' ),
+			'user'   => $user,
 			'status' => $status,
 			'mode'   => $mode,
 			'label'  => $label,
@@ -258,6 +362,7 @@ class WP_Auto_Updater_History {
 		);
 
 		$format = array(
+			'%s',
 			'%s',
 			'%s',
 			'%s',
@@ -424,10 +529,8 @@ class WP_Auto_Updater_History {
 		$message = '';
 
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
-			$message = '<div id="message" class="updated"><p><strong>' . __( 'Table no exists.',  'wp-auto-updater' ) . '</strong></p></div>';
-
+			$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Table no exists.',  'wp-auto-updater' ) . '</strong></p></div>';
 			echo $message;
-
 			return;
 		}
 
@@ -437,7 +540,7 @@ class WP_Auto_Updater_History {
 			$cleared = $wpdb->query( "DELETE FROM {$this->history_table_name}" );
 
 			if ( $cleared ) {
-				$message = '<div id="message" class="updated"><p><strong>' . __( 'Logs cleared.', 'wp-auto-updater' ) . '</strong></p></div>';
+				$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Logs cleared.', 'wp-auto-updater' ) . '</strong></p></div>';
 			}
 		}
 
@@ -479,6 +582,7 @@ if ( ! empty( $row_count ) ) {
 <thead>
 <tr>
 	<th scope="col" class="manage-column column-date"><?php esc_html_e( 'Date', 'wp-auto-updater' ); ?></th>
+	<th scope="col" class="manage-column column-user"><?php esc_html_e( 'User', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-status"><?php esc_html_e( 'Status', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-mode"><?php esc_html_e( 'Mode', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-label"><?php esc_html_e( 'Label', 'wp-auto-updater' ); ?></th>
@@ -489,6 +593,7 @@ if ( ! empty( $row_count ) ) {
 <?php foreach ( $logs as $row ) { ?>
 <tr>
 	<td><?php echo esc_html( $row->date ); ?></td>
+	<td><?php echo esc_html( $row->user ); ?></td>
 	<td><?php echo esc_html( $row->status ); ?></td>
 	<td><?php echo esc_html( $row->mode ); ?></td>
 	<td><?php echo esc_html( $row->label ); ?></td>
@@ -499,6 +604,7 @@ if ( ! empty( $row_count ) ) {
 <tfoot>
 <tr>
 	<th scope="col" class="manage-column column-date"><?php esc_html_e( 'Date', 'wp-auto-updater' ); ?></th>
+	<th scope="col" class="manage-column column-user"><?php esc_html_e( 'User', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-status"><?php esc_html_e( 'Status', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-mode"><?php esc_html_e( 'Mode', 'wp-auto-updater' ); ?></th>
 	<th scope="col" class="manage-column column-label"><?php esc_html_e( 'Label', 'wp-auto-updater' ); ?></th>
@@ -527,7 +633,7 @@ if ( ! empty( $row_count ) ) {
 </div>
 <br class="clear">
 </div>
-
+<p class="alignright">Table Version: <?php echo $this->get_table_version(); ?></p>
 </div>
 <?php
 	}

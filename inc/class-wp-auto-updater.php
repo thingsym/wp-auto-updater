@@ -99,6 +99,19 @@ class WP_Auto_Updater {
 	);
 
 	/**
+	 * private value.
+	 *
+	 * @access private
+	 *
+	 * @var array $upgraded_version {
+	 *   @type string core
+	 *   @type array  theme
+	 *   @type array  plugin
+	 * }
+	 */
+	private $upgraded_version = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @access public
@@ -136,6 +149,8 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function init() {
+		add_action( 'pre_auto_update', array( $this, 'gather_upgraded_version' ) );
+
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this, 'plugin_action_links' ) );
 
@@ -208,6 +223,28 @@ class WP_Auto_Updater {
 	}
 
 	/**
+	 * Gather present version of core/themes/plugins
+	 *
+	 * Hooks to pre_auto_update
+	 *
+	 * @access public
+	 *
+	 * @since 1.0.2
+	 */
+	public function gather_upgraded_version( $type = null ) {
+		$this->upgraded_version = get_site_transient( 'wp_auto_updater/upgraded_version' );
+
+		if ( false === $this->upgraded_version ) {
+			global $wp_version;
+			$this->upgraded_version['core'] = $wp_version;
+			$this->upgraded_version['theme'] = wp_get_themes();
+			$this->upgraded_version['plugin'] = get_plugins();
+
+			set_site_transient( 'wp_auto_updater/upgraded_version', $this->upgraded_version, 5 * MINUTE_IN_SECONDS );
+		}
+	}
+
+	/**
 	 * Gets update results.
 	 *
 	 * Logging update results
@@ -227,13 +264,25 @@ class WP_Auto_Updater {
 			$info_success = array();
 			$info_failed = array();
 
-			foreach ( $items as $item ) {
-				$new_version = isset( $item->item->new_version ) ? ' v' . $item->item->new_version : '';
-				if ( $item->result ) {
-					$info_success[] = $item->name . $new_version;
+			foreach ( $items as $update ) {
+				$new_version = isset( $update->item->new_version ) ? ' v' . $update->item->new_version : '';
+				$from_version = '';
+
+				if ( 'core' == $type ) {
+					$from_version = isset( $this->upgraded_version['core'] ) ? ' (upgraded from v' . $this->upgraded_version['core'] . ')' : '';
+				}
+				elseif ( 'theme' == $type ) {
+					$from_version = ' (upgraded from v' . $this->upgraded_version['theme'][ $update->item->theme ]->get( 'Version' ) . ')';
+				}
+				elseif ( 'plugin' == $type ) {
+					$from_version = isset( $this->upgraded_version['plugin'][ $update->item->plugin ]['Version'] ) ? ' (upgraded from v' . $this->upgraded_version['plugin'][ $update->item->plugin ]['Version'] . ')' : '';
+				}
+
+				if ( $update->result ) {
+					$info_success[] = $update->name . $new_version . $from_version;
 				}
 				else {
-					$info_failed[] = $item->name . $new_version;
+					$info_failed[] = $update->name . $new_version;
 				}
 			}
 
@@ -988,7 +1037,7 @@ class WP_Auto_Updater {
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
 			echo '</p>';
 		}
-		else if ( $diff->h ) {
+		elseif ( $diff->h ) {
 			echo '<p>';
 			printf( esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ), $diff->h );
 			if ( $diff->i ) {
@@ -999,7 +1048,7 @@ class WP_Auto_Updater {
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
 			echo '</p>';
 		}
-		else if ( $diff->i ) {
+		elseif ( $diff->i ) {
 			echo '<p>';
 			printf( esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ), $diff->i );
 			echo ' ';
