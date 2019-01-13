@@ -7,7 +7,7 @@
  * Author URI:      https://management.thingslabo.com/
  * Text Domain:     wp-auto-updater
  * Domain Path:     /languages
- * Version:         1.0.1
+ * Version:         1.1.0
  *
  * @package         WP_Auto_Updater
  */

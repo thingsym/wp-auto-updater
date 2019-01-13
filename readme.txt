@@ -3,8 +3,8 @@ Contributors: thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
 Requires at least: 3.9
 Requires PHP: 5.4
-Tested up to: 4.9.2
-Stable tag: 1.0.1
+Tested up to: 5.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,16 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 2. Auto Update History
 
 == Changelog ==
+
+= 1.1.0 =
+* improve CI environment
+* add version number before the update in the logs
+* gather present version
+* add user in the logging
+* improve table creation prosess
+* add admin notice
+* add table migration function
+* add user column, update history table v1.0.1
 
 = 1.0.1 =
 * fix readme
