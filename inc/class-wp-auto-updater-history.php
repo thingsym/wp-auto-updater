@@ -42,7 +42,7 @@ class WP_Auto_Updater_History {
 	protected $table_name = 'auto_updater_history';
 
 	/**
-	 * public value.
+	 * Public value.
 	 *
 	 * @access public
 	 *
@@ -64,7 +64,7 @@ class WP_Auto_Updater_History {
 	 */
 	protected $nonce = array(
 		'clear_logs' => array(
-			'name' => '_wpnonce_clear_logs',
+			'name'   => '_wpnonce_clear_logs',
 			'action' => 'clear_logs',
 		),
 	);
@@ -86,7 +86,7 @@ class WP_Auto_Updater_History {
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'check_table_version' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notice') );
+		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 
 		register_activation_hook( __WP_AUTO_UPDATER__, array( $this, 'activate' ) );
 	}
@@ -159,18 +159,35 @@ class WP_Auto_Updater_History {
 		if ( get_transient( 'wp_auto_updater/history_table/created' ) ) {
 ?>
 <div class="notice notice-success is-dismissible">
-<p><?php _e( 'Table <strong>' . $this->history_table_name . ' (' . $this->table_version . ')</strong> create succeeded.', 'wp-auto-updater' ); ?></p>
+<p>
+<?php
+printf(
+	__( 'Table <strong>%1$s (%2$s)</strong> create succeeded.', 'wp-auto-updater' ),
+	esc_html( $this->history_table_name ),
+	esc_html( $this->table_version )
+);
+?>
+</p>
+
 </div>
 <?php
 			delete_transient( 'wp_auto_updater/history_table/created' );
 		}
 
 		if ( get_transient( 'wp_auto_updater/history_table/updated' ) ) {
-			?>
-			<div class="notice notice-success is-dismissible">
-			<p><?php _e( 'Table <strong>' . $this->history_table_name . ' (' . $this->table_version . ')</strong> update succeeded.', 'wp-auto-updater' ); ?></p>
-			</div>
-			<?php
+?>
+<div class="notice notice-success is-dismissible">
+<p>
+<?php
+printf(
+	__( 'Table <strong>%1$s (%2$s)</strong> update succeeded.', 'wp-auto-updater' ),
+	esc_html( $this->history_table_name ),
+	esc_html( $this->table_version )
+);
+?>
+</p>
+</div>
+<?php
 			delete_transient( 'wp_auto_updater/history_table/updated' );
 		}
 
@@ -264,21 +281,25 @@ class WP_Auto_Updater_History {
 			return;
 		}
 
-		// version 1.0.0
-		// $schema = "CREATE TABLE $table_name (
-		// 	ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		// 	date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
-		// 	status  varchar(255)        NOT NULL,
-		// 	mode    varchar(255)        NOT NULL,
-		// 	label   varchar(255)        NOT NULL,
-		// 	info    text                NULL,
-		// 	PRIMARY KEY (ID),
-		// 	KEY status (status),
-		// 	KEY mode (mode),
-		// 	KEY label (label)
-		// );";
+		/**
+		 * Version 1.0.0
+		 * $schema = "CREATE TABLE $table_name (
+		 * ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+		 * date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
+		 * status  varchar(255)        NOT NULL,
+		 * mode    varchar(255)        NOT NULL,
+		 * label   varchar(255)        NOT NULL,
+		 * info    text                NULL,
+		 * PRIMARY KEY (ID),
+		 * KEY status (status),
+		 * KEY mode (mode),
+		 * KEY label (label)
+		 * );";
+		 */
 
-		// version 1.0.1
+		/**
+		 * Version 1.0.1
+		 */
 		$schema = "CREATE TABLE $table_name (
 			ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			date    datetime            NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -294,7 +315,7 @@ class WP_Auto_Updater_History {
 			KEY label (label)
 		);";
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		$results = dbDelta( $schema );
 
 		if ( in_array( 'Created table ' . $this->history_table_name, $results ) ) {
@@ -345,8 +366,8 @@ class WP_Auto_Updater_History {
 
 		if ( is_user_logged_in() ) {
 			$user_name = wp_get_current_user()->user_login;
-			$user_id = wp_get_current_user()->id;
-			$user = $user_name . '(' . $user_id . ')';
+			$user_id   = wp_get_current_user()->id;
+			$user      = $user_name . '(' . $user_id . ')';
 		}
 		else {
 			$user = 'nobody';
@@ -451,12 +472,12 @@ class WP_Auto_Updater_History {
 	 *
 	 * @since 1.0.0
 	 */
-	 public function paginate( $row_count = 0, $per_page = 0, $current_paged = 0 ) {
+	public function paginate( $row_count = 0, $per_page = 0, $current_paged = 0 ) {
 		if ( empty( $row_count ) || empty( $per_page ) || empty( $current_paged ) ) {
 			return '';
 		}
 
-		$paginate = '';
+		$paginate    = '';
 		$total_pages = intval( ceil( $row_count / $per_page ) );
 
 		if ( 2 >= $current_paged ) {
@@ -529,7 +550,7 @@ class WP_Auto_Updater_History {
 		$message = '';
 
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
-			$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Table no exists.',  'wp-auto-updater' ) . '</strong></p></div>';
+			$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Table no exists.', 'wp-auto-updater' ) . '</strong></p></div>';
 			echo $message;
 			return;
 		}
@@ -545,10 +566,10 @@ class WP_Auto_Updater_History {
 		}
 
 		$per_page = 15;
-		$paged = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
-		$offset = isset( $paged ) ? ( $paged - 1 ) * $per_page : 0;
+		$paged    = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
+		$offset   = isset( $paged ) ? ( $paged - 1 ) * $per_page : 0;
 
-		$sql = $wpdb->prepare(
+		$sql  = $wpdb->prepare(
 			"SELECT * FROM {$this->history_table_name} ORDER BY date DESC LIMIT %d, %d",
 			$offset,
 			$per_page
@@ -556,7 +577,7 @@ class WP_Auto_Updater_History {
 		$logs = $wpdb->get_results( $sql );
 
 		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$this->history_table_name}" );
-		$paginate = $this->paginate( $row_count, $per_page, $paged );
+		$paginate  = $this->paginate( $row_count, $per_page, $paged );
 
 ?>
 <div class="wrap">
@@ -569,7 +590,10 @@ class WP_Auto_Updater_History {
 <span class="displaying-num">
 <?php
 if ( ! empty( $row_count ) ) {
-	printf( esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ), $row_count );
+	printf(
+		esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
+		esc_html( number_format_i18n( $row_count ) )
+	);
 }
 ?>
 </span>
@@ -625,7 +649,10 @@ if ( ! empty( $row_count ) ) {
 <span class="displaying-num">
 <?php
 if ( ! empty( $row_count ) ) {
-	printf( esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ), $row_count );
+	printf(
+		esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
+		esc_html( number_format_i18n( $row_count ) )
+	);
 }
 ?>
 </span>
@@ -633,7 +660,7 @@ if ( ! empty( $row_count ) ) {
 </div>
 <br class="clear">
 </div>
-<p class="alignright">Table Version: <?php echo $this->get_table_version(); ?></p>
+<p class="alignright">Table Version: <?php echo esc_html( $this->get_table_version() ); ?></p>
 </div>
 <?php
 	}
@@ -650,8 +677,8 @@ if ( ! empty( $row_count ) ) {
 	 * @since 1.0.0
 	 */
 	public static function uninstall() {
-		$wp_auto_updater_history = new WP_Auto_Updater_History();
-		$wp_auto_updater_history->drop_table( $wp_auto_updater_history->history_table_name );
+		$auto_updater_history = new WP_Auto_Updater_History();
+		$auto_updater_history->drop_table( $auto_updater_history->history_table_name );
 
 		delete_option( 'wp_auto_updater_history_table_version' );
 	}

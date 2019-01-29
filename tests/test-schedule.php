@@ -20,11 +20,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		$schedules = $this->wp_auto_updater->add_cron_interval( array() );
 
 		$expected = array(
-			"weekly" => array(
+			'weekly'  => array(
 				'interval' => 7 * DAY_IN_SECONDS,
 				'display'  => esc_html__( 'Once Weekly', 'wp-auto-updater' ),
 			),
-			"monthly" => array(
+			'monthly' => array(
 				'interval' => 30 * DAY_IN_SECONDS,
 				'display'  => esc_html__( 'Once Monthly', 'wp-auto-updater' ),
 			),
@@ -39,17 +39,17 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 	 */
 	public function set_schedule() {
 		$schedule = array(
-			'interval'  => 'twicedaily',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 6,
-			'minute'    => 0,
+			'interval' => 'twicedaily',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
 		);
 
 		$this->wp_auto_updater->set_schedule( $schedule );
 
-		$update_wp_scheduled = wp_next_scheduled( 'wp_version_check' );
-		$update_themes_scheduled = wp_next_scheduled( 'wp_update_themes' );
+		$update_wp_scheduled      = wp_next_scheduled( 'wp_version_check' );
+		$update_themes_scheduled  = wp_next_scheduled( 'wp_update_themes' );
 		$update_plugins_scheduled = wp_next_scheduled( 'wp_update_plugins' );
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -59,11 +59,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		$this->assertEquals( $update_plugins_scheduled, $timestamp );
 
 		$schedule = array(
-			'interval'  => '',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 6,
-			'minute'    => 0,
+			'interval' => '',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
 		);
 
 		$result = $this->wp_auto_updater->set_schedule( $schedule );
@@ -77,11 +77,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 	 */
 	public function timestamp() {
 		$schedule = array(
-			'interval'  => 'twicedaily',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 6,
-			'minute'    => 0,
+			'interval' => 'twicedaily',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -89,11 +89,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		foreach ( range( 0, 23 ) as $hour ) {
 			$schedule = array(
-				'interval'  => 'twicedaily',
-				'day'       => 1,
-				'weekday'   => 'monday',
-				'hour'      => $hour,
-				'minute'    => 0,
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => $hour,
+				'minute'   => 0,
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -101,11 +101,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		}
 
 		$schedule = array(
-			'interval'  => 'daily',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 6,
-			'minute'    => 0,
+			'interval' => 'daily',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -113,11 +113,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		foreach ( range( 0, 23 ) as $hour ) {
 			$schedule = array(
-				'interval'  => 'daily',
-				'day'       => 1,
-				'weekday'   => 'monday',
-				'hour'      => $hour,
-				'minute'    => 0,
+				'interval' => 'daily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => $hour,
+				'minute'   => 0,
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -125,11 +125,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		}
 
 		$schedule = array(
-			'interval'  => 'weekly',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 6,
-			'minute'    => 0,
+			'interval' => 'weekly',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -147,11 +147,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		foreach ( $schedule_weekdays as $key ) {
 			$schedule = array(
-				'interval'  => 'weekly',
-				'day'       => 1,
-				'weekday'   => $key,
-				'hour'      => 6,
-				'minute'    => 0,
+				'interval' => 'weekly',
+				'day'      => 1,
+				'weekday'  => $key,
+				'hour'     => 6,
+				'minute'   => 0,
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -159,11 +159,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		}
 
 		$schedule = array(
-			'interval'  => 'monthly',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 6,
-			'minute'    => 0,
+			'interval' => 'monthly',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -171,11 +171,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		foreach ( range( 1, 31 ) as $day ) {
 			$schedule = array(
-				'interval'  => 'monthly',
-				'day'       => $day,
-				'weekday'   => 'monday',
-				'hour'      => 6,
-				'minute'    => 0,
+				'interval' => 'monthly',
+				'day'      => $day,
+				'weekday'  => 'monday',
+				'hour'     => 6,
+				'minute'   => 0,
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -205,24 +205,31 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 			foreach ( range( 0, 23 ) as $hour ) {
 				$schedule = array(
-					'interval'  => 'twicedaily',
-					'day'       => 1,
-					'weekday'   => 'monday',
-					'hour'      => $hour,
-					'minute'    => 0,
+					'interval' => 'twicedaily',
+					'day'      => 1,
+					'weekday'  => 'monday',
+					'hour'     => $hour,
+					'minute'   => 0,
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
-				$this->assertGreaterThan( time(), $timestamp );
+
+				$message  = '';
+				$message .= time() . '-';
+				$message .= $timestamp . '-';
+				// $message .= $schedule . '-';
+				$message .= $hour . '-';
+
+				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
 
 			foreach ( range( 0, 23 ) as $hour ) {
 				$schedule = array(
-					'interval'  => 'daily',
-					'day'       => 1,
-					'weekday'   => 'monday',
-					'hour'      => $hour,
-					'minute'    => 0,
+					'interval' => 'daily',
+					'day'      => 1,
+					'weekday'  => 'monday',
+					'hour'     => $hour,
+					'minute'   => 0,
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -241,11 +248,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 			foreach ( $schedule_weekdays as $key ) {
 				$schedule = array(
-					'interval'  => 'weekly',
-					'day'       => 1,
-					'weekday'   => $key,
-					'hour'      => 6,
-					'minute'    => 0,
+					'interval' => 'weekly',
+					'day'      => 1,
+					'weekday'  => $key,
+					'hour'     => 6,
+					'minute'   => 0,
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
@@ -254,11 +261,11 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 			foreach ( range( 1, 31 ) as $day ) {
 				$schedule = array(
-					'interval'  => 'monthly',
-					'day'       => $day,
-					'weekday'   => 'monday',
-					'hour'      => 6,
-					'minute'    => 0,
+					'interval' => 'monthly',
+					'day'      => $day,
+					'weekday'  => 'monday',
+					'hour'     => 6,
+					'minute'   => 0,
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
