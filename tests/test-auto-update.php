@@ -29,6 +29,8 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @group auto_update
 	 */
 	public function auto_update_result() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
 		// $this->wp_auto_updater->auto_update_result();
 		// todo: database check
 	}

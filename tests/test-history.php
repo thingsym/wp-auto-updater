@@ -247,6 +247,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function paginate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**

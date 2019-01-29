@@ -17,6 +17,7 @@ class Test_Wp_Auto_Updater_Multisite extends WP_UnitTestCase {
 	 * @group multisite
 	 */
 	public function multisite() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 }

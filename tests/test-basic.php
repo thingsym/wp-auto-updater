@@ -55,6 +55,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function activate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -62,6 +63,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function deactivate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
