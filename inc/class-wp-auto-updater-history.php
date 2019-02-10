@@ -139,9 +139,9 @@ class WP_Auto_Updater_History {
 		global $wpdb;
 
 		if ( version_compare( $this->get_table_version(), '1.0.1', '<' ) ) {
-			$wpdb->query( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
-			$wpdb->query( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
-			$wpdb->query( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
+			$wpdb->get_results( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
+			$wpdb->get_results( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
+			$wpdb->get_results( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
 		}
 
 		$this->set_table_version();
@@ -225,7 +225,7 @@ printf(
 		global $wpdb;
 
 		$sql = $wpdb->prepare(
-			'SHOW TABLES LIKE "%s"',
+			'SHOW TABLES LIKE %s',
 			$table_name
 		);
 
@@ -333,14 +333,14 @@ printf(
 	 *
 	 * @param string $table_name The name of table.
 	 *
-	 * @return string
+	 * @return object|null
 	 *
 	 * @since 1.0.0
 	 */
 	public function drop_table( $table_name = null ) {
 		global $wpdb;
 		if ( $this->table_exists( $table_name ) ) {
-			return $wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
+			return $wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
 		}
 	}
 
@@ -547,22 +547,19 @@ printf(
 	 * @since 1.0.0
 	 */
 	public function render_history_page() {
-		$message = '';
 
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
-			$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Table no exists.', 'wp-auto-updater' ) . '</strong></p></div>';
-			echo $message;
+?>
+<div class="notice notice-error is-dismissible"><p><strong><?php esc_html_e( 'Table no exists.', 'wp-auto-updater' ); ?></strong></p></div>
+<?php
 			return;
 		}
 
 		global $wpdb;
 
+		$cleared = null;
 		if ( ! empty( $_POST[ $this->nonce['clear_logs']['name'] ] ) && current_user_can( 'manage_options' ) && check_admin_referer( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'] ) ) {
-			$cleared = $wpdb->query( "DELETE FROM {$this->history_table_name}" );
-
-			if ( $cleared ) {
-				$message = '<div class="notice notice-error is-dismissible"><p><strong>' . __( 'Logs cleared.', 'wp-auto-updater' ) . '</strong></p></div>';
-			}
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name}" );
 		}
 
 		$per_page = 15;
@@ -582,7 +579,9 @@ printf(
 ?>
 <div class="wrap">
 <h2><?php esc_html_e( 'Update History', 'wp-auto-updater' ); ?></h2>
-<?php echo $message; ?>
+<?php if ( $cleared ) { ?>
+<div class="notice notice-error is-dismissible"><p><strong><?php esc_html_e( 'Logs cleared.', 'wp-auto-updater' ); ?></strong></p></div>
+<?php } ?>
 
 <div class="tablenav top">
 

@@ -442,7 +442,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return void|bool
 	 *
 	 * @since 1.0.0
 	 */
@@ -515,7 +515,7 @@ class WP_Auto_Updater {
 	 *
 	 * @param object $updates
 	 *
-	 * @return void
+	 * @return object|null
 	 *
 	 * @since 1.0.0
 	 */
@@ -572,9 +572,8 @@ class WP_Auto_Updater {
 		if ( in_array( $item->theme, $option['themes'] ) ) {
 			return false;
 		}
-		else {
-			return true;
-		}
+
+		return true;
 	}
 
 	/**
@@ -614,9 +613,8 @@ class WP_Auto_Updater {
 		if ( in_array( $item->plugin, $option['plugins'] ) ) {
 			return false;
 		}
-		else {
-			return true;
-		}
+
+		return true;
 	}
 
 	/**

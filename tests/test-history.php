@@ -24,7 +24,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auto_updater_history';
 
-		$wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
+		$wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
 	}
 
 	/**
@@ -175,7 +175,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		// $table_name
 		// );
 		// $a = $wpdb->get_results( $sql );
-		// // var_dump( $wpdb->query( "SHOW COLUMNS FROM {$table_name}" ) );
+		// // var_dump( $wpdb->get_results( "SHOW COLUMNS FROM {$table_name}" ) );
 		// var_dump( $a );
 	}
 

@@ -15,6 +15,7 @@
     <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag" />
     <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText" />
     <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+    <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf" />
   </rule>
 
   <exclude-pattern>*/tests/*</exclude-pattern>
