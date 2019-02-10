@@ -17,22 +17,22 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 	 * @group options
 	 */
 	public function get_options_default() {
-		$options = $this->wp_auto_updater->get_options();
+		$options  = $this->wp_auto_updater->get_options();
 		$expected = array(
-			'core'        => 'minor',
-			'theme'       => false,
-			'plugin'      => false,
-			'translation' => true,
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
 			'disable_auto_update' => array(
-				'themes'               => array(),
-				'plugins'              => array(),
+				'themes'  => array(),
+				'plugins' => array(),
 			),
-			'schedule'  => array(
-				'interval'  => 'twicedaily',
-				'day'       => 1,
-				'weekday'   => 'monday',
-				'hour'      => 4,
-				'minute'    => 0,
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
 			),
 		);
 
@@ -45,20 +45,20 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 	 */
 	public function get_options_case_1() {
 		$options = array(
-			'core'        => 'minor',
-			'theme'       => false,
-			'plugin'      => false,
-			'translation' => true,
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
 			'disable_auto_update' => array(
-				'themes'               => array(),
-				'plugins'              => array(),
+				'themes'  => array(),
+				'plugins' => array(),
 			),
-			'schedule'  => array(
-				'interval'  => 'twicedaily',
-				'day'       => 1,
-				'weekday'   => 'monday',
-				'hour'      => 4,
-				'minute'    => 0,
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
 			),
 		);
 
@@ -67,7 +67,7 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 		$options = $this->wp_auto_updater->get_options();
 		$this->assertEquals( $options['core'], 'minor' );
 
-		$options = $this->wp_auto_updater->get_options('core');
+		$options = $this->wp_auto_updater->get_options( 'core' );
 		$this->assertEquals( $options, 'minor' );
 
 		$option = $this->wp_auto_updater->get_options( 'test' );
@@ -80,20 +80,20 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 	 */
 	public function get_options_case_filters() {
 		$options = array(
-			'core'        => 'minor',
-			'theme'       => false,
-			'plugin'      => false,
-			'translation' => true,
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
 			'disable_auto_update' => array(
-				'themes'               => array(),
-				'plugins'              => array(),
+				'themes'  => array(),
+				'plugins' => array(),
 			),
-			'schedule'  => array(
-				'interval'  => 'twicedaily',
-				'day'       => 1,
-				'weekday'   => 'monday',
-				'hour'      => 4,
-				'minute'    => 0,
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
 			),
 		);
 

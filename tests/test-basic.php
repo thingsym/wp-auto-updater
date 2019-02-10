@@ -34,7 +34,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 
 		$this->assertEquals( 10, has_filter( 'deactivate_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this->wp_auto_updater, 'deactivate' ) ) );
 
-		$uninstallable_plugins = (array) get_option('uninstall_plugins');
+		$uninstallable_plugins = (array) get_option( 'uninstall_plugins' );
 		$this->assertEquals( $uninstallable_plugins[ plugin_basename( __WP_AUTO_UPDATER__ ) ], array( 'WP_Auto_Updater', 'uninstall' ) );
 	}
 
@@ -55,6 +55,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function activate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -62,6 +63,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function deactivate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**

@@ -24,7 +24,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auto_updater_history';
 
-		$wpdb->query( "DROP TABLE IF EXISTS {$table_name}" );
+		$wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater_history, 'check_table_version' ) ) );
 		$this->assertEquals( 10, has_filter( 'admin_notices', array( $this->wp_auto_updater_history, 'admin_notice' ) ) );
 
-		$this->assertEquals( 10, has_filter( 'activate_' . plugin_basename(__WP_AUTO_UPDATER__), array( $this->wp_auto_updater_history, 'activate' ) ) );
+		$this->assertEquals( 10, has_filter( 'activate_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this->wp_auto_updater_history, 'activate' ) ) );
 	}
 
 	/**
@@ -115,7 +115,6 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$table_name = $wpdb->prefix . 'auto_updater_history';
 		$this->wp_auto_updater_history->drop_table( $table_name );
 
-
 		// version 1.0.0
 		$schema = "CREATE TABLE $table_name (
 			ID      bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -130,7 +129,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 			KEY label (label)
 		);";
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		$results = dbDelta( $schema );
 
 		update_option( 'wp_auto_updater_history_table_version', '1.0.0' );
@@ -161,7 +160,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 			KEY label (label)
 		);";
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		$results = dbDelta( $schema );
 
 		update_option( 'wp_auto_updater_history_table_version', '1.0.0' );
@@ -172,14 +171,12 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->assertEquals( 1, get_transient( 'wp_auto_updater/history_table/updated' ) );
 
 		// $sql = $wpdb->prepare(
-		// 	'SHOW COLUMNS FROM "%s"',
-		// 	$table_name
+		// 'SHOW COLUMNS FROM "%s"',
+		// $table_name
 		// );
 		// $a = $wpdb->get_results( $sql );
-
-		// // var_dump( $wpdb->query( "SHOW COLUMNS FROM {$table_name}" ) );
+		// // var_dump( $wpdb->get_results( "SHOW COLUMNS FROM {$table_name}" ) );
 		// var_dump( $a );
-
 	}
 
 	/**
@@ -200,7 +197,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->assertEquals( $table_name, $wpdb->get_var( $sql ) );
 
 		$expected = array(
-			"{$table_name}" => "Created table {$table_name}"
+			"{$table_name}" => "Created table {$table_name}",
 		);
 
 		$this->assertEquals( $created, $expected );
@@ -247,6 +244,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function paginate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
