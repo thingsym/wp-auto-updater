@@ -126,8 +126,8 @@ class WP_Auto_Updater {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
-		add_action( 'wp_auto_updater_set_cron', array( $this, 'set_schedule' ) );
-		add_action( 'wp_auto_updater_clear_schedule', array( $this, 'clear_schedule' ) );
+		add_action( 'wp_auto_updater/set_cron', array( $this, 'set_schedule' ) );
+		add_action( 'wp_auto_updater/clear_schedule', array( $this, 'clear_schedule' ) );
 
 		if ( class_exists( 'WP_Auto_Updater_History' ) ) {
 			$this->update_history = new WP_Auto_Updater_History();
@@ -168,7 +168,7 @@ class WP_Auto_Updater {
 	 */
 	public function activate() {
 		$option = $this->get_options( 'schedule' );
-		do_action( 'wp_auto_updater_set_cron', $option );
+		do_action( 'wp_auto_updater/set_cron', $option );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function deactivate() {
-		do_action( 'wp_auto_updater_clear_schedule' );
+		do_action( 'wp_auto_updater/clear_schedule' );
 	}
 
 	/**
@@ -210,14 +210,14 @@ class WP_Auto_Updater {
 			return false;
 		}
 
-		do_action( 'wp_auto_updater_before_auto_update' );
+		do_action( 'wp_auto_updater/before_auto_update' );
 
 		$this->auto_update_wordpress_core();
 		$this->auto_update_theme();
 		$this->auto_update_plugin();
 		$this->auto_update_translation();
 
-		do_action( 'wp_auto_updater_after_auto_update' );
+		do_action( 'wp_auto_updater/after_auto_update' );
 
 		return true;
 	}
@@ -320,7 +320,7 @@ class WP_Auto_Updater {
 			'display'  => esc_html__( 'Once Monthly', 'wp-auto-updater' ),
 		);
 
-		return apply_filters( 'wp_auto_updater_add_cron_interval', $schedules );
+		return apply_filters( 'wp_auto_updater/add_cron_interval', $schedules );
 	}
 
 	/**
@@ -421,7 +421,7 @@ class WP_Auto_Updater {
 			}
 		}
 
-		return apply_filters( 'wp_auto_updater_get_timestamp', $timestamp, $schedule );
+		return apply_filters( 'wp_auto_updater/get_timestamp', $timestamp, $schedule );
 	}
 
 	/**
@@ -475,7 +475,7 @@ class WP_Auto_Updater {
 		$old_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $old_core_version ), 0, 2 ) );
 		$new_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $auto_update_info->current ), 0, 2 ) );
 
-		do_action( 'wp_auto_updater_before_auto_update_wordpress_core' );
+		do_action( 'wp_auto_updater/before_auto_update/wordpress_core' );
 
 		if ( 'minor' === $option ) {
 			// default, Nothing to do.
@@ -505,7 +505,7 @@ class WP_Auto_Updater {
 			add_filter( 'auto_update_core', '__return_false' );
 		}
 
-		do_action( 'wp_auto_updater_after_auto_update_wordpress_core' );
+		do_action( 'wp_auto_updater/after_auto_update/wordpress_core' );
 	}
 
 	/**
@@ -548,9 +548,9 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'theme' );
 
 		if ( $option ) {
-			do_action( 'wp_auto_updater_before_auto_update_theme' );
+			do_action( 'wp_auto_updater/before_auto_update/theme' );
 			add_filter( 'auto_update_theme', array( $this, 'auto_update_specific_theme' ), 10, 2 );
-			do_action( 'wp_auto_updater_after_auto_update_theme' );
+			do_action( 'wp_auto_updater/after_auto_update/theme' );
 		}
 	}
 
@@ -589,9 +589,9 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'plugin' );
 
 		if ( $option ) {
-			do_action( 'wp_auto_updater_before_auto_update_plugin' );
+			do_action( 'wp_auto_updater/before_auto_update/plugin' );
 			add_filter( 'auto_update_plugin', array( $this, 'auto_update_specific_plugin' ), 10, 2 );
-			do_action( 'wp_auto_updater_after_auto_update_plugin' );
+			do_action( 'wp_auto_updater/after_auto_update/plugin' );
 		}
 	}
 
@@ -630,9 +630,9 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'translation' );
 
 		if ( ! $option ) {
-			do_action( 'wp_auto_updater_before_auto_update_translation' );
+			do_action( 'wp_auto_updater/before_auto_update/translation' );
 			add_filter( 'auto_update_translation', '__return_false' );
-			do_action( 'wp_auto_updater_after_auto_update_translation' );
+			do_action( 'wp_auto_updater/after_auto_update/translation' );
 		}
 	}
 
@@ -856,7 +856,7 @@ class WP_Auto_Updater {
 			 *
 			 * @since 1.0.0
 			 */
-			return apply_filters( 'wp_auto_updater_get_options', $options );
+			return apply_filters( 'wp_auto_updater/get_options', $options );
 		}
 
 		if ( array_key_exists( $option_name, $options ) ) {
@@ -868,7 +868,7 @@ class WP_Auto_Updater {
 			 *
 			 * @since 1.0.0
 			 */
-			return apply_filters( 'wp_auto_updater_get_option', $options[ $option_name ], $option_name );
+			return apply_filters( 'wp_auto_updater/get_option', $options[ $option_name ], $option_name );
 		}
 		else {
 			return null;
@@ -1192,10 +1192,10 @@ class WP_Auto_Updater {
 		$output['schedule']['hour']   = isset( $input['schedule']['hour'] ) ? (int) $input['schedule']['hour'] : (int) $this->default_options['schedule']['hour'];
 		$output['schedule']['minute'] = isset( $input['schedule']['minute'] ) ? (int) $input['schedule']['minute'] : (int) $this->default_options['schedule']['minute'];
 
-		$output = apply_filters( 'wp_auto_updater_validate_options', $output, $input, $this->default_options );
+		$output = apply_filters( 'wp_auto_updater/validate_options', $output, $input, $this->default_options );
 
 		if ( isset( $input['schedule'] ) ) {
-			do_action( 'wp_auto_updater_set_cron', $input['schedule'] );
+			do_action( 'wp_auto_updater/set_cron', $input['schedule'] );
 		}
 
 		return $output;
@@ -1251,7 +1251,7 @@ class WP_Auto_Updater {
 	public static function uninstall() {
 		$wp_auto_updater = new WP_Auto_Updater();
 		delete_option( $wp_auto_updater->option_name );
-		do_action( 'wp_auto_updater_clear_schedule' );
+		do_action( 'wp_auto_updater/clear_schedule' );
 
 		$wp_auto_updater_history = new WP_Auto_Updater_History();
 		$wp_auto_updater_history->uninstall();

@@ -99,12 +99,12 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 
 		update_option( 'wp_auto_updater_options', $options );
 
-		add_filter( 'wp_auto_updater_get_options', array( $this, '_filter_options' ), 10 );
+		add_filter( 'wp_auto_updater/get_options', array( $this, '_filter_options' ), 10 );
 
 		$options = $this->wp_auto_updater->get_options();
 		$this->assertEquals( $options['core'], 'aaa' );
 
-		add_filter( 'wp_auto_updater_get_option', array( $this, '_filter_option' ), 10, 2 );
+		add_filter( 'wp_auto_updater/get_option', array( $this, '_filter_option' ), 10, 2 );
 
 		$options = $this->wp_auto_updater->get_options( 'core' );
 		$this->assertEquals( $options, 'bbb' );

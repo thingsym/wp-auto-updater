@@ -24,8 +24,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'admin_init', array( $this->wp_auto_updater, 'register_settings' ) ) );
 		$this->assertEquals( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater, 'add_option_page' ) ) );
 
-		$this->assertEquals( 10, has_filter( 'wp_auto_updater_set_cron', array( $this->wp_auto_updater, 'set_schedule' ) ) );
-		$this->assertEquals( 10, has_filter( 'wp_auto_updater_clear_schedule', array( $this->wp_auto_updater, 'clear_schedule' ) ) );
+		$this->assertEquals( 10, has_filter( 'wp_auto_updater/set_cron', array( $this->wp_auto_updater, 'set_schedule' ) ) );
+		$this->assertEquals( 10, has_filter( 'wp_auto_updater/clear_schedule', array( $this->wp_auto_updater, 'clear_schedule' ) ) );
 
 		$this->assertTrue( class_exists( 'WP_Auto_Updater_History' ) );
 		$this->assertEquals( 10, has_filter( 'automatic_updates_complete', array( $this->wp_auto_updater, 'auto_update_result' ) ) );
