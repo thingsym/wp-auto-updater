@@ -126,7 +126,7 @@ class Test_Wp_Auto_Updater_Validate extends WP_UnitTestCase {
 			),
 		);
 
-		add_filter( 'wp_auto_updater_validate_options', array( $this, '_filter_options' ), 10, 3 );
+		add_filter( 'wp_auto_updater/validate_options', array( $this, '_filter_options' ), 10, 3 );
 
 		$output = $this->wp_auto_updater->validate_options( $new_input );
 
