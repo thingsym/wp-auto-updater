@@ -367,7 +367,7 @@ printf(
 		if ( is_user_logged_in() ) {
 			$user_name = wp_get_current_user()->user_login;
 			$user_id   = wp_get_current_user()->id;
-			$user      = $user_name . '(' . $user_id . ')';
+			$user      = $user_name . ' (' . $user_id . ')';
 		}
 		else {
 			$user = 'nobody';
