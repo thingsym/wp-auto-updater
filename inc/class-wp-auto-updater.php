@@ -1010,7 +1010,7 @@ class WP_Auto_Updater {
 		}
 
 		$gmt_offset_sec = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-		echo '<p>' . esc_html( ucfirst( $this->schedule_interval[ $option['interval'] ] ), 'wp-auto-updater' ) . '</p>';
+		echo '<p>' . esc_html_e( ucfirst( $this->schedule_interval[ $option['interval'] ] ), 'wp-auto-updater' ) . '</p>';
 ?>
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>

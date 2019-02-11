@@ -21,6 +21,8 @@
       "phpcs -p -s -v -n ./ --standard=./phpcs.ruleset.xml --extensions=php",
       "phpmd ./ text ./phpmd.ruleset.xml --suffixes php --exclude /tests,/vendor",
       "phpunit"
-    ]
+    ],
+    "makepot": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../wp-auto-updater ../wp-auto-updater/languages/wp-auto-updater.pot",
+    "msgfmt:ja": "msgfmt languages/wp-auto-updater-ja.po -o languages/wp-auto-updater-ja.mo"
   }
 }
