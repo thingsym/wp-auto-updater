@@ -24,8 +24,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'admin_init', array( $this->wp_auto_updater, 'register_settings' ) ) );
 		$this->assertEquals( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater, 'add_option_page' ) ) );
 
-		$this->assertEquals( 10, has_filter( 'wp_auto_updater_set_cron', array( $this->wp_auto_updater, 'set_schedule' ) ) );
-		$this->assertEquals( 10, has_filter( 'wp_auto_updater_clear_schedule', array( $this->wp_auto_updater, 'clear_schedule' ) ) );
+		$this->assertEquals( 10, has_filter( 'wp_auto_updater/set_cron', array( $this->wp_auto_updater, 'set_schedule' ) ) );
+		$this->assertEquals( 10, has_filter( 'wp_auto_updater/clear_schedule', array( $this->wp_auto_updater, 'clear_schedule' ) ) );
 
 		$this->assertTrue( class_exists( 'WP_Auto_Updater_History' ) );
 		$this->assertEquals( 10, has_filter( 'automatic_updates_complete', array( $this->wp_auto_updater, 'auto_update_result' ) ) );
@@ -34,7 +34,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 
 		$this->assertEquals( 10, has_filter( 'deactivate_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this->wp_auto_updater, 'deactivate' ) ) );
 
-		$uninstallable_plugins = (array) get_option('uninstall_plugins');
+		$uninstallable_plugins = (array) get_option( 'uninstall_plugins' );
 		$this->assertEquals( $uninstallable_plugins[ plugin_basename( __WP_AUTO_UPDATER__ ) ], array( 'WP_Auto_Updater', 'uninstall' ) );
 	}
 
@@ -55,6 +55,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function activate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
@@ -62,6 +63,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function deactivate() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**

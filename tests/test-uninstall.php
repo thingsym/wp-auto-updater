@@ -21,20 +21,20 @@ class Test_Wp_Auto_Updater_Uninstall extends WP_UnitTestCase {
 		remove_filter( 'query', array( $this, '_drop_temporary_tables' ) );
 
 		$options = array(
-			'core'        => 'minor',
-			'theme'       => false,
-			'plugin'      => false,
-			'translation' => true,
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
 			'disable_auto_update' => array(
-				'themes'               => array(),
-				'plugins'              => array(),
+				'themes'  => array(),
+				'plugins' => array(),
 			),
-			'schedule'  => array(
-				'interval'  => 'twicedaily',
-				'day'       => 1,
-				'weekday'   => 'monday',
-				'hour'      => 4,
-				'minute'    => 0,
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
 			),
 		);
 

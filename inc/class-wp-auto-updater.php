@@ -81,25 +81,25 @@ class WP_Auto_Updater {
 	 * }
 	 */
 	protected $default_options = array(
-		'core'        => 'minor',
-		'theme'       => false,
-		'plugin'      => false,
-		'translation' => true,
+		'core'                => 'minor',
+		'theme'               => false,
+		'plugin'              => false,
+		'translation'         => true,
 		'disable_auto_update' => array(
-			'themes'               => array(),
-			'plugins'              => array(),
+			'themes'  => array(),
+			'plugins' => array(),
 		),
-		'schedule'  => array(
-			'interval'  => 'twicedaily',
-			'day'       => 1,
-			'weekday'   => 'monday',
-			'hour'      => 4,
-			'minute'    => 0,
+		'schedule'            => array(
+			'interval' => 'twicedaily',
+			'day'      => 1,
+			'weekday'  => 'monday',
+			'hour'     => 4,
+			'minute'   => 0,
 		),
 	);
 
 	/**
-	 * private value.
+	 * Private value.
 	 *
 	 * @access private
 	 *
@@ -126,8 +126,8 @@ class WP_Auto_Updater {
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
-		add_action( 'wp_auto_updater_set_cron', array( $this, 'set_schedule' ) );
-		add_action( 'wp_auto_updater_clear_schedule', array( $this, 'clear_schedule' ) );
+		add_action( 'wp_auto_updater/set_cron', array( $this, 'set_schedule' ) );
+		add_action( 'wp_auto_updater/clear_schedule', array( $this, 'clear_schedule' ) );
 
 		if ( class_exists( 'WP_Auto_Updater_History' ) ) {
 			$this->update_history = new WP_Auto_Updater_History();
@@ -168,7 +168,7 @@ class WP_Auto_Updater {
 	 */
 	public function activate() {
 		$option = $this->get_options( 'schedule' );
-		do_action( 'wp_auto_updater_set_cron', $option );
+		do_action( 'wp_auto_updater/set_cron', $option );
 	}
 
 	/**
@@ -181,7 +181,7 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function deactivate() {
-		do_action( 'wp_auto_updater_clear_schedule' );
+		do_action( 'wp_auto_updater/clear_schedule' );
 	}
 
 	/**
@@ -201,7 +201,7 @@ class WP_Auto_Updater {
 		}
 
 		if ( ! class_exists( 'WP_Automatic_Updater' ) ) {
-			include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
+			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		}
 
 		$updater = new WP_Automatic_Updater();
@@ -210,14 +210,14 @@ class WP_Auto_Updater {
 			return false;
 		}
 
-		do_action( 'wp_auto_updater_before_auto_update' );
+		do_action( 'wp_auto_updater/before_auto_update' );
 
 		$this->auto_update_wordpress_core();
 		$this->auto_update_theme();
 		$this->auto_update_plugin();
 		$this->auto_update_translation();
 
-		do_action( 'wp_auto_updater_after_auto_update' );
+		do_action( 'wp_auto_updater/after_auto_update' );
 
 		return true;
 	}
@@ -236,8 +236,8 @@ class WP_Auto_Updater {
 
 		if ( false === $this->upgraded_version ) {
 			global $wp_version;
-			$this->upgraded_version['core'] = $wp_version;
-			$this->upgraded_version['theme'] = wp_get_themes();
+			$this->upgraded_version['core']   = $wp_version;
+			$this->upgraded_version['theme']  = wp_get_themes();
 			$this->upgraded_version['plugin'] = get_plugins();
 
 			set_site_transient( 'wp_auto_updater/upgraded_version', $this->upgraded_version, 5 * MINUTE_IN_SECONDS );
@@ -251,7 +251,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @param array   $update_results
+	 * @param array $update_results
 	 *
 	 * @return void
 	 *
@@ -262,19 +262,19 @@ class WP_Auto_Updater {
 
 		foreach ( $update_results as $type => $items ) {
 			$info_success = array();
-			$info_failed = array();
+			$info_failed  = array();
 
 			foreach ( $items as $update ) {
-				$new_version = isset( $update->item->new_version ) ? ' v' . $update->item->new_version : '';
+				$new_version  = isset( $update->item->new_version ) ? ' v' . $update->item->new_version : '';
 				$from_version = '';
 
-				if ( 'core' == $type ) {
+				if ( 'core' === $type ) {
 					$from_version = isset( $this->upgraded_version['core'] ) ? ' (upgraded from v' . $this->upgraded_version['core'] . ')' : '';
 				}
-				elseif ( 'theme' == $type ) {
+				elseif ( 'theme' === $type ) {
 					$from_version = ' (upgraded from v' . $this->upgraded_version['theme'][ $update->item->theme ]->get( 'Version' ) . ')';
 				}
-				elseif ( 'plugin' == $type ) {
+				elseif ( 'plugin' === $type ) {
 					$from_version = isset( $this->upgraded_version['plugin'][ $update->item->plugin ]['Version'] ) ? ' (upgraded from v' . $this->upgraded_version['plugin'][ $update->item->plugin ]['Version'] . ')' : '';
 				}
 
@@ -303,7 +303,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @param array   $schedules
+	 * @param array $schedules
 	 *
 	 * @return array
 	 *
@@ -320,7 +320,7 @@ class WP_Auto_Updater {
 			'display'  => esc_html__( 'Once Monthly', 'wp-auto-updater' ),
 		);
 
-		return apply_filters( 'wp_auto_updater_add_cron_interval', $schedules );
+		return apply_filters( 'wp_auto_updater/add_cron_interval', $schedules );
 	}
 
 	/**
@@ -328,7 +328,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @param array   $schedule
+	 * @param array $schedule
 	 *
 	 * @return void
 	 */
@@ -361,18 +361,18 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @param array   $schedule
+	 * @param array $schedule
 	 *
 	 * @return int
 	 */
 	public function get_timestamp( $schedule ) {
-		$timestamp = 0;
+		$timestamp      = 0;
 		$gmt_offset_sec = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-		$current_time = time();
+		$current_time   = time();
 
 		if ( 'twicedaily' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
-			$timestamp = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+			$timestamp     = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
 			if ( $current_time > $timestamp ) {
 				$timestamp = strtotime( 'today 12:00:00' ) + $diff_time_sec - $gmt_offset_sec;
 			}
@@ -382,14 +382,14 @@ class WP_Auto_Updater {
 		}
 		elseif ( 'daily' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
-			$timestamp = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+			$timestamp     = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
 			if ( $current_time > $timestamp ) {
 				$timestamp = strtotime( 'tomorrow 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
 			}
 		}
 		elseif ( 'weekly' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
-			$timestamp = strtotime( "this {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+			$timestamp     = strtotime( "this {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
 			if ( $current_time > $timestamp ) {
 				$timestamp = strtotime( "next {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
 			}
@@ -398,7 +398,7 @@ class WP_Auto_Updater {
 			$diff_last_day_sec = 0;
 
 			if ( 28 <= $schedule['day'] ) {
-				$last_day = intval( date( 't', strtotime( 'first day of this month 00:00:00' ) ) );
+				$last_day      = intval( date( 't', strtotime( 'first day of this month 00:00:00' ) ) );
 				$diff_last_day = $schedule['day'] - $last_day;
 				if ( 0 < $diff_last_day ) {
 					$diff_last_day_sec = $diff_last_day * DAY_IN_SECONDS;
@@ -406,11 +406,11 @@ class WP_Auto_Updater {
 			}
 
 			$diff_time_sec = ( $schedule['day'] - 1 ) * DAY_IN_SECONDS + $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
-			$timestamp = strtotime( 'first day of this month 00:00:00' ) + $diff_time_sec - $gmt_offset_sec - $diff_last_day_sec;
+			$timestamp     = strtotime( 'first day of this month 00:00:00' ) + $diff_time_sec - $gmt_offset_sec - $diff_last_day_sec;
 
 			if ( $current_time > $timestamp ) {
 				if ( 28 <= $schedule['day'] ) {
-					$last_day = intval( date( 't', strtotime( 'first day of next month 00:00:00' ) ) );
+					$last_day      = intval( date( 't', strtotime( 'first day of next month 00:00:00' ) ) );
 					$diff_last_day = $schedule['day'] - $last_day;
 					if ( 0 < $diff_last_day ) {
 						$diff_last_day_sec = $diff_last_day * DAY_IN_SECONDS;
@@ -421,7 +421,7 @@ class WP_Auto_Updater {
 			}
 		}
 
-		return apply_filters( 'wp_auto_updater_get_timestamp', $timestamp, $schedule );
+		return apply_filters( 'wp_auto_updater/get_timestamp', $timestamp, $schedule );
 	}
 
 	/**
@@ -442,7 +442,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return void|bool
 	 *
 	 * @since 1.0.0
 	 */
@@ -471,14 +471,14 @@ class WP_Auto_Updater {
 		}
 
 		global $wp_version;
-		$old_core_version = $wp_version;
+		$old_core_version    = $wp_version;
 		$old_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $old_core_version ), 0, 2 ) );
 		$new_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $auto_update_info->current ), 0, 2 ) );
 
-		do_action( 'wp_auto_updater_before_auto_update_wordpress_core' );
+		do_action( 'wp_auto_updater/before_auto_update/wordpress_core' );
 
 		if ( 'minor' === $option ) {
-			// default, Nothing to do
+			// default, Nothing to do.
 		}
 		elseif ( 'major' === $option ) {
 			add_filter( 'allow_major_auto_core_updates', '__return_true' );
@@ -505,7 +505,7 @@ class WP_Auto_Updater {
 			add_filter( 'auto_update_core', '__return_false' );
 		}
 
-		do_action( 'wp_auto_updater_after_auto_update_wordpress_core' );
+		do_action( 'wp_auto_updater/after_auto_update/wordpress_core' );
 	}
 
 	/**
@@ -515,7 +515,7 @@ class WP_Auto_Updater {
 	 *
 	 * @param object $updates
 	 *
-	 * @return void
+	 * @return object|null
 	 *
 	 * @since 1.0.0
 	 */
@@ -548,9 +548,9 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'theme' );
 
 		if ( $option ) {
-			do_action( 'wp_auto_updater_before_auto_update_theme' );
+			do_action( 'wp_auto_updater/before_auto_update/theme' );
 			add_filter( 'auto_update_theme', array( $this, 'auto_update_specific_theme' ), 10, 2 );
-			do_action( 'wp_auto_updater_after_auto_update_theme' );
+			do_action( 'wp_auto_updater/after_auto_update/theme' );
 		}
 	}
 
@@ -572,9 +572,8 @@ class WP_Auto_Updater {
 		if ( in_array( $item->theme, $option['themes'] ) ) {
 			return false;
 		}
-		else {
-			return true;
-		}
+
+		return true;
 	}
 
 	/**
@@ -590,9 +589,9 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'plugin' );
 
 		if ( $option ) {
-			do_action( 'wp_auto_updater_before_auto_update_plugin' );
+			do_action( 'wp_auto_updater/before_auto_update/plugin' );
 			add_filter( 'auto_update_plugin', array( $this, 'auto_update_specific_plugin' ), 10, 2 );
-			do_action( 'wp_auto_updater_after_auto_update_plugin' );
+			do_action( 'wp_auto_updater/after_auto_update/plugin' );
 		}
 	}
 
@@ -614,9 +613,8 @@ class WP_Auto_Updater {
 		if ( in_array( $item->plugin, $option['plugins'] ) ) {
 			return false;
 		}
-		else {
-			return true;
-		}
+
+		return true;
 	}
 
 	/**
@@ -632,9 +630,9 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'translation' );
 
 		if ( ! $option ) {
-			do_action( 'wp_auto_updater_before_auto_update_translation' );
+			do_action( 'wp_auto_updater/before_auto_update/translation' );
 			add_filter( 'auto_update_translation', '__return_false' );
-			do_action( 'wp_auto_updater_after_auto_update_translation' );
+			do_action( 'wp_auto_updater/after_auto_update/translation' );
 		}
 	}
 
@@ -840,7 +838,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @param string $option Optional. The option name.
+	 * @param string $option_name Optional. The option name.
 	 *
 	 * @return array|value
 	 *
@@ -858,7 +856,7 @@ class WP_Auto_Updater {
 			 *
 			 * @since 1.0.0
 			 */
-			return apply_filters( 'wp_auto_updater_get_options', $options );
+			return apply_filters( 'wp_auto_updater/get_options', $options );
 		}
 
 		if ( array_key_exists( $option_name, $options ) ) {
@@ -870,7 +868,7 @@ class WP_Auto_Updater {
 			 *
 			 * @since 1.0.0
 			 */
-			return apply_filters( 'wp_auto_updater_get_option', $options[ $option_name ], $option_name );
+			return apply_filters( 'wp_auto_updater/get_option', $options[ $option_name ], $option_name );
 		}
 		else {
 			return null;
@@ -1005,33 +1003,42 @@ class WP_Auto_Updater {
 	}
 
 	public function settings_field_cb_schedule_next_updete_date() {
-		$option = $this->get_options( 'schedule' );
+		$option           = $this->get_options( 'schedule' );
 		$next_updete_date = wp_next_scheduled( 'wp_version_check' );
 		if ( empty( $next_updete_date ) ) {
 			return;
 		}
 
 		$gmt_offset_sec = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-		echo '<p>' . esc_html__( ucfirst( $this->schedule_interval[ $option['interval'] ] ), 'wp-auto-updater' ) . '</p>';
+		echo '<p>' . esc_html_e( ucfirst( $this->schedule_interval[ $option['interval'] ] ), 'wp-auto-updater' ) . '</p>';
 ?>
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
-<?php
+		<?php
 		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() + $gmt_offset_sec ) );
-		$datetime = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) );
+		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) );
 
 		$diff = $current_time->diff( $datetime );
 
 		if ( $diff->d ) {
 			echo '<p>';
-			printf( esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ), $diff->d );
+			printf(
+				esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ),
+				esc_html( $diff->d )
+			);
 			if ( $diff->h ) {
 				echo ' ';
-				printf( esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ), $diff->h );
+				printf(
+					esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
+					esc_html( $diff->h )
+				);
 			}
 			if ( $diff->i ) {
 				echo ' ';
-				printf( esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ), $diff->i );
+				printf(
+					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					esc_html( $diff->i )
+				);
 			}
 			echo ' ';
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
@@ -1039,10 +1046,16 @@ class WP_Auto_Updater {
 		}
 		elseif ( $diff->h ) {
 			echo '<p>';
-			printf( esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ), $diff->h );
+			printf(
+				esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
+				esc_html( $diff->h )
+			);
 			if ( $diff->i ) {
 				echo ' ';
-				printf( esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ), $diff->i );
+				printf(
+					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					esc_html( $diff->i )
+				);
 			}
 			echo ' ';
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
@@ -1050,7 +1063,10 @@ class WP_Auto_Updater {
 		}
 		elseif ( $diff->i ) {
 			echo '<p>';
-			printf( esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ), $diff->i );
+			printf(
+				esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+				esc_html( $diff->i )
+			);
 			echo ' ';
 			$diff->invert ? esc_html_e( 'ago', 'wp-auto-updater' ) : esc_html_e( 'later', 'wp-auto-updater' );
 			echo '</p>';
@@ -1070,48 +1086,48 @@ class WP_Auto_Updater {
 
 <p class="schedule_day"><?php esc_html_e( 'Day: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][day]">
-<?php
-		foreach ( range( 1, 31 ) as $day ) {
-			echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
-		}
-?>
+	<?php
+	foreach ( range( 1, 31 ) as $day ) {
+		echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
+	}
+	?>
 </select></p>
 
 <p class="schedule_weekday"><?php esc_html_e( 'Weekday: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][weekday]">
-<?php
-		$schedule_weekdays = array(
-			'monday',
-			'tuesday',
-			'wednesday',
-			'thursday',
-			'friday',
-			'saturday',
-			'sunday',
-		);
+	<?php
+	$schedule_weekdays = array(
+		'monday',
+		'tuesday',
+		'wednesday',
+		'thursday',
+		'friday',
+		'saturday',
+		'sunday',
+	);
 
-		foreach ( $schedule_weekdays as $key ) {
-			echo '<option value="' . esc_attr( $key ) . '"' . selected( $key, $option['weekday'], false ) . '>' . esc_html__( ucfirst( $key ), 'wp-auto-updater' ) . '</option>';
-		}
-?>
+	foreach ( $schedule_weekdays as $key ) {
+		echo '<option value="' . esc_attr( $key ) . '"' . selected( $key, $option['weekday'], false ) . '>' . esc_html__( ucfirst( $key ), 'wp-auto-updater' ) . '</option>';
+	}
+	?>
 </select></p>
 
 <p class="schedule_hour"><?php esc_html_e( 'Hour: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][hour]">
-<?php
-		foreach ( range( 0, 23 ) as $hour ) {
-			echo '<option value="' . esc_attr( $hour ) . '"' . selected( $hour, $option['hour'], false ) . '>' . esc_html( $hour ) . '</option>';
-		}
-?>
+	<?php
+	foreach ( range( 0, 23 ) as $hour ) {
+		echo '<option value="' . esc_attr( $hour ) . '"' . selected( $hour, $option['hour'], false ) . '>' . esc_html( $hour ) . '</option>';
+	}
+	?>
 </select></p>
 
 <p class="schedule_minute"><?php esc_html_e( 'Minute: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][minute]">
-<?php
-		foreach ( range( 0, 59, 5 ) as $minute ) {
-			echo '<option value="' . esc_attr( $minute ) . '"' . selected( $minute, $option['minute'], false ) . '>' . esc_html( $minute ) . '</option>';
-		}
-?>
+	<?php
+	foreach ( range( 0, 59, 5 ) as $minute ) {
+		echo '<option value="' . esc_attr( $minute ) . '"' . selected( $minute, $option['minute'], false ) . '>' . esc_html( $minute ) . '</option>';
+	}
+	?>
 </select></p>
 
 <?php
@@ -1137,7 +1153,7 @@ class WP_Auto_Updater {
 	}
 
 	public function settings_field_cb_scenario_plugins() {
-		$option = $this->get_options( 'disable_auto_update' );
+		$option  = $this->get_options( 'disable_auto_update' );
 		$plugins = get_plugins();
 
 		foreach ( $plugins as $path => $plugin ) {
@@ -1159,12 +1175,12 @@ class WP_Auto_Updater {
 	public function validate_options( $input ) {
 		$output = $this->default_options;
 
-		$output['core'] = empty( $input['core'] ) ? null : $input['core'];
-		$output['theme'] = empty( $input['theme'] ) ? false : true;
-		$output['plugin'] = empty( $input['plugin'] ) ? false : true;
+		$output['core']        = empty( $input['core'] ) ? null : $input['core'];
+		$output['theme']       = empty( $input['theme'] ) ? false : true;
+		$output['plugin']      = empty( $input['plugin'] ) ? false : true;
 		$output['translation'] = empty( $input['translation'] ) ? false : true;
 
-		$output['disable_auto_update']['themes'] = isset( $input['disable_auto_update']['themes'] ) ? $input['disable_auto_update']['themes'] : array();
+		$output['disable_auto_update']['themes']  = isset( $input['disable_auto_update']['themes'] ) ? $input['disable_auto_update']['themes'] : array();
 		$output['disable_auto_update']['plugins'] = isset( $input['disable_auto_update']['plugins'] ) ? $input['disable_auto_update']['plugins'] : array();
 
 		$output['schedule']['interval'] = isset( $input['schedule']['interval'] ) ? $input['schedule']['interval'] : $this->default_options['schedule']['interval'];
@@ -1173,13 +1189,13 @@ class WP_Auto_Updater {
 
 		$output['schedule']['weekday'] = empty( $input['schedule']['weekday'] ) ? $this->default_options['schedule']['weekday'] : strtolower( $input['schedule']['weekday'] );
 
-		$output['schedule']['hour'] = isset( $input['schedule']['hour'] ) ? (int) $input['schedule']['hour'] : (int) $this->default_options['schedule']['hour'];
+		$output['schedule']['hour']   = isset( $input['schedule']['hour'] ) ? (int) $input['schedule']['hour'] : (int) $this->default_options['schedule']['hour'];
 		$output['schedule']['minute'] = isset( $input['schedule']['minute'] ) ? (int) $input['schedule']['minute'] : (int) $this->default_options['schedule']['minute'];
 
-		$output = apply_filters( 'wp_auto_updater_validate_options', $output, $input, $this->default_options );
+		$output = apply_filters( 'wp_auto_updater/validate_options', $output, $input, $this->default_options );
 
 		if ( isset( $input['schedule'] ) ) {
-			do_action( 'wp_auto_updater_set_cron', $input['schedule'] );
+			do_action( 'wp_auto_updater/set_cron', $input['schedule'] );
 		}
 
 		return $output;
@@ -1195,7 +1211,7 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'wp-auto-updater-admin', plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ), array( 'jquery' ), '2017-09-06' );
+		wp_enqueue_script( 'wp-auto-updater-admin', plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ), array( 'jquery' ), '2017-09-06', true );
 	}
 
 	/**
@@ -1235,12 +1251,21 @@ class WP_Auto_Updater {
 	public static function uninstall() {
 		$wp_auto_updater = new WP_Auto_Updater();
 		delete_option( $wp_auto_updater->option_name );
-		do_action( 'wp_auto_updater_clear_schedule' );
+		do_action( 'wp_auto_updater/clear_schedule' );
 
 		$wp_auto_updater_history = new WP_Auto_Updater_History();
 		$wp_auto_updater_history->uninstall();
 	}
 
+	/**
+	 * Display notice.
+	 *
+	 * @access public static
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function admin_notice_upgrader_disabled() {
 ?>
 <div class="notice notice-warning">

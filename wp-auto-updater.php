@@ -7,7 +7,7 @@
  * Author URI:      https://management.thingslabo.com/
  * Text Domain:     wp-auto-updater
  * Domain Path:     /languages
- * Version:         1.1.0
+ * Version:         1.2.0
  *
  * @package         WP_Auto_Updater
  */
@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( '__WP_AUTO_UPDATER__', __FILE__ );
 
-include_once( plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater.php' );
-include_once( plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater-history.php' );
+require_once plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater-history.php';
 
 if ( class_exists( 'WP_Auto_Updater' ) ) {
 	new WP_Auto_Updater();

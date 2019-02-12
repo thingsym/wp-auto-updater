@@ -29,6 +29,8 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @group auto_update
 	 */
 	public function auto_update_result() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+
 		// $this->wp_auto_updater->auto_update_result();
 		// todo: database check
 	}
@@ -39,47 +41,46 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 */
 	public function auto_update_wordpress_core_case1() {
 		// https://api.wordpress.org/core/version-check/1.7/?locale=ja
-
-		$upgrade = new stdClass();
-		$upgrade->response = 'upgrade';
-		$upgrade->download = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
-		$upgrade->locale = 'en_US';
-		$upgrade->packages = '';
-		$upgrade->current = '4.8.1';
-		$upgrade->version = '4.8.1';
-		$upgrade->php_version = '5.2.4';
-		$upgrade->mysql_version = '5.0';
-		$upgrade->new_bundled = '4.7';
+		$upgrade                  = new stdClass();
+		$upgrade->response        = 'upgrade';
+		$upgrade->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
+		$upgrade->locale          = 'en_US';
+		$upgrade->packages        = '';
+		$upgrade->current         = '4.8.1';
+		$upgrade->version         = '4.8.1';
+		$upgrade->php_version     = '5.2.4';
+		$upgrade->mysql_version   = '5.0';
+		$upgrade->new_bundled     = '4.7';
 		$upgrade->partial_version = '';
-		$upgrade->new_files = 1;
+		$upgrade->new_files       = 1;
 
-		$autoupdate = new stdClass();
-		$autoupdate->response = 'autoupdate';
-		$autoupdate->download = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
-		$autoupdate->locale = 'en_US';
-		$autoupdate->packages = '';
-		$autoupdate->current = '4.8.1';
-		$autoupdate->version = '4.8.1';
-		$autoupdate->php_version = '5.2.4';
-		$autoupdate->mysql_version = '5.0';
-		$autoupdate->new_bundled = '4.7';
+		$autoupdate                  = new stdClass();
+		$autoupdate->response        = 'autoupdate';
+		$autoupdate->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
+		$autoupdate->locale          = 'en_US';
+		$autoupdate->packages        = '';
+		$autoupdate->current         = '4.8.1';
+		$autoupdate->version         = '4.8.1';
+		$autoupdate->php_version     = '5.2.4';
+		$autoupdate->mysql_version   = '5.0';
+		$autoupdate->new_bundled     = '4.7';
 		$autoupdate->partial_version = '';
-		$autoupdate->new_files = 1;
+		$autoupdate->new_files       = 1;
 
-		$update_core = new stdClass();
-		$update_core->updates = array( $upgrade, $autoupdate );
-		$update_core->last_checked = 1506247076;
+		$update_core                  = new stdClass();
+		$update_core->updates         = array( $upgrade, $autoupdate );
+		$update_core->last_checked    = 1506247076;
 		$update_core->version_checked = '4.8.1';
-		$update_core->translations = array();
+		$update_core->translations    = array();
 
 		global $wp_version;
 		$now_wp_version = $wp_version;
-		$wp_version = '4.6.1';
+		$wp_version     = '4.6.1';
 
 		set_site_transient( 'update_core', $update_core );
 
 		$options = array(
-			'core'       => 'minor',
+			'core' => 'minor',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -89,7 +90,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'allow_minor_auto_core_updates', '__return_false' ) );
 
 		$options = array(
-			'core'       => 'major',
+			'core' => 'major',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -99,7 +100,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'minor-only',
+			'core' => 'minor-only',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -109,7 +110,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'pre-version',
+			'core' => 'pre-version',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -124,7 +125,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		remove_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) );
 
 		$options = array(
-			'core'       => 'disable-auto-update',
+			'core' => 'disable-auto-update',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -140,46 +141,46 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @group auto_update
 	 */
 	public function auto_update_wordpress_core_case2() {
-		$upgrade = new stdClass();
-		$upgrade->response = 'upgrade';
-		$upgrade->download = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
-		$upgrade->locale = 'en_US';
-		$upgrade->packages = '';
-		$upgrade->current = '4.8.1';
-		$upgrade->version = '4.8.1';
-		$upgrade->php_version = '5.2.4';
-		$upgrade->mysql_version = '5.0';
-		$upgrade->new_bundled = '4.7';
+		$upgrade                  = new stdClass();
+		$upgrade->response        = 'upgrade';
+		$upgrade->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
+		$upgrade->locale          = 'en_US';
+		$upgrade->packages        = '';
+		$upgrade->current         = '4.8.1';
+		$upgrade->version         = '4.8.1';
+		$upgrade->php_version     = '5.2.4';
+		$upgrade->mysql_version   = '5.0';
+		$upgrade->new_bundled     = '4.7';
 		$upgrade->partial_version = '';
-		$upgrade->new_files = 1;
+		$upgrade->new_files       = 1;
 
-		$autoupdate = new stdClass();
-		$autoupdate->response = 'autoupdate';
-		$autoupdate->download = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
-		$autoupdate->locale = 'en_US';
-		$autoupdate->packages = '';
-		$autoupdate->current = '4.8.1';
-		$autoupdate->version = '4.8.1';
-		$autoupdate->php_version = '5.2.4';
-		$autoupdate->mysql_version = '5.0';
-		$autoupdate->new_bundled = '4.7';
+		$autoupdate                  = new stdClass();
+		$autoupdate->response        = 'autoupdate';
+		$autoupdate->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
+		$autoupdate->locale          = 'en_US';
+		$autoupdate->packages        = '';
+		$autoupdate->current         = '4.8.1';
+		$autoupdate->version         = '4.8.1';
+		$autoupdate->php_version     = '5.2.4';
+		$autoupdate->mysql_version   = '5.0';
+		$autoupdate->new_bundled     = '4.7';
 		$autoupdate->partial_version = '';
-		$autoupdate->new_files = 1;
+		$autoupdate->new_files       = 1;
 
-		$update_core = new stdClass();
-		$update_core->updates = array( $upgrade, $autoupdate );
-		$update_core->last_checked = 1506247076;
+		$update_core                  = new stdClass();
+		$update_core->updates         = array( $upgrade, $autoupdate );
+		$update_core->last_checked    = 1506247076;
 		$update_core->version_checked = '4.8.1';
-		$update_core->translations = array();
+		$update_core->translations    = array();
 
 		global $wp_version;
 		$now_wp_version = $wp_version;
-		$wp_version = '4.7.0';
+		$wp_version     = '4.7.0';
 
 		set_site_transient( 'update_core', $update_core );
 
 		$options = array(
-			'core'       => 'minor',
+			'core' => 'minor',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -189,7 +190,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'allow_minor_auto_core_updates', '__return_false' ) );
 
 		$options = array(
-			'core'       => 'major',
+			'core' => 'major',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -199,7 +200,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'minor-only',
+			'core' => 'minor-only',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -209,7 +210,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'pre-version',
+			'core' => 'pre-version',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -221,7 +222,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
 
 		$options = array(
-			'core'       => 'disable-auto-update',
+			'core' => 'disable-auto-update',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -237,46 +238,46 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @group auto_update
 	 */
 	public function auto_update_wordpress_core_case3() {
-		$upgrade = new stdClass();
-		$upgrade->response = 'upgrade';
-		$upgrade->download = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
-		$upgrade->locale = 'en_US';
-		$upgrade->packages = '';
-		$upgrade->current = '4.8.1';
-		$upgrade->version = '4.8.1';
-		$upgrade->php_version = '5.2.4';
-		$upgrade->mysql_version = '5.0';
-		$upgrade->new_bundled = '4.7';
+		$upgrade                  = new stdClass();
+		$upgrade->response        = 'upgrade';
+		$upgrade->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
+		$upgrade->locale          = 'en_US';
+		$upgrade->packages        = '';
+		$upgrade->current         = '4.8.1';
+		$upgrade->version         = '4.8.1';
+		$upgrade->php_version     = '5.2.4';
+		$upgrade->mysql_version   = '5.0';
+		$upgrade->new_bundled     = '4.7';
 		$upgrade->partial_version = '';
-		$upgrade->new_files = 1;
+		$upgrade->new_files       = 1;
 
-		$autoupdate = new stdClass();
-		$autoupdate->response = 'autoupdate';
-		$autoupdate->download = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
-		$autoupdate->locale = 'en_US';
-		$autoupdate->packages = '';
-		$autoupdate->current = '4.8.1';
-		$autoupdate->version = '4.8.1';
-		$autoupdate->php_version = '5.2.4';
-		$autoupdate->mysql_version = '5.0';
-		$autoupdate->new_bundled = '4.7';
+		$autoupdate                  = new stdClass();
+		$autoupdate->response        = 'autoupdate';
+		$autoupdate->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.1.zip';
+		$autoupdate->locale          = 'en_US';
+		$autoupdate->packages        = '';
+		$autoupdate->current         = '4.8.1';
+		$autoupdate->version         = '4.8.1';
+		$autoupdate->php_version     = '5.2.4';
+		$autoupdate->mysql_version   = '5.0';
+		$autoupdate->new_bundled     = '4.7';
 		$autoupdate->partial_version = '';
-		$autoupdate->new_files = 1;
+		$autoupdate->new_files       = 1;
 
-		$update_core = new stdClass();
-		$update_core->updates = array( $upgrade, $autoupdate );
-		$update_core->last_checked = 1506247076;
+		$update_core                  = new stdClass();
+		$update_core->updates         = array( $upgrade, $autoupdate );
+		$update_core->last_checked    = 1506247076;
 		$update_core->version_checked = '4.8.1';
-		$update_core->translations = array();
+		$update_core->translations    = array();
 
 		global $wp_version;
 		$now_wp_version = $wp_version;
-		$wp_version = '4.7.1';
+		$wp_version     = '4.7.1';
 
 		set_site_transient( 'update_core', $update_core );
 
 		$options = array(
-			'core'       => 'minor',
+			'core' => 'minor',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -286,7 +287,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'allow_minor_auto_core_updates', '__return_false' ) );
 
 		$options = array(
-			'core'       => 'major',
+			'core' => 'major',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -296,7 +297,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'minor-only',
+			'core' => 'minor-only',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -306,7 +307,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'pre-version',
+			'core' => 'pre-version',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -318,7 +319,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
 
 		$options = array(
-			'core'       => 'disable-auto-update',
+			'core' => 'disable-auto-update',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -334,46 +335,46 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @group auto_update
 	 */
 	public function auto_update_wordpress_core_case4() {
-		$upgrade = new stdClass();
-		$upgrade->response = 'upgrade';
-		$upgrade->download = 'https://downloads.wordpress.org/release/wordpress-4.8.0.zip';
-		$upgrade->locale = 'en_US';
-		$upgrade->packages = '';
-		$upgrade->current = '4.8.0';
-		$upgrade->version = '4.8.0';
-		$upgrade->php_version = '5.2.4';
-		$upgrade->mysql_version = '5.0';
-		$upgrade->new_bundled = '4.7';
+		$upgrade                  = new stdClass();
+		$upgrade->response        = 'upgrade';
+		$upgrade->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.0.zip';
+		$upgrade->locale          = 'en_US';
+		$upgrade->packages        = '';
+		$upgrade->current         = '4.8.0';
+		$upgrade->version         = '4.8.0';
+		$upgrade->php_version     = '5.2.4';
+		$upgrade->mysql_version   = '5.0';
+		$upgrade->new_bundled     = '4.7';
 		$upgrade->partial_version = '';
-		$upgrade->new_files = 1;
+		$upgrade->new_files       = 1;
 
-		$autoupdate = new stdClass();
-		$autoupdate->response = 'autoupdate';
-		$autoupdate->download = 'https://downloads.wordpress.org/release/wordpress-4.8.0.zip';
-		$autoupdate->locale = 'en_US';
-		$autoupdate->packages = '';
-		$autoupdate->current = '4.8.0';
-		$autoupdate->version = '4.8.0';
-		$autoupdate->php_version = '5.2.4';
-		$autoupdate->mysql_version = '5.0';
-		$autoupdate->new_bundled = '4.7';
+		$autoupdate                  = new stdClass();
+		$autoupdate->response        = 'autoupdate';
+		$autoupdate->download        = 'https://downloads.wordpress.org/release/wordpress-4.8.0.zip';
+		$autoupdate->locale          = 'en_US';
+		$autoupdate->packages        = '';
+		$autoupdate->current         = '4.8.0';
+		$autoupdate->version         = '4.8.0';
+		$autoupdate->php_version     = '5.2.4';
+		$autoupdate->mysql_version   = '5.0';
+		$autoupdate->new_bundled     = '4.7';
 		$autoupdate->partial_version = '';
-		$autoupdate->new_files = 1;
+		$autoupdate->new_files       = 1;
 
-		$update_core = new stdClass();
-		$update_core->updates = array( $upgrade, $autoupdate );
-		$update_core->last_checked = 1506247076;
+		$update_core                  = new stdClass();
+		$update_core->updates         = array( $upgrade, $autoupdate );
+		$update_core->last_checked    = 1506247076;
 		$update_core->version_checked = '4.8.0';
-		$update_core->translations = array();
+		$update_core->translations    = array();
 
 		global $wp_version;
 		$now_wp_version = $wp_version;
-		$wp_version = '4.7.1';
+		$wp_version     = '4.7.1';
 
 		set_site_transient( 'update_core', $update_core );
 
 		$options = array(
-			'core'       => 'minor',
+			'core' => 'minor',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -383,7 +384,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'allow_minor_auto_core_updates', '__return_false' ) );
 
 		$options = array(
-			'core'       => 'major',
+			'core' => 'major',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -393,7 +394,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'minor-only',
+			'core' => 'minor-only',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -403,7 +404,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
-			'core'       => 'pre-version',
+			'core' => 'pre-version',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -415,7 +416,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
 
 		$options = array(
-			'core'       => 'disable-auto-update',
+			'core' => 'disable-auto-update',
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -431,20 +432,20 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @group auto_update
 	 */
 	public function updates_previous_version() {
-		$upgrade = new stdClass();
-		$upgrade->response = 'upgrade';
-		$upgrade->current = '4.9.0';
-		$autoupdate1 = new stdClass();
+		$upgrade               = new stdClass();
+		$upgrade->response     = 'upgrade';
+		$upgrade->current      = '4.9.0';
+		$autoupdate1           = new stdClass();
 		$autoupdate1->response = 'autoupdate';
-		$autoupdate1->current = '4.9.0';
-		$autoupdate2 = new stdClass();
+		$autoupdate1->current  = '4.9.0';
+		$autoupdate2           = new stdClass();
 		$autoupdate2->response = 'autoupdate';
-		$autoupdate2->current = '4.8.0';
-		$autoupdate3 = new stdClass();
+		$autoupdate2->current  = '4.8.0';
+		$autoupdate3           = new stdClass();
 		$autoupdate3->response = 'autoupdate';
-		$autoupdate3->current = '4.7.0';
+		$autoupdate3->current  = '4.7.0';
 
-		$updates = new stdClass();
+		$updates          = new stdClass();
 		$updates->updates = array( $upgrade, $autoupdate1, $autoupdate2, $autoupdate3 );
 
 		$updates = $this->wp_auto_updater->updates_previous_version( $updates );
@@ -461,7 +462,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 */
 	public function auto_update_theme() {
 		$options = array(
-			'theme'       => true,
+			'theme' => true,
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -472,7 +473,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'auto_update_theme', array( $this->wp_auto_updater, 'auto_update_specific_theme' ) ) );
 
 		$options = array(
-			'theme'       => false,
+			'theme' => false,
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -490,30 +491,30 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	public function auto_update_specific_theme() {
 		$options = array(
 			'disable_auto_update' => array(
-				'themes'               => array(
+				'themes'  => array(
 					'twentysixteen',
 					'twentyseventeen',
 				),
-				'plugins'              => array(),
+				'plugins' => array(),
 			),
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
 
-		$item = new stdClass();
-		$item->theme = 'twentyfifteen';
+		$item              = new stdClass();
+		$item->theme       = 'twentyfifteen';
 		$item->new_version = '1.8';
-		$item->url = 'https://wordpress.org/themes/twentyfifteen/';
-		$item->package = 'https://downloads.wordpress.org/theme/twentyfifteen.1.8.zip';
+		$item->url         = 'https://wordpress.org/themes/twentyfifteen/';
+		$item->package     = 'https://downloads.wordpress.org/theme/twentyfifteen.1.8.zip';
 
 		$updated = $this->wp_auto_updater->auto_update_specific_theme( false, $item );
 		$this->assertTrue( $updated );
 
-		$item = new stdClass();
-		$item->theme = 'twentyseventeen';
+		$item              = new stdClass();
+		$item->theme       = 'twentyseventeen';
 		$item->new_version = '1.8';
-		$item->url = 'https://wordpress.org/themes/twentyseventeen/';
-		$item->package = 'https://downloads.wordpress.org/theme/twentyseventeen.1.8.zip';
+		$item->url         = 'https://wordpress.org/themes/twentyseventeen/';
+		$item->package     = 'https://downloads.wordpress.org/theme/twentyseventeen.1.8.zip';
 
 		$updated = $this->wp_auto_updater->auto_update_specific_theme( false, $item );
 		$this->assertFalse( $updated );
@@ -526,7 +527,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 */
 	public function auto_update_plugin() {
 		$options = array(
-			'plugin'       => true,
+			'plugin' => true,
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -537,7 +538,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'auto_update_plugin', array( $this->wp_auto_updater, 'auto_update_specific_plugin' ) ) );
 
 		$options = array(
-			'plugin'       => false,
+			'plugin' => false,
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
@@ -555,8 +556,8 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	public function auto_update_specific_plugin() {
 		$options = array(
 			'disable_auto_update' => array(
-				'themes'               => array(),
-				'plugins'              => array(
+				'themes'  => array(),
+				'plugins' => array(
 					'wp-multibyte-patch/wp-multibyte-patch.php',
 				),
 			),
@@ -564,27 +565,27 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		update_option( 'wp_auto_updater_options', $options );
 
-		$item = new stdClass();
-		$item->id = 'w.org/plugins/akismet';
-		$item->slug = 'akismet';
-		$item->plugin = 'akismet/akismet.php';
-		$item->new_version = '4.0';
-		$item->url = 'https://wordpress.org/plugins/akismet/';
-		$item->package = 'https://downloads.wordpress.org/plugin/akismet.4.0.zip';
-		$item->tested = '4.8.1';
+		$item                = new stdClass();
+		$item->id            = 'w.org/plugins/akismet';
+		$item->slug          = 'akismet';
+		$item->plugin        = 'akismet/akismet.php';
+		$item->new_version   = '4.0';
+		$item->url           = 'https://wordpress.org/plugins/akismet/';
+		$item->package       = 'https://downloads.wordpress.org/plugin/akismet.4.0.zip';
+		$item->tested        = '4.8.1';
 		$item->compatibility = '';
 
 		$updated = $this->wp_auto_updater->auto_update_specific_plugin( false, $item );
 		$this->assertTrue( $updated );
 
-		$item = new stdClass();
-		$item->id = 'w.org/plugins/wp-multibyte-patch';
-		$item->slug = 'wp-multibyte-patch';
-		$item->plugin = 'wp-multibyte-patch/wp-multibyte-patch.php';
-		$item->new_version = '2.8.1';
-		$item->url = 'https://wordpress.org/plugins/wp-multibyte-patch/';
-		$item->package = 'https://downloads.wordpress.org/plugin/wp-multibyte-patch.2.8.1.zip';
-		$item->tested = '4.8';
+		$item                = new stdClass();
+		$item->id            = 'w.org/plugins/wp-multibyte-patch';
+		$item->slug          = 'wp-multibyte-patch';
+		$item->plugin        = 'wp-multibyte-patch/wp-multibyte-patch.php';
+		$item->new_version   = '2.8.1';
+		$item->url           = 'https://wordpress.org/plugins/wp-multibyte-patch/';
+		$item->package       = 'https://downloads.wordpress.org/plugin/wp-multibyte-patch.2.8.1.zip';
+		$item->tested        = '4.8';
 		$item->compatibility = '';
 
 		$updated = $this->wp_auto_updater->auto_update_specific_plugin( false, $item );
@@ -598,7 +599,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 */
 	public function auto_update_translation() {
 		$options = array(
-			'translation'       => false,
+			'translation' => false,
 		);
 
 		update_option( 'wp_auto_updater_options', $options );
