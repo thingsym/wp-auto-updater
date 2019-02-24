@@ -494,8 +494,10 @@ class WP_Auto_Updater {
 		}
 		elseif ( 'pre-version' === $option ) {
 			$version_diff = floatval( $new_core_version_xy ) - floatval( $old_core_version_xy );
+			$float_diff   = abs( $version_diff - 0.2 );
+			$epsilon      = 0.00001;
 
-			if ( $version_diff >= 0.2 ) {
+			if ( $float_diff < $epsilon ) {
 				add_filter( 'allow_major_auto_core_updates', '__return_true' );
 				add_filter( 'pre_site_option_update_core', array( $this, 'updates_previous_version' ) );
 				add_filter( 'site_transient_update_core', array( $this, 'updates_previous_version' ) );
