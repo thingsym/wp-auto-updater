@@ -122,6 +122,8 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.2.1
+	* fix float comparison with version number difference
 * Version 1.2.0
 	* update japanese language
 	* update pot
