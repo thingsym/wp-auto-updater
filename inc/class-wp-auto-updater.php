@@ -46,7 +46,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access protected
 	 *
-	 * @var string $schedule_interval   The types of schedule interval
+	 * @var array $schedule_interval   The types of schedule interval
 	 */
 	protected $schedule_interval = array(
 		'twicedaily' => 'Twice Daily (12 hours interval)',
@@ -231,7 +231,7 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.0.2
 	 */
-	public function gather_upgraded_version( $type = null ) {
+	public function gather_upgraded_version() {
 		$this->upgraded_version = get_site_transient( 'wp_auto_updater/upgraded_version' );
 
 		if ( false === $this->upgraded_version ) {
@@ -447,7 +447,7 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function auto_update_wordpress_core() {
-		$option = $this->get_options( 'core' );
+		$option = (string) $this->get_options( 'core' );
 
 		if ( ! $option ) {
 			return false;
@@ -638,9 +638,8 @@ class WP_Auto_Updater {
 		}
 	}
 
-
 	public function register_settings() {
-		if ( false === $this->get_options() ) {
+		if ( null === $this->get_options() ) {
 			add_option( $this->option_name );
 		}
 
@@ -653,7 +652,7 @@ class WP_Auto_Updater {
 		add_settings_section(
 			'version',
 			__( 'WordPress Version', 'wp-auto-updater' ),
-			array(),
+			array( $this, 'settings_section_cb_nothing' ),
 			'wp_auto_updater'
 		);
 
@@ -676,7 +675,7 @@ class WP_Auto_Updater {
 		add_settings_section(
 			'scenario',
 			__( 'Auto Update Scenario', 'wp-auto-updater' ),
-			array(),
+			array( $this, 'settings_section_cb_nothing' ),
 			'wp_auto_updater'
 		);
 
@@ -715,7 +714,7 @@ class WP_Auto_Updater {
 		add_settings_section(
 			'schedule',
 			__( 'Schedule', 'wp-auto-updater' ),
-			array(),
+			array( $this, 'settings_section_cb_nothing' ),
 			'wp_auto_updater'
 		);
 
@@ -842,7 +841,7 @@ class WP_Auto_Updater {
 	 *
 	 * @param string $option_name Optional. The option name.
 	 *
-	 * @return array|value
+	 * @return array|null
 	 *
 	 * @since 1.0.0
 	 */
@@ -915,6 +914,19 @@ class WP_Auto_Updater {
 </div>
 <?php
 	}
+
+	/**
+	 * Callback to settings_section 'settings_section_cb_nothing'
+	 *
+	 * Display nothing.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function settings_section_cb_nothing() {}
 
 	/**
 	 * Callback to settings_field 'newer_wp_version'

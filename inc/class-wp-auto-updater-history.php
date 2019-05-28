@@ -114,7 +114,7 @@ class WP_Auto_Updater_History {
 	 * @since 1.0.2
 	 */
 	public function check_table_version() {
-		if ( version_compare( $this->get_table_version(), $this->table_version, '<' ) ) {
+		if ( version_compare( (string) $this->get_table_version(), $this->table_version, '<' ) ) {
 			$this->migrate_table( $this->history_table_name );
 		}
 	}
@@ -124,21 +124,21 @@ class WP_Auto_Updater_History {
 	 *
 	 * @param string $table_name The name of table.
 	 *
-	 * @return string
+	 * @return string|bool
 	 *
 	 * @since 1.0.2
 	 */
 	public function migrate_table( $table_name = null ) {
 		if ( ! isset( $table_name ) ) {
-			return;
+			return false;
 		}
 		if ( ! $this->table_exists( $table_name ) ) {
-			return;
+			return false;
 		}
 
 		global $wpdb;
 
-		if ( version_compare( $this->get_table_version(), '1.0.1', '<' ) ) {
+		if ( version_compare( (string) $this->get_table_version(), '1.0.1', '<' ) ) {
 			$wpdb->get_results( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
 			$wpdb->get_results( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
 			$wpdb->get_results( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
@@ -146,6 +146,8 @@ class WP_Auto_Updater_History {
 
 		$this->set_table_version();
 		set_transient( 'wp_auto_updater/history_table/updated', 1, 5 );
+
+		return true;
 	}
 
 	/**
@@ -241,7 +243,7 @@ printf(
 	 *
 	 * @access public
 	 *
-	 * @return int
+	 * @return int|null
 	 *
 	 * @since 1.0.0
 	 */
@@ -269,16 +271,16 @@ printf(
 	 *
 	 * @param string $table_name The name of table.
 	 *
-	 * @return array
+	 * @return array|bool
 	 *
 	 * @since 1.0.0
 	 */
 	public function create_table( $table_name = null ) {
 		if ( ! isset( $table_name ) ) {
-			return;
+			return false;
 		}
 		if ( $this->table_exists( $table_name ) ) {
-			return;
+			return false;
 		}
 
 		/**
@@ -355,13 +357,13 @@ printf(
 	 * @param string $label
 	 * @param string $info
 	 *
-	 * @return string
+	 * @return string|bool
 	 *
 	 * @since 1.0.0
 	 */
 	public function logging( $date = null, $status = null, $mode = null, $label = null, $info = null ) {
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
-			return;
+			return false;
 		}
 
 		if ( is_user_logged_in() ) {
@@ -464,9 +466,9 @@ printf(
 	 *
 	 * @access public
 	 *
-	 * @param string $row_count
-	 * @param string $per_page
-	 * @param string $current_paged
+	 * @param integer $row_count
+	 * @param integer $per_page
+	 * @param integer $current_paged
 	 *
 	 * @return string
 	 *
@@ -564,7 +566,7 @@ printf(
 
 		$per_page = 15;
 		$paged    = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
-		$offset   = isset( $paged ) ? ( $paged - 1 ) * $per_page : 0;
+		$offset   = ( $paged - 1 ) * $per_page;
 
 		$sql  = $wpdb->prepare(
 			"SELECT * FROM {$this->history_table_name} ORDER BY date DESC LIMIT %d, %d",
@@ -659,7 +661,7 @@ if ( ! empty( $row_count ) ) {
 </div>
 <br class="clear">
 </div>
-<p class="alignright">Table Version: <?php echo esc_html( $this->get_table_version() ); ?></p>
+<p class="alignright">Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?></p>
 </div>
 <?php
 	}

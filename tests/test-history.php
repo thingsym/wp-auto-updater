@@ -204,8 +204,8 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->assertEquals( 1, get_transient( 'wp_auto_updater/history_table/created' ) );
 		$this->assertEquals( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
 
-		$this->assertNull( $this->wp_auto_updater_history->create_table( $table_name ) );
-		$this->assertNull( $this->wp_auto_updater_history->create_table() );
+		$this->assertFalse( $this->wp_auto_updater_history->create_table( $table_name ) );
+		$this->assertFalse( $this->wp_auto_updater_history->create_table() );
 	}
 
 	/**
