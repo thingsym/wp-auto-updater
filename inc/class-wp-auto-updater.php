@@ -495,6 +495,10 @@ class WP_Auto_Updater {
 			}
 		}
 		elseif ( 'pre-version' === $option ) {
+			/**
+			 * See THE FLOATING-POINT GUIDE
+			 * https://floating-point-gui.de/
+			 */
 			$version_diff = floatval( $new_core_version_xy ) - floatval( $old_core_version_xy );
 			$float_diff   = abs( $version_diff - 0.2 );
 			$epsilon      = 0.00001;
