@@ -28,6 +28,9 @@ You can choose from the following five automatic updates of WordPress Core.
 * Previous Generation Version Update
 * Manual Update
 
+### WordPress Update Process Chart
+<img src="screenshot-3.png">
+
 ### Minor Version Update (Recommended)
 
 **Minor Version Update (Recommended)** enable minor updates. Minor updates is default behavior in WordPress for security updates. The transition of the version number is as follows: update from 4.8 to 4.8.1, 4.8.2 ...
@@ -122,6 +125,11 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.2.2
+	* add WordPress Update Process Chart screenshot
+	* fix test case
+	* add test case for floating point
+	* refactoring with phpmd and phpstan
 * Version 1.2.1
 	* fix float comparison with version number difference
 * Version 1.2.0
@@ -149,4 +157,4 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## License
 
-Licensed under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
+Licensed under [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html).

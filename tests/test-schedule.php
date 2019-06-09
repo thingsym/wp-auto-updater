@@ -193,15 +193,12 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			'America/New_York',
 			'Asia/Tokyo',
 			'Europe/London',
-			'UTC-12',
-			'UTC+0',
-			'UTC+2.5',
-			'UTC+9',
-			'UTC+14',
+			'UTC',
 		);
 
-		foreach ( $timezone as $tz ) {
-			update_option( 'timezone_string', $tz );
+		foreach ( $timezone as $zone ) {
+			update_option( 'timezone_string', $zone );
+			// date_default_timezone_set( $zone );
 
 			foreach ( range( 0, 23 ) as $hour ) {
 				$schedule = array(
@@ -214,11 +211,94 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
 
-				$message  = '';
-				$message .= time() . '-';
-				$message .= $timestamp . '-';
-				// $message .= $schedule . '-';
-				$message .= $hour . '-';
+				$diff = time() - $timestamp;
+				$date = getdate( $timestamp );
+				$message = $zone . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['mday'] . '/' . $date['hours'];
+
+				$this->assertGreaterThan( time(), $timestamp, $message );
+			}
+
+			foreach ( range( 0, 23 ) as $hour ) {
+				$schedule = array(
+					'interval' => 'daily',
+					'day'      => 1,
+					'weekday'  => 'monday',
+					'hour'     => $hour,
+					'minute'   => 0,
+				);
+
+				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertGreaterThan( time(), $timestamp );
+			}
+
+			$schedule_weekdays = array(
+				'monday',
+				'tuesday',
+				'wednesday',
+				'thursday',
+				'friday',
+				'saturday',
+				'sunday',
+			);
+
+			foreach ( $schedule_weekdays as $key ) {
+				$schedule = array(
+					'interval' => 'weekly',
+					'day'      => 1,
+					'weekday'  => $key,
+					'hour'     => 6,
+					'minute'   => 0,
+				);
+
+				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertGreaterThan( time(), $timestamp );
+			}
+
+			foreach ( range( 1, 31 ) as $day ) {
+				$schedule = array(
+					'interval' => 'monthly',
+					'day'      => $day,
+					'weekday'  => 'monday',
+					'hour'     => 6,
+					'minute'   => 0,
+				);
+
+				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertGreaterThan( time(), $timestamp );
+			}
+		}
+	}
+
+	/**
+	 * @test
+	 * @group schedule
+	 */
+	public function timestamp_timeoffset() {
+		$timeoffset = array(
+			'UTC-12',
+			'UTC+0',
+			'UTC+2.5',
+			'UTC+9',
+			'UTC+14',
+		);
+
+		foreach ( $timeoffset as $offset ) {
+			update_option( 'timezone_string', $offset );
+
+			foreach ( range( 0, 23 ) as $hour ) {
+				$schedule = array(
+					'interval' => 'twicedaily',
+					'day'      => 1,
+					'weekday'  => 'monday',
+					'hour'     => $hour,
+					'minute'   => 0,
+				);
+
+				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+
+				$diff = time() - $timestamp;
+				$date = getdate( $timestamp );
+				$message = $offset . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['mday'] . '/' . $date['hours'];
 
 				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
