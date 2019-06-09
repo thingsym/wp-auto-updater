@@ -471,9 +471,11 @@ class WP_Auto_Updater {
 		}
 
 		global $wp_version;
-		$old_core_version    = $wp_version;
+		$old_core_version = $wp_version;
+		$new_core_version = $auto_update_info->current;
+
 		$old_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $old_core_version ), 0, 2 ) );
-		$new_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $auto_update_info->current ), 0, 2 ) );
+		$new_core_version_xy = implode( '.', array_slice( preg_split( '/[.-]/', $new_core_version ), 0, 2 ) );
 
 		do_action( 'wp_auto_updater/before_auto_update/wordpress_core' );
 
@@ -485,7 +487,7 @@ class WP_Auto_Updater {
 		}
 		elseif ( 'minor-only' === $option ) {
 			if ( version_compare( $new_core_version_xy, $old_core_version_xy, '>' ) ) {
-				$version_z = implode( '.', array_slice( preg_split( '/[.-]/', $auto_update_info->current ), 2, 1 ) );
+				$version_z = implode( '.', array_slice( preg_split( '/[.-]/', $new_core_version ), 2, 1 ) );
 
 				if ( ! empty( $version_z ) ) {
 					add_filter( 'allow_major_auto_core_updates', '__return_true' );
