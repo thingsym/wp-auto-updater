@@ -125,6 +125,11 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.2.2
+	* add WordPress Update Process Chart screenshot
+	* fix test case
+	* add test case for floating point
+	* refactoring with phpmd and phpstan
 * Version 1.2.1
 	* fix float comparison with version number difference
 * Version 1.2.0

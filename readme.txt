@@ -4,7 +4,7 @@ Tags: updates, auto update, automatic updates, background updates, core updates,
 Requires at least: 3.9
 Requires PHP: 5.4
 Tested up to: 5.2.0
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,12 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.2.2 =
+* add WordPress Update Process Chart screenshot
+* fix test case
+* add test case for floating point
+* refactoring with phpmd and phpstan
 
 = 1.2.1 =
 * fix float comparison with version number difference
