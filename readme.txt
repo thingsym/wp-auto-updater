@@ -110,6 +110,7 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 1. Auto Update settings
 2. Auto Update History
+3. WordPress Update Process Chart
 
 == Changelog ==
 

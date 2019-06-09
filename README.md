@@ -28,6 +28,9 @@ You can choose from the following five automatic updates of WordPress Core.
 * Previous Generation Version Update
 * Manual Update
 
+### WordPress Update Process Chart
+<img src="screenshot-3.png">
+
 ### Minor Version Update (Recommended)
 
 **Minor Version Update (Recommended)** enable minor updates. Minor updates is default behavior in WordPress for security updates. The transition of the version number is as follows: update from 4.8 to 4.8.1, 4.8.2 ...
