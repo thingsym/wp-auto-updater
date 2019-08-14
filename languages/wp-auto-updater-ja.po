@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WP Auto Updater package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Auto Updater 1.1.0\n"
+"Project-Id-Version: WP Auto Updater 1.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-auto-updater\n"
-"POT-Creation-Date: 2019-02-11 13:15:28+00:00\n"
+"POT-Creation-Date: 2019-08-14 14:36:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -254,6 +254,10 @@ msgstr "分: "
 #: inc/class-wp-auto-updater.php:1137
 msgid "Select a theme that you do not want to automatically update."
 msgstr "自動更新を停止するテーマを選んでください。"
+
+#: inc/class-wp-auto-updater.php:1180 inc/class-wp-auto-updater.php:1200
+msgid "%d installed"
+msgstr "%d 個インストール済み"
 
 #: inc/class-wp-auto-updater.php:1152
 msgid "Select a plugin that you do not want to automatically update."
