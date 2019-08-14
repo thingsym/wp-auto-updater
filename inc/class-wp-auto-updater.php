@@ -892,7 +892,11 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-auto-updater', false, dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/' );
+		load_plugin_textdomain(
+			'wp-auto-updater',
+			false,
+			dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/'
+		);
 	}
 
 	/**
