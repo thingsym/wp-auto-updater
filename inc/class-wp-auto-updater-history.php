@@ -644,6 +644,11 @@ if ( ! empty( $row_count ) ) {
 <form action="" method="post" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return ture;}else{return false;}">
 <?php wp_nonce_field( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'], true, true ); ?>
 <input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>"></form>
+<br class="clear">
+</div>
+
+<div class="alignleft">
+<p>Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?></p>
 </div>
 
 <div class="tablenav-pages">
@@ -658,10 +663,11 @@ if ( ! empty( $row_count ) ) {
 ?>
 </span>
 <?php echo $paginate; ?>
-</div>
 <br class="clear">
 </div>
-<p class="alignright">Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?></p>
+
+</div>
+
 </div>
 <?php
 	}
