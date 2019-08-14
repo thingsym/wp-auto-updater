@@ -644,6 +644,17 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Register the form setting.
+	 *
+	 * Hooks to admin_init.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0
+	 */
 	public function register_settings() {
 		if ( null === $this->get_options() ) {
 			add_option( $this->option_name );
