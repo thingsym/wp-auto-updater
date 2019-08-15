@@ -644,6 +644,17 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Register the form setting.
+	 *
+	 * Hooks to admin_init.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0
+	 */
 	public function register_settings() {
 		if ( null === $this->get_options() ) {
 			add_option( $this->option_name );
@@ -892,7 +903,11 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-auto-updater', false, dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/' );
+		load_plugin_textdomain(
+			'wp-auto-updater',
+			false,
+			dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/'
+		);
 	}
 
 	/**
@@ -1161,6 +1176,11 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'disable_auto_update' );
 		$themes = wp_get_themes();
 
+		printf(
+			__( '%d installed', 'wp-auto-updater' ),
+			esc_html( count($themes) )
+		);
+
 		foreach ( $themes as $theme ) {
 ?>
 <p><label><input type="checkbox" name="wp_auto_updater_options[disable_auto_update][themes][]" value="<?php echo esc_attr( $theme->get_stylesheet() ); ?>"<?php checked( true, in_array( $theme->get_stylesheet(), $option['themes'], true ) ); ?>> <?php echo esc_html( $theme->get( 'Name' ) ); ?> v<?php echo esc_html( $theme->get( 'Version' ) ); ?></label></p>
@@ -1175,6 +1195,11 @@ class WP_Auto_Updater {
 	public function settings_field_cb_scenario_plugins() {
 		$option  = $this->get_options( 'disable_auto_update' );
 		$plugins = get_plugins();
+
+		printf(
+			__( '%d installed', 'wp-auto-updater' ),
+			esc_html( count($plugins) )
+		);
 
 		foreach ( $plugins as $path => $plugin ) {
 		?>

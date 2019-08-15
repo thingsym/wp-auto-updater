@@ -483,11 +483,11 @@ printf(
 		$total_pages = intval( ceil( $row_count / $per_page ) );
 
 		if ( 2 >= $current_paged ) {
-			$paginate .= '<span class="tablenav-pages-navspan" aria-hidden="true">&laquo;</span>';
+			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='first-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				"<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', 1 ) ),
 				__( 'First page' ),
 				'&laquo;'
@@ -497,11 +497,11 @@ printf(
 		$paginate .= ' ';
 
 		if ( 1 === $current_paged ) {
-			$paginate .= '<span class="tablenav-pages-navspan" aria-hidden="true">&lsaquo;</span>';
+			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>';
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='prev-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				"<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', max( 1, $current_paged - 1 ) ) ),
 				__( 'Previous page' ),
 				'&lsaquo;'
@@ -511,11 +511,11 @@ printf(
 		$paginate .= ' ' . $current_paged . ' / ' . $total_pages . ' ';
 
 		if ( $current_paged === $total_pages ) {
-			$paginate .= '<span class="tablenav-pages-navspan" aria-hidden="true">&rsaquo;</span>';
+			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='next-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				"<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', min( $total_pages, $current_paged + 1 ) ) ),
 				__( 'Next page' ),
 				'&rsaquo;'
@@ -525,11 +525,11 @@ printf(
 		$paginate .= ' ';
 
 		if ( $current_paged >= $total_pages - 1 ) {
-			$paginate .= '<span class="tablenav-pages-navspan" aria-hidden="true">&raquo;</span>';
+			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>';
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='last-page' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				"<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', $total_pages ) ),
 				__( 'Last page' ),
 				'&raquo;'
@@ -644,6 +644,11 @@ if ( ! empty( $row_count ) ) {
 <form action="" method="post" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return ture;}else{return false;}">
 <?php wp_nonce_field( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'], true, true ); ?>
 <input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>"></form>
+<br class="clear">
+</div>
+
+<div class="alignleft">
+<p>Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?></p>
 </div>
 
 <div class="tablenav-pages">
@@ -658,10 +663,11 @@ if ( ! empty( $row_count ) ) {
 ?>
 </span>
 <?php echo $paginate; ?>
-</div>
 <br class="clear">
 </div>
-<p class="alignright">Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?></p>
+
+</div>
+
 </div>
 <?php
 	}

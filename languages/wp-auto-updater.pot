@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WP Auto Updater package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Auto Updater 1.1.0\n"
+"Project-Id-Version: WP Auto Updater 1.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-auto-updater\n"
-"POT-Creation-Date: 2019-02-11 13:15:28+00:00\n"
+"POT-Creation-Date: 2019-08-14 14:36:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,86 +12,86 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: inc/class-wp-auto-updater-history.php:165
+#: inc/class-wp-auto-updater-history.php:167
 msgid "Table <strong>%1$s (%2$s)</strong> create succeeded."
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:183
+#: inc/class-wp-auto-updater-history.php:185
 msgid "Table <strong>%1$s (%2$s)</strong> update succeeded."
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:422
-#: inc/class-wp-auto-updater-history.php:423
-#: inc/class-wp-auto-updater-history.php:581
+#: inc/class-wp-auto-updater-history.php:424
+#: inc/class-wp-auto-updater-history.php:425
+#: inc/class-wp-auto-updater-history.php:592
 msgid "Update History"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:490
+#: inc/class-wp-auto-updater-history.php:492
 msgid "First page"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:504
+#: inc/class-wp-auto-updater-history.php:506
 msgid "Previous page"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:518
+#: inc/class-wp-auto-updater-history.php:529
 msgid "Next page"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:532
+#: inc/class-wp-auto-updater-history.php:543
 msgid "Last page"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:553
+#: inc/class-wp-auto-updater-history.php:564
 msgid "Table no exists."
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:583
+#: inc/class-wp-auto-updater-history.php:594
 msgid "Logs cleared."
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:593
-#: inc/class-wp-auto-updater-history.php:652
+#: inc/class-wp-auto-updater-history.php:604
+#: inc/class-wp-auto-updater-history.php:668
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-wp-auto-updater-history.php:607
-#: inc/class-wp-auto-updater-history.php:629
+#: inc/class-wp-auto-updater-history.php:618
+#: inc/class-wp-auto-updater-history.php:640
 msgid "Date"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:608
-#: inc/class-wp-auto-updater-history.php:630
+#: inc/class-wp-auto-updater-history.php:619
+#: inc/class-wp-auto-updater-history.php:641
 msgid "User"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:609
-#: inc/class-wp-auto-updater-history.php:631
+#: inc/class-wp-auto-updater-history.php:620
+#: inc/class-wp-auto-updater-history.php:642
 msgid "Status"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:610
-#: inc/class-wp-auto-updater-history.php:632
+#: inc/class-wp-auto-updater-history.php:621
+#: inc/class-wp-auto-updater-history.php:643
 msgid "Mode"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:611
-#: inc/class-wp-auto-updater-history.php:633
+#: inc/class-wp-auto-updater-history.php:622
+#: inc/class-wp-auto-updater-history.php:644
 msgid "Label"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:612
-#: inc/class-wp-auto-updater-history.php:634
+#: inc/class-wp-auto-updater-history.php:623
+#: inc/class-wp-auto-updater-history.php:645
 msgid "Info"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:642
+#: inc/class-wp-auto-updater-history.php:653
 msgid "Would you like to delete the logs?"
 msgstr ""
 
-#: inc/class-wp-auto-updater-history.php:644
+#: inc/class-wp-auto-updater-history.php:655
 msgid "Clear Logs"
 msgstr ""
 
@@ -103,167 +103,171 @@ msgstr ""
 msgid "Once Monthly"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:653
+#: inc/class-wp-auto-updater.php:671
 msgid "WordPress Version"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:660
+#: inc/class-wp-auto-updater.php:678
 msgid "Current Version"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:668
+#: inc/class-wp-auto-updater.php:686
 msgid "Newer Version"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:676
+#: inc/class-wp-auto-updater.php:694
 msgid "Auto Update Scenario"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:683
+#: inc/class-wp-auto-updater.php:701
 msgid "WordPress Core"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:691
+#: inc/class-wp-auto-updater.php:709
 msgid "Theme"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:699
+#: inc/class-wp-auto-updater.php:717
 msgid "Plugin"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:707
+#: inc/class-wp-auto-updater.php:725
 msgid "Translation"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:715
+#: inc/class-wp-auto-updater.php:733
 msgid "Schedule"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:722
+#: inc/class-wp-auto-updater.php:740
 msgid "Next Update Date"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:730
+#: inc/class-wp-auto-updater.php:748
 msgid "Update Interval"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:738
+#: inc/class-wp-auto-updater.php:756
 msgid "Update Date"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:746
+#: inc/class-wp-auto-updater.php:764
 msgid "Disable Auto Update Themes"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:753
+#: inc/class-wp-auto-updater.php:771
 msgid "Themes"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:761
+#: inc/class-wp-auto-updater.php:779
 msgid "Disable Auto Update Plugins"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:768
+#: inc/class-wp-auto-updater.php:786
 msgid "Plugins"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:800 inc/class-wp-auto-updater.php:801
-#: inc/class-wp-auto-updater.php:903
+#: inc/class-wp-auto-updater.php:818 inc/class-wp-auto-updater.php:819
+#: inc/class-wp-auto-updater.php:925
 msgid "Auto Updater"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:966
+#: inc/class-wp-auto-updater.php:1001
 msgid "Minor Version Update (Recommended)"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:967
+#: inc/class-wp-auto-updater.php:1002
 msgid "Major Version Update"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:968
+#: inc/class-wp-auto-updater.php:1003
 msgid "Minor Only Version Update"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:969
+#: inc/class-wp-auto-updater.php:1004
 msgid "Previous Generation Version Update"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:970 inc/class-wp-auto-updater.php:980
-#: inc/class-wp-auto-updater.php:990 inc/class-wp-auto-updater.php:1000
+#: inc/class-wp-auto-updater.php:1005 inc/class-wp-auto-updater.php:1015
+#: inc/class-wp-auto-updater.php:1025 inc/class-wp-auto-updater.php:1035
 msgid "Manual Update"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:979 inc/class-wp-auto-updater.php:989
-#: inc/class-wp-auto-updater.php:999
+#: inc/class-wp-auto-updater.php:1014 inc/class-wp-auto-updater.php:1024
+#: inc/class-wp-auto-updater.php:1034
 msgid "Auto Update"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1015
+#: inc/class-wp-auto-updater.php:1050
 msgid "Local time"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1016
+#: inc/class-wp-auto-updater.php:1051
 msgid "GMT"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1026
+#: inc/class-wp-auto-updater.php:1061
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-wp-auto-updater.php:1032 inc/class-wp-auto-updater.php:1050
+#: inc/class-wp-auto-updater.php:1067 inc/class-wp-auto-updater.php:1085
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-wp-auto-updater.php:1039 inc/class-wp-auto-updater.php:1056
-#: inc/class-wp-auto-updater.php:1067
+#: inc/class-wp-auto-updater.php:1074 inc/class-wp-auto-updater.php:1091
+#: inc/class-wp-auto-updater.php:1102
 msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-wp-auto-updater.php:1044 inc/class-wp-auto-updater.php:1061
-#: inc/class-wp-auto-updater.php:1071
+#: inc/class-wp-auto-updater.php:1079 inc/class-wp-auto-updater.php:1096
+#: inc/class-wp-auto-updater.php:1106
 msgid "ago"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1044 inc/class-wp-auto-updater.php:1061
-#: inc/class-wp-auto-updater.php:1071
+#: inc/class-wp-auto-updater.php:1079 inc/class-wp-auto-updater.php:1096
+#: inc/class-wp-auto-updater.php:1106
 msgid "later"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1087
+#: inc/class-wp-auto-updater.php:1122
 msgid "Day: "
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1096
+#: inc/class-wp-auto-updater.php:1131
 msgid "Weekday: "
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1115
+#: inc/class-wp-auto-updater.php:1150
 msgid "Hour: "
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1124
+#: inc/class-wp-auto-updater.php:1159
 msgid "Minute: "
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1137
+#: inc/class-wp-auto-updater.php:1172
 msgid "Select a theme that you do not want to automatically update."
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1152
+#: inc/class-wp-auto-updater.php:1180 inc/class-wp-auto-updater.php:1200
+msgid "%d installed"
+msgstr ""
+
+#: inc/class-wp-auto-updater.php:1192
 msgid "Select a plugin that you do not want to automatically update."
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1233
+#: inc/class-wp-auto-updater.php:1278
 msgid "Settings"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1272
+#: inc/class-wp-auto-updater.php:1317
 msgid "Automatic updating is not possible."
 msgstr ""
 
