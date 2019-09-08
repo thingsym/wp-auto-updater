@@ -1,36 +1,30 @@
-(function($) {
-	$(document).ready(function() {
-		$schedule_interval_name = 'wp_auto_updater_options[schedule][interval]';
+( function() {
+	document.querySelectorAll('input[name="wp_auto_updater_options[schedule][interval]"]').forEach( function (el) {
+		el.addEventListener( 'change', function(e) {
+			_form_controller();
+		} );
+	} );
 
-		$('input[name="' + $schedule_interval_name + '"]:radio').on( 'change', function(e) {
-			$interval = $( this ).val();
-			_form_controller($interval);
-		});
+	function _form_controller() {
+		const $interval = document.querySelector('input[name="wp_auto_updater_options[schedule][interval]"]:checked').value;
 
-		function init() {
-			$interval = $('input[name="' + $schedule_interval_name + '"]:radio:checked').val();
-			_form_controller($interval);
+		if ( $interval == 'twicedaily' ) {
+			document.querySelector('.schedule_day').style.display = 'none';
+			document.querySelector('.schedule_weekday').style.display = 'none';
 		}
-
-		function _form_controller($interval) {
-			if ( $interval == 'twicedaily' ) {
-				$('.schedule_day').hide();
-				$('.schedule_weekday').hide();
-			}
-			else if ( $interval == 'daily' ) {
-				$('.schedule_day').hide();
-				$('.schedule_weekday').hide();
-			}
-			else if ( $interval == 'weekly' ) {
-				$('.schedule_day').hide();
-				$('.schedule_weekday').show();
-			}
-			else if ( $interval == 'monthly' ) {
-				$('.schedule_day').show();
-				$('.schedule_weekday').hide();
-			}
+		else if ( $interval == 'daily' ) {
+			document.querySelector('.schedule_day').style.display = 'none';
+			document.querySelector('.schedule_weekday').style.display = 'none';
 		}
+		else if ( $interval == 'weekly' ) {
+			document.querySelector('.schedule_day').style.display = 'none';
+			document.querySelector('.schedule_weekday').style.display = 'block';
+		}
+		else if ( $interval == 'monthly' ) {
+			document.querySelector('.schedule_day').style.display = 'block';
+			document.querySelector('.schedule_weekday').style.display = 'none';
+		}
+	}
 
-		init();
-	});
-})(jQuery);
+	_form_controller();
+} )();
