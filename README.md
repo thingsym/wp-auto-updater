@@ -125,6 +125,10 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.3.0
+	* add link to WordPress Update Process Chart screenshot
+	* fix pot
+	* remove jQuery dependency in form_controller function
 * Version 1.2.3
 	* add installed info
 	* add reset-wp-tests.sh, uninstall-wp-tests.sh
