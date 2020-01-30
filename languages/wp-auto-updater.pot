@@ -326,3 +326,6 @@ msgstr ""
 
 msgid "Sunday"
 msgstr ""
+
+msgid "See WordPress Update Process Chart"
+msgstr ""
