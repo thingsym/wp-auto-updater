@@ -4,7 +4,7 @@ Tags: updates, auto update, automatic updates, background updates, core updates,
 Requires at least: 3.9
 Requires PHP: 5.4
 Tested up to: 5.3.0
-Stable tag: 1.2.3
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,11 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.3.0 =
+* add link to WordPress Update Process Chart screenshot
+* fix pot
+* remove jQuery dependency in form_controller function
 
 = 1.2.3 =
 * add installed info
