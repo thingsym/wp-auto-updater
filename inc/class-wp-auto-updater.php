@@ -46,20 +46,6 @@ class WP_Auto_Updater {
 	 *
 	 * @access protected
 	 *
-	 * @var array $schedule_interval   The types of schedule interval
-	 */
-	protected $schedule_interval = array(
-		'twicedaily' => 'Twice Daily (12 hours interval)',
-		'daily'      => 'Daily',
-		'weekly'     => 'Weekly',
-		'monthly'    => 'Monthly',
-	);
-
-	/**
-	 * Protected value.
-	 *
-	 * @access protected
-	 *
 	 * @var array $default_options {
 	 *   default options
 	 *
@@ -937,6 +923,26 @@ class WP_Auto_Updater {
 	}
 
 	/**
+	 * Get schedule interval variable.
+	 *
+	 * @access public
+	 *
+	 * @return array
+	 *
+	 * @since 1.3.0
+	 */
+	public function get_schedule_interval() {
+		$schedule_interval = array(
+			'twicedaily' => __( 'Twice Daily (12 hours interval)', 'wp-auto-updater' ),
+			'daily'      => __( 'Daily', 'wp-auto-updater' ),
+			'weekly'     => __( 'Weekly', 'wp-auto-updater' ),
+			'monthly'    => __( 'Monthly', 'wp-auto-updater' ),
+		);
+
+		return $schedule_interval;
+	}
+
+	/**
 	 * Callback to settings_section 'settings_section_cb_nothing'
 	 *
 	 * Display nothing.
@@ -1047,7 +1053,8 @@ class WP_Auto_Updater {
 		}
 
 		$gmt_offset_sec = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
-		echo '<p>' . esc_html_e( ucfirst( $this->schedule_interval[ $option['interval'] ] ), 'wp-auto-updater' ) . '</p>';
+		$schedule_interval = $this->get_schedule_interval();
+		echo '<p>' . esc_html( $schedule_interval[ $option['interval'] ] ) . '</p>';
 ?>
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
@@ -1112,7 +1119,8 @@ class WP_Auto_Updater {
 
 	public function settings_field_cb_schedule_interval() {
 		$option = $this->get_options( 'schedule' );
-		foreach ( $this->schedule_interval as $key => $label ) {
+		$schedule_interval = $this->get_schedule_interval();
+		foreach ( $schedule_interval as $key => $label ) {
 			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html__( $label, 'wp-auto-updater' ) . '</label></p>';
 		}
 	}
@@ -1134,17 +1142,17 @@ class WP_Auto_Updater {
 <select name="wp_auto_updater_options[schedule][weekday]">
 	<?php
 	$schedule_weekdays = array(
-		'monday',
-		'tuesday',
-		'wednesday',
-		'thursday',
-		'friday',
-		'saturday',
-		'sunday',
+		'monday'    => __( 'Monday', 'wp-auto-updater' ),
+		'tuesday'   => __( 'Tuesday', 'wp-auto-updater' ),
+		'wednesday' => __( 'Wednesday', 'wp-auto-updater' ),
+		'thursday'  => __( 'Thursday', 'wp-auto-updater' ),
+		'friday'    => __( 'Friday', 'wp-auto-updater' ),
+		'saturday'  => __( 'Saturday', 'wp-auto-updater' ),
+		'sunday'    => __( 'Sunday', 'wp-auto-updater' ),
 	);
 
-	foreach ( $schedule_weekdays as $key ) {
-		echo '<option value="' . esc_attr( $key ) . '"' . selected( $key, $option['weekday'], false ) . '>' . esc_html__( ucfirst( $key ), 'wp-auto-updater' ) . '</option>';
+	foreach ( $schedule_weekdays as $key => $label ) {
+		echo '<option value="' . esc_attr( $key ) . '"' . selected( $key, $option['weekday'], false ) . '>' . esc_html( $label ) . '</option>';
 	}
 	?>
 </select></p>
