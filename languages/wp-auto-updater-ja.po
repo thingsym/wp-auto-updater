@@ -1,283 +1,358 @@
-# Copyright (C) 2019 WP Auto Updater
+# Copyright (C) 2020 WP Auto Updater
 # This file is distributed under the same license as the WP Auto Updater package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Auto Updater 1.2.3\n"
+"Project-Id-Version: WP Auto Updater 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-auto-updater\n"
-"POT-Creation-Date: 2019-08-14 14:36:33+00:00\n"
+"POT-Creation-Date: 2020-06-17 06:43:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: inc/class-wp-auto-updater-history.php:165
+#: inc/class-wp-auto-updater-history.php:167
+#: inc/class-wp-auto-updater-notification.php:167
 msgid "Table <strong>%1$s (%2$s)</strong> create succeeded."
 msgstr "テーブル <strong>%1$s (%2$s)</strong> を作成しました。"
 
-#: inc/class-wp-auto-updater-history.php:183
+#: inc/class-wp-auto-updater-history.php:185
+#: inc/class-wp-auto-updater-notification.php:185
 msgid "Table <strong>%1$s (%2$s)</strong> update succeeded."
 msgstr "テーブル <strong>%1$s (%2$s)</strong> をアップデートしました。"
 
-#: inc/class-wp-auto-updater-history.php:422
-#: inc/class-wp-auto-updater-history.php:423
-#: inc/class-wp-auto-updater-history.php:581
+#: inc/class-wp-auto-updater-history.php:424
+#: inc/class-wp-auto-updater-history.php:425
+#: inc/class-wp-auto-updater-history.php:583
+#: inc/class-wp-auto-updater-notification.php:424
+#: inc/class-wp-auto-updater-notification.php:425
+#: inc/class-wp-auto-updater-notification.php:583
 msgid "Update History"
 msgstr "アップデート履歴"
 
-#: inc/class-wp-auto-updater-history.php:490
+#: inc/class-wp-auto-updater-history.php:492
+#: inc/class-wp-auto-updater-notification.php:492
 msgid "First page"
 msgstr "はじめのページへ"
 
-#: inc/class-wp-auto-updater-history.php:504
+#: inc/class-wp-auto-updater-history.php:506
+#: inc/class-wp-auto-updater-notification.php:506
 msgid "Previous page"
 msgstr "前のページへ"
 
-#: inc/class-wp-auto-updater-history.php:518
+#: inc/class-wp-auto-updater-history.php:520
+#: inc/class-wp-auto-updater-notification.php:520
 msgid "Next page"
 msgstr "次のページへ"
 
-#: inc/class-wp-auto-updater-history.php:532
+#: inc/class-wp-auto-updater-history.php:534
+#: inc/class-wp-auto-updater-notification.php:534
 msgid "Last page"
 msgstr "最後のページへ"
 
-#: inc/class-wp-auto-updater-history.php:553
+#: inc/class-wp-auto-updater-history.php:555
+#: inc/class-wp-auto-updater-notification.php:555
 msgid "Table no exists."
 msgstr "テーブルはありません。"
 
-#: inc/class-wp-auto-updater-history.php:583
+#: inc/class-wp-auto-updater-history.php:585
+#: inc/class-wp-auto-updater-notification.php:585
 msgid "Logs cleared."
 msgstr "ログをクリアしました。"
 
-#: inc/class-wp-auto-updater-history.php:593
-#: inc/class-wp-auto-updater-history.php:652
+#: inc/class-wp-auto-updater-history.php:595
+#: inc/class-wp-auto-updater-history.php:659
+#: inc/class-wp-auto-updater-notification.php:595
+#: inc/class-wp-auto-updater-notification.php:659
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] "%d 個の項目"
 msgstr[1] "%d 個の項目"
 
-#: inc/class-wp-auto-updater-history.php:607
-#: inc/class-wp-auto-updater-history.php:629
+#: inc/class-wp-auto-updater-history.php:609
+#: inc/class-wp-auto-updater-history.php:631
+#: inc/class-wp-auto-updater-notification.php:609
+#: inc/class-wp-auto-updater-notification.php:631
 msgid "Date"
 msgstr "日時"
 
-#: inc/class-wp-auto-updater-history.php:608
-#: inc/class-wp-auto-updater-history.php:630
+#: inc/class-wp-auto-updater-history.php:610
+#: inc/class-wp-auto-updater-history.php:632
+#: inc/class-wp-auto-updater-notification.php:610
+#: inc/class-wp-auto-updater-notification.php:632
 msgid "User"
 msgstr "ユーザー"
 
-#: inc/class-wp-auto-updater-history.php:609
-#: inc/class-wp-auto-updater-history.php:631
+#: inc/class-wp-auto-updater-history.php:611
+#: inc/class-wp-auto-updater-history.php:633
+#: inc/class-wp-auto-updater-notification.php:611
+#: inc/class-wp-auto-updater-notification.php:633
 msgid "Status"
 msgstr "ステイタス"
 
-#: inc/class-wp-auto-updater-history.php:610
-#: inc/class-wp-auto-updater-history.php:632
+#: inc/class-wp-auto-updater-history.php:612
+#: inc/class-wp-auto-updater-history.php:634
+#: inc/class-wp-auto-updater-notification.php:612
+#: inc/class-wp-auto-updater-notification.php:634
 msgid "Mode"
 msgstr "モード"
 
-#: inc/class-wp-auto-updater-history.php:611
-#: inc/class-wp-auto-updater-history.php:633
+#: inc/class-wp-auto-updater-history.php:613
+#: inc/class-wp-auto-updater-history.php:635
+#: inc/class-wp-auto-updater-notification.php:613
+#: inc/class-wp-auto-updater-notification.php:635
 msgid "Label"
 msgstr "ラベル"
 
-#: inc/class-wp-auto-updater-history.php:612
-#: inc/class-wp-auto-updater-history.php:634
+#: inc/class-wp-auto-updater-history.php:614
+#: inc/class-wp-auto-updater-history.php:636
+#: inc/class-wp-auto-updater-notification.php:614
+#: inc/class-wp-auto-updater-notification.php:636
 msgid "Info"
 msgstr "内容"
 
-#: inc/class-wp-auto-updater-history.php:642
+#: inc/class-wp-auto-updater-history.php:644
+#: inc/class-wp-auto-updater-notification.php:644
 msgid "Would you like to delete the logs?"
 msgstr "ログを削除しますか?"
 
-#: inc/class-wp-auto-updater-history.php:644
+#: inc/class-wp-auto-updater-history.php:646
+#: inc/class-wp-auto-updater-notification.php:646
 msgid "Clear Logs"
 msgstr "ログをクリア"
 
-#: inc/class-wp-auto-updater.php:315 tests/test-schedule.php:25
+#: inc/class-wp-auto-updater.php:301 tests/test-schedule.php:25
 msgid "Once Weekly"
 msgstr "週一回"
 
-#: inc/class-wp-auto-updater.php:320 tests/test-schedule.php:29
+#: inc/class-wp-auto-updater.php:306 tests/test-schedule.php:29
 msgid "Once Monthly"
 msgstr "月一回"
 
-#: inc/class-wp-auto-updater.php:653
+#: inc/class-wp-auto-updater.php:657
 msgid "WordPress Version"
 msgstr "WordPressのバージョン"
 
-#: inc/class-wp-auto-updater.php:660
+#: inc/class-wp-auto-updater.php:664
 msgid "Current Version"
 msgstr "今のバージョン"
 
-#: inc/class-wp-auto-updater.php:668
+#: inc/class-wp-auto-updater.php:672
 msgid "Newer Version"
 msgstr "最新のバージョン"
 
-#: inc/class-wp-auto-updater.php:676
+#: inc/class-wp-auto-updater.php:680
 msgid "Auto Update Scenario"
 msgstr "自動更新シナリオ"
 
-#: inc/class-wp-auto-updater.php:683
+#: inc/class-wp-auto-updater.php:687
 msgid "WordPress Core"
 msgstr "WordPress本体"
 
-#: inc/class-wp-auto-updater.php:691
+#: inc/class-wp-auto-updater.php:695
 msgid "Theme"
 msgstr "テーマ"
 
-#: inc/class-wp-auto-updater.php:699
+#: inc/class-wp-auto-updater.php:703
 msgid "Plugin"
 msgstr "プラグイン"
 
-#: inc/class-wp-auto-updater.php:707
+#: inc/class-wp-auto-updater.php:711
 msgid "Translation"
 msgstr "翻訳"
 
-#: inc/class-wp-auto-updater.php:715
+#: inc/class-wp-auto-updater.php:719
 msgid "Schedule"
 msgstr "スケジュール"
 
-#: inc/class-wp-auto-updater.php:722
+#: inc/class-wp-auto-updater.php:726
 msgid "Next Update Date"
 msgstr "次の更新日"
 
-#: inc/class-wp-auto-updater.php:730
+#: inc/class-wp-auto-updater.php:734
 msgid "Update Interval"
 msgstr "更新間隔"
 
-#: inc/class-wp-auto-updater.php:738
+#: inc/class-wp-auto-updater.php:742
 msgid "Update Date"
 msgstr "更新日時"
 
-#: inc/class-wp-auto-updater.php:746
+#: inc/class-wp-auto-updater.php:750
 msgid "Disable Auto Update Themes"
 msgstr "自動更新を停止するテーマ"
 
-#: inc/class-wp-auto-updater.php:753
+#: inc/class-wp-auto-updater.php:757
 msgid "Themes"
 msgstr "テーマ"
 
-#: inc/class-wp-auto-updater.php:761
+#: inc/class-wp-auto-updater.php:765
 msgid "Disable Auto Update Plugins"
 msgstr "自動更新を停止するプラグイン"
 
-#: inc/class-wp-auto-updater.php:768
+#: inc/class-wp-auto-updater.php:772
 msgid "Plugins"
 msgstr "プラグイン"
 
-#: inc/class-wp-auto-updater.php:800 inc/class-wp-auto-updater.php:801
-#: inc/class-wp-auto-updater.php:903
+#: inc/class-wp-auto-updater.php:804 inc/class-wp-auto-updater.php:805
+#: inc/class-wp-auto-updater.php:911
 msgid "Auto Updater"
 msgstr "自動更新"
 
-#: inc/class-wp-auto-updater.php:966
+#: inc/class-wp-auto-updater.php:936
+msgid "Twice Daily (12 hours interval)"
+msgstr "1日2回 (12時間間隔)"
+
+#: inc/class-wp-auto-updater.php:937
+msgid "Daily"
+msgstr "毎日"
+
+#: inc/class-wp-auto-updater.php:938
+msgid "Weekly"
+msgstr "毎週"
+
+#: inc/class-wp-auto-updater.php:939
+msgid "Monthly"
+msgstr "毎月"
+
+#: inc/class-wp-auto-updater.php:1007
 msgid "Minor Version Update (Recommended)"
 msgstr "マイナーバージョンをアップデート (推奨)"
 
-#: inc/class-wp-auto-updater.php:967
+#: inc/class-wp-auto-updater.php:1008
 msgid "Major Version Update"
 msgstr "メジャーバージョンをアップデート"
 
-#: inc/class-wp-auto-updater.php:968
+#: inc/class-wp-auto-updater.php:1009
 msgid "Minor Only Version Update"
 msgstr "マイナーバージョンだけをアップデート"
 
-#: inc/class-wp-auto-updater.php:969
+#: inc/class-wp-auto-updater.php:1010
 msgid "Previous Generation Version Update"
 msgstr "一世代前のバージョンをアップデート"
 
-#: inc/class-wp-auto-updater.php:970 inc/class-wp-auto-updater.php:980
-#: inc/class-wp-auto-updater.php:990 inc/class-wp-auto-updater.php:1000
+#: inc/class-wp-auto-updater.php:1011 inc/class-wp-auto-updater.php:1023
+#: inc/class-wp-auto-updater.php:1033 inc/class-wp-auto-updater.php:1043
 msgid "Manual Update"
 msgstr "手動でアップデート"
 
-#: inc/class-wp-auto-updater.php:979 inc/class-wp-auto-updater.php:989
-#: inc/class-wp-auto-updater.php:999
+#: inc/class-wp-auto-updater.php:1014
+msgid "See WordPress Update Process Chart"
+msgstr "WordPress 本体のアップデートプロセスチャート"
+
+#: inc/class-wp-auto-updater.php:1022 inc/class-wp-auto-updater.php:1032
+#: inc/class-wp-auto-updater.php:1042
 msgid "Auto Update"
 msgstr "自動でアップデート"
 
-#: inc/class-wp-auto-updater.php:1015
+#: inc/class-wp-auto-updater.php:1059
 msgid "Local time"
 msgstr "現地時間"
 
-#: inc/class-wp-auto-updater.php:1016
+#: inc/class-wp-auto-updater.php:1060
 msgid "GMT"
 msgstr "グリニッジ標準時"
 
-#: inc/class-wp-auto-updater.php:1026
+#: inc/class-wp-auto-updater.php:1070
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d 日"
 msgstr[1] "%d 日"
 
-#: inc/class-wp-auto-updater.php:1032 inc/class-wp-auto-updater.php:1050
+#: inc/class-wp-auto-updater.php:1076 inc/class-wp-auto-updater.php:1094
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d 時間"
 msgstr[1] "%d 時間"
 
-#: inc/class-wp-auto-updater.php:1039 inc/class-wp-auto-updater.php:1056
-#: inc/class-wp-auto-updater.php:1067
+#: inc/class-wp-auto-updater.php:1083 inc/class-wp-auto-updater.php:1100
+#: inc/class-wp-auto-updater.php:1111
 msgid "%d Minute"
 msgid_plural "%d Minutes"
-msgstr[0] "%d 分"
-msgstr[1] "%d 分"
+msgstr[0] "%d 時間"
+msgstr[1] "%d 時間"
 
-#: inc/class-wp-auto-updater.php:1044 inc/class-wp-auto-updater.php:1061
-#: inc/class-wp-auto-updater.php:1071
+#: inc/class-wp-auto-updater.php:1088 inc/class-wp-auto-updater.php:1105
+#: inc/class-wp-auto-updater.php:1115
 msgid "ago"
 msgstr "前"
 
-#: inc/class-wp-auto-updater.php:1044 inc/class-wp-auto-updater.php:1061
-#: inc/class-wp-auto-updater.php:1071
+#: inc/class-wp-auto-updater.php:1088 inc/class-wp-auto-updater.php:1105
+#: inc/class-wp-auto-updater.php:1115
 msgid "later"
 msgstr "後"
 
-#: inc/class-wp-auto-updater.php:1087
+#: inc/class-wp-auto-updater.php:1132
 msgid "Day: "
 msgstr "日: "
 
-#: inc/class-wp-auto-updater.php:1096
+#: inc/class-wp-auto-updater.php:1141
 msgid "Weekday: "
 msgstr "曜日: "
 
-#: inc/class-wp-auto-updater.php:1115
+#: inc/class-wp-auto-updater.php:1145
+msgid "Monday"
+msgstr "月曜日"
+
+#: inc/class-wp-auto-updater.php:1146
+msgid "Tuesday"
+msgstr "火曜日"
+
+#: inc/class-wp-auto-updater.php:1147
+msgid "Wednesday"
+msgstr "水曜日"
+
+#: inc/class-wp-auto-updater.php:1148
+msgid "Thursday"
+msgstr "木曜日"
+
+#: inc/class-wp-auto-updater.php:1149
+msgid "Friday"
+msgstr "金曜日"
+
+#: inc/class-wp-auto-updater.php:1150
+msgid "Saturday"
+msgstr "土曜日"
+
+#: inc/class-wp-auto-updater.php:1151
+msgid "Sunday"
+msgstr "日曜日"
+
+#: inc/class-wp-auto-updater.php:1160
 msgid "Hour: "
 msgstr "時: "
 
-#: inc/class-wp-auto-updater.php:1124
+#: inc/class-wp-auto-updater.php:1169
 msgid "Minute: "
 msgstr "分: "
 
-#: inc/class-wp-auto-updater.php:1137
+#: inc/class-wp-auto-updater.php:1182
 msgid "Select a theme that you do not want to automatically update."
 msgstr "自動更新を停止するテーマを選んでください。"
 
-#: inc/class-wp-auto-updater.php:1180 inc/class-wp-auto-updater.php:1200
+#: inc/class-wp-auto-updater.php:1190 inc/class-wp-auto-updater.php:1210
 msgid "%d installed"
 msgstr "%d 個インストール済み"
 
-#: inc/class-wp-auto-updater.php:1152
+#: inc/class-wp-auto-updater.php:1202
 msgid "Select a plugin that you do not want to automatically update."
 msgstr "自動更新を停止するプラグインを選んでください。"
 
-#: inc/class-wp-auto-updater.php:1233
+#: inc/class-wp-auto-updater.php:1288
 msgid "Settings"
 msgstr "設定"
 
-#: inc/class-wp-auto-updater.php:1272
+#: inc/class-wp-auto-updater.php:1327
 msgid "Automatic updating is not possible."
 msgstr "自動更新はできません。"
 
 #. Plugin Name of the plugin/theme
 msgid "WP Auto Updater"
-msgstr "自動更新"
+msgstr "WP Auto Updater"
 
 #. Plugin URI of the plugin/theme
 msgid "https://github.com/thingsym/wp-auto-updater"
-msgstr ""
+msgstr "https://github.com/thingsym/wp-auto-updater"
 
 #. Description of the plugin/theme
 msgid ""
@@ -288,44 +363,8 @@ msgstr "WP Auto Updater は、WordPress 本体、テーマ、プラグイン、�
 
 #. Author of the plugin/theme
 msgid "thingsym"
-msgstr ""
+msgstr "thingsym"
 
 #. Author URI of the plugin/theme
 msgid "https://management.thingslabo.com/"
-msgstr ""
-
-msgid "Twice Daily (12 hours interval)"
-msgstr "1日2回 (12時間間隔)"
-
-msgid "Daily"
-msgstr "毎日"
-
-msgid "Weekly"
-msgstr "毎週"
-
-msgid "Monthly"
-msgstr "毎月"
-
-msgid "Monday"
-msgstr "月曜日"
-
-msgid "Tuesday"
-msgstr "火曜日"
-
-msgid "Wednesday"
-msgstr "水曜日"
-
-msgid "Thursday"
-msgstr "木曜日"
-
-msgid "Friday"
-msgstr "金曜日"
-
-msgid "Saturday"
-msgstr "土曜日"
-
-msgid "Sunday"
-msgstr "日曜日"
-
-msgid "See WordPress Update Process Chart"
-msgstr "WordPress 本体のアップデートプロセスチャート"
+msgstr "https://management.thingslabo.com/"
