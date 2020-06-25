@@ -1101,6 +1101,10 @@ class WP_Auto_Updater {
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
+		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
+			echo '<p><span class="dashicons dashicons-warning"></span> The cron schedule is out of sync with the set schedule. You may have changed the cron schedule somewhere else.</p>';
+		}
+
 		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() + $gmt_offset_sec ) );
 		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) );
 
