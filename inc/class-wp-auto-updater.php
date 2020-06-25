@@ -1107,7 +1107,7 @@ class WP_Auto_Updater {
 		$diff = $current_time->diff( $datetime );
 
 		if ( $diff->d ) {
-			echo '<p>';
+			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ),
 				esc_html( $diff->d )
@@ -1131,7 +1131,7 @@ class WP_Auto_Updater {
 			echo '</p>';
 		}
 		elseif ( $diff->h ) {
-			echo '<p>';
+			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
 				esc_html( $diff->h )
@@ -1148,7 +1148,7 @@ class WP_Auto_Updater {
 			echo '</p>';
 		}
 		elseif ( $diff->i ) {
-			echo '<p>';
+			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
 				esc_html( $diff->i )
