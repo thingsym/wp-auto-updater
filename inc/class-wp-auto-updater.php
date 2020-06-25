@@ -1017,7 +1017,7 @@ class WP_Auto_Updater {
 <option value="disable-auto-update"<?php selected( 'disable-auto-update', $option ); ?>><?php esc_html_e( 'Manual Update', 'wp-auto-updater' ); ?></option>
 </select>
 
-<p><span class="dashicons dashicons-editor-help"></span><a href="<?php echo plugins_url( 'screenshot-3.png', __WP_AUTO_UPDATER__ ); ?>" target="_blank"><?php esc_html_e( 'See WordPress Update Process Chart', 'wp-auto-updater' ); ?></a></p>
+<p><span class="dashicons dashicons-info"></span><a href="<?php echo plugins_url( 'screenshot-3.png', __WP_AUTO_UPDATER__ ); ?>" target="_blank"><?php esc_html_e( 'See WordPress Update Process Chart', 'wp-auto-updater' ); ?></a></p>
 <?php
 	}
 
