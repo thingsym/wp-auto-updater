@@ -1021,6 +1021,15 @@ class WP_Auto_Updater {
 <?php
 	}
 
+	/**
+	 * Callback function for settings_field 'theme'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_scenario_theme() {
 		$option = $this->get_options( 'theme' );
 ?>
@@ -1031,6 +1040,15 @@ class WP_Auto_Updater {
 <?php
 	}
 
+	/**
+	 * Callback function for settings_field 'plugin'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_scenario_plugin() {
 		$option = $this->get_options( 'plugin' );
 ?>
@@ -1041,6 +1059,15 @@ class WP_Auto_Updater {
 <?php
 	}
 
+	/**
+	 * Callback function for settings_field 'translation'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_scenario_translation() {
 		$option = $this->get_options( 'translation' );
 ?>
@@ -1051,6 +1078,15 @@ class WP_Auto_Updater {
 <?php
 	}
 
+	/**
+	 * Callback function for settings_field 'next_schedule'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_schedule_next_updete_date() {
 		$option           = $this->get_options( 'schedule' );
 		$next_updete_date = wp_next_scheduled( 'wp_version_check' );
@@ -1123,6 +1159,15 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Callback function for settings_field 'interval'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_schedule_interval() {
 		$option = $this->get_options( 'schedule' );
 		$schedule_interval = $this->get_schedule_interval();
@@ -1131,6 +1176,15 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Callback function for settings_field 'date'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_schedule_date() {
 		$option = $this->get_options( 'schedule' );
 ?>
@@ -1184,10 +1238,28 @@ class WP_Auto_Updater {
 <?php
 	}
 
+	/**
+	 * Callback function for settings_section 'themes'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_section_cb_themes() {
 		esc_html_e( 'Select a theme that you do not want to automatically update.', 'wp-auto-updater' );
 	}
 
+	/**
+	 * Callback function for settings_field 'themes'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_scenario_themes() {
 		$option = $this->get_options( 'disable_auto_update' );
 		$themes = wp_get_themes();
@@ -1204,10 +1276,28 @@ class WP_Auto_Updater {
 		}
 	}
 
+	/**
+	 * Callback function for settings_section 'plugins'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_section_cb_plugins() {
 		esc_html_e( 'Select a plugin that you do not want to automatically update.', 'wp-auto-updater' );
 	}
 
+	/**
+	 * Callback function for settings_field 'plugins'
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function settings_field_cb_scenario_plugins() {
 		$option  = $this->get_options( 'disable_auto_update' );
 		$plugins = get_plugins();
