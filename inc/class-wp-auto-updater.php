@@ -50,19 +50,19 @@ class WP_Auto_Updater {
 	 *   default options
 	 *
 	 *   @type string core
-	 *   @type bool theme    minor|major|minor-only|pre-version|null
-	 *   @type bool plugin
-	 *   @type bool translation
-	 *   @type array disable_auto_update {
+	 *   @type bool   theme    minor|major|minor-only|pre-version|null
+	 *   @type bool   plugin
+	 *   @type bool   translation
+	 *   @type array  disable_auto_update {
 	 *       @type array themes
 	 *       @type array plugins
 	 *   }
-	 *   @type array schedule {
+	 *   @type array  schedule {
 	 *       @type string interval
-	 *       @type int day
+	 *       @type int    day
 	 *       @type string weekday
-	 *       @type int hour
-	 *       @type int minute
+	 *       @type int    hour
+	 *       @type int    minute
 	 *   }
 	 * }
 	 */
@@ -949,7 +949,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Callback to settings_section 'settings_section_cb_nothing'
+	 * Callback function for nothing settings_section
 	 *
 	 * Display nothing.
 	 *
@@ -962,7 +962,7 @@ class WP_Auto_Updater {
 	public function settings_section_cb_nothing() {}
 
 	/**
-	 * Callback to settings_field 'newer_wp_version'
+	 * Callback function for settings_field 'newer_wp_version'
 	 *
 	 * Display newer WordPress version.
 	 *
@@ -980,7 +980,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Callback to settings_field 'current_wp_version'
+	 * Callback function for settings_field 'current_wp_version'
 	 *
 	 * Display current WordPress version.
 	 *
@@ -996,7 +996,7 @@ class WP_Auto_Updater {
 	}
 
 	/**
-	 * Callback to settings_field 'scenario_core'
+	 * Callback function for settings_field 'scenario_core'
 	 *
 	 * Get the settings option array and print one of its values
 	 *
