@@ -120,6 +120,10 @@ class WP_Auto_Updater {
 			add_action( 'automatic_updates_complete', array( $this, 'auto_update_result' ) );
 		}
 
+		if ( class_exists( 'WP_Auto_Updater_Notification' ) ) {
+			$this->notification = new WP_Auto_Updater_Notification();
+		}
+
 		register_activation_hook( __WP_AUTO_UPDATER__, array( $this, 'activate' ) );
 		register_deactivation_hook( __WP_AUTO_UPDATER__, array( $this, 'deactivate' ) );
 		register_uninstall_hook( __WP_AUTO_UPDATER__, array( __CLASS__, 'uninstall' ) );
@@ -278,6 +282,8 @@ class WP_Auto_Updater {
 			if ( ! empty( $info_failed ) ) {
 				$this->update_history->logging( $date, 'failed', 'auto-update', $type, implode( "\n", $info_failed ) );
 			}
+
+			$this->notification->send_email( $type, $info_success, $info_failed );
 		}
 
 	}
