@@ -856,7 +856,7 @@ class WP_Auto_Updater {
 	 */
 	public function get_options( $option_name = null ) {
 		$options = get_option( $this->option_name, $this->default_options );
-		$options = array_merge( $this->default_options, $options );
+		$options = array_replace_recursive( $this->default_options, $options );
 
 		if ( is_null( $option_name ) ) {
 			/**
