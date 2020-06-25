@@ -914,7 +914,7 @@ class WP_Auto_Updater {
 	public function render_option_page() {
 ?>
 <div class="wrap">
-<h2><?php esc_html_e( 'Auto Updater', 'wp-auto-updater' ); ?></h2>
+<h2><?php esc_html_e( 'WP Auto Updater', 'wp-auto-updater' ); ?></h2>
 <?php settings_errors(); ?>
 
 <form method="post" action="options.php">
