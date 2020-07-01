@@ -38,7 +38,7 @@ class Test_Wp_Auto_Updater_Validate extends WP_UnitTestCase {
 
 		$output = $this->wp_auto_updater->validate_options( $new_input );
 
-		$this->assertEquals( $output, $expected );
+		$this->assertEquals( $expected, $output );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Test_Wp_Auto_Updater_Validate extends WP_UnitTestCase {
 
 		$output = $this->wp_auto_updater->validate_options( $new_input );
 
-		$this->assertEquals( $output, $expected );
+		$this->assertEquals( $expected, $output );
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Test_Wp_Auto_Updater_Validate extends WP_UnitTestCase {
 
 		$output = $this->wp_auto_updater->validate_options( $new_input );
 
-		$this->assertEquals( $output, $expected );
+		$this->assertEquals( $expected, $output );
 	}
 
 	public function _filter_options( $output, $input, $default_options ) {

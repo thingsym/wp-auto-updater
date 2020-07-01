@@ -28,11 +28,18 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @test
 	 * @group auto_update
 	 */
-	public function auto_update_result() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+	public function gather_upgraded_version() {
+		$this->wp_auto_updater->gather_upgraded_version();
+		$this->assertInternalType( 'array', get_site_transient( 'wp_auto_updater/upgraded_version' ) );
+	}
 
-		// $this->wp_auto_updater->auto_update_result();
-		// todo: database check
+	/**
+	 * @test
+	 * @group auto_update
+	 */
+	public function auto_update_result() {
+		$result = $this->wp_auto_updater->auto_update_result();
+		$this->assertNull( $result );
 	}
 
 	/**
@@ -425,6 +432,49 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->wp_auto_updater->auto_update_wordpress_core();
 		$this->assertEquals( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
+	}
+
+	/**
+	 * @test
+	 * @group auto_update
+	 */
+	public function auto_update_wordpress_core_case5() {
+
+		$options = array(
+			'core' => '',
+		);
+
+		update_option( 'wp_auto_updater_options', $options );
+
+		$this->assertFalse( $this->wp_auto_updater->auto_update_wordpress_core() );
+	}
+
+	/**
+	 * @test
+	 * @group auto_update
+	 */
+	public function auto_update_wordpress_core_case6() {
+		$upgrade                  = new stdClass();
+		$upgrade->response        = 'nothing';
+
+		$autoupdate                  = new stdClass();
+		$autoupdate->response        = 'nothing';
+
+		$update_core                  = new stdClass();
+		$update_core->updates         = array( $upgrade, $autoupdate );
+		$update_core->last_checked    = 1506247076;
+		$update_core->version_checked = '4.8.0';
+		$update_core->translations    = array();
+
+		set_site_transient( 'update_core', $update_core );
+
+		$options = array(
+			'core' => 'major',
+		);
+
+		update_option( 'wp_auto_updater_options', $options );
+
+		$this->assertFalse( $this->wp_auto_updater->auto_update_wordpress_core() );
 	}
 
 	/**

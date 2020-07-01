@@ -29,10 +29,31 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 
 	/**
 	 * @test
+	 * @group basic
+	 */
+	public function classAttr() {
+		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater_History' );
+		$this->assertClassHasAttribute( 'table_name', 'WP_Auto_Updater_History' );
+		$this->assertClassHasAttribute( 'table_version', 'WP_Auto_Updater_History' );
+		$this->assertClassHasAttribute( 'nonce', 'WP_Auto_Updater_History' );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function objectAttr() {
+		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_History() );
+		$this->assertObjectHasAttribute( 'table_name', new WP_Auto_Updater_History() );
+		$this->assertObjectHasAttribute( 'table_version', new WP_Auto_Updater_History() );
+		$this->assertObjectHasAttribute( 'nonce', new WP_Auto_Updater_History() );
+	}
+
+	/**
+	 * @test
 	 * @group history
 	 */
 	public function constructor() {
-		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater_history, 'load_textdomain' ) ) );
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater_history, 'init' ) ) );
 
 		$this->assertEquals( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater_history, 'add_option_page' ) ) );
@@ -135,7 +156,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_history_table_version', '1.0.0' );
 
 		$this->assertNull( $this->wp_auto_updater_history->check_table_version() );
-		$this->assertEquals( $this->wp_auto_updater_history->get_table_version(), $this->wp_auto_updater_history->table_version );
+		$this->assertEquals( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
 	}
 
 	/**
@@ -167,7 +188,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 
 		$this->wp_auto_updater_history->migrate_table( $table_name );
 
-		$this->assertEquals( $this->wp_auto_updater_history->get_table_version(), $this->wp_auto_updater_history->table_version );
+		$this->assertEquals( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
 		$this->assertEquals( 1, get_transient( 'wp_auto_updater/history_table/updated' ) );
 
 		// $sql = $wpdb->prepare(
@@ -177,6 +198,13 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		// $a = $wpdb->get_results( $sql );
 		// // var_dump( $wpdb->get_results( "SHOW COLUMNS FROM {$table_name}" ) );
 		// var_dump( $a );
+
+		$result = $this->wp_auto_updater_history->migrate_table();
+		$this->assertFalse( $result );
+
+		$result = $this->wp_auto_updater_history->migrate_table( 'test');
+		$this->assertFalse( $result );
+
 	}
 
 	/**
@@ -237,6 +265,10 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$log = $this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
 
 		$this->assertEquals( 1, $log );
+
+		$this->wp_auto_updater_history->history_table_name = 'test';
+		$result = $this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->assertFalse( $result );
 	}
 
 	/**
