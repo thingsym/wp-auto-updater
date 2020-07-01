@@ -69,7 +69,7 @@ class WP_Auto_Updater_Notification {
 			'plugin'      => false,
 			'translation' => false,
 		),
-		'mail' => array(
+		'mail'         => array(
 			'from'        => '',
 			'admin_email' => true,
 			'recipients'  => array(),
@@ -135,7 +135,7 @@ class WP_Auto_Updater_Notification {
 				$body[] = implode( "\n", $info_success );
 			}
 			if ( $info_failed ) {
-				$body[]  = sprintf(
+				$body[] = sprintf(
 					/* translators: %s: Home URL. */
 					__( 'Howdy! Failures occurred when attempting to update themes on your site at %s.', 'wp-auto-updater' ),
 					home_url()
@@ -156,7 +156,7 @@ class WP_Auto_Updater_Notification {
 				$body[] = implode( "\n", $info_success );
 			}
 			if ( $info_failed ) {
-				$body[]  = sprintf(
+				$body[] = sprintf(
 					/* translators: %s: Home URL. */
 					__( 'Howdy! Failures occurred when attempting to update plugins on your site at %s.', 'wp-auto-updater' ),
 					home_url()
@@ -177,7 +177,7 @@ class WP_Auto_Updater_Notification {
 				$body[] = implode( "\n", $info_success );
 			}
 			if ( $info_failed ) {
-				$body[]  = sprintf(
+				$body[] = sprintf(
 					/* translators: %s: Home URL. */
 					__( 'Howdy! Failures occurred when attempting to update translations on your site at %s.', 'wp-auto-updater' ),
 					home_url()
@@ -301,9 +301,9 @@ class WP_Auto_Updater_Notification {
 
 		if ( $options['recipients'] ) {
 			$args['role'] = 'administrator';
-			$users = get_users( $args );
+			$users        = get_users( $args );
 
-			foreach( $users as $user ) {
+			foreach ( $users as $user ) {
 				if ( in_array( $user->id, $options['recipients'] ) ) {
 					if ( is_email( $user->user_email ) ) {
 						$recipients_email_to[] = $user->user_email;
@@ -318,7 +318,7 @@ class WP_Auto_Updater_Notification {
 	}
 
 	/**
-	 * set core update notification.
+	 * Set core update notification.
 	 *
 	 * @access public
 	 *
@@ -328,7 +328,7 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function set_update_notification_core() {
 		$options = $this->get_options( 'notification' );
-		$option = $options['core'];
+		$option  = $options['core'];
 
 		if ( $option ) {
 			add_filter( 'auto_core_update_send_email', '__return_true' );
@@ -493,10 +493,10 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function settings_field_cb_core_notification() {
 		$options = $this->get_options( 'notification' );
-		$option = $options['core'];
-?>
+		$option  = $options['core'];
+		?>
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[notification][core]" value="1"<?php checked( true, $option ); ?>> <?php echo esc_html__( 'Enable update notification', 'wp-auto-updater' ); ?></label></p>
-<?php
+		<?php
 	}
 
 	/**
@@ -510,10 +510,10 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function settings_field_cb_theme_notification() {
 		$options = $this->get_options( 'notification' );
-		$option = $options['theme'];
-?>
+		$option  = $options['theme'];
+		?>
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[notification][theme]" value="1"<?php checked( true, $option ); ?>> <?php echo esc_html__( 'Enable update notification', 'wp-auto-updater' ); ?></label></p>
-<?php
+		<?php
 	}
 
 	/**
@@ -527,10 +527,10 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function settings_field_cb_plugin_notification() {
 		$options = $this->get_options( 'notification' );
-		$option = $options['plugin'];
-?>
+		$option  = $options['plugin'];
+		?>
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[notification][plugin]" value="1"<?php checked( true, $option ); ?>> <?php echo esc_html__( 'Enable update notification', 'wp-auto-updater' ); ?></label></p>
-<?php
+		<?php
 	}
 
 	/**
@@ -544,10 +544,10 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function settings_field_cb_translation_notification() {
 		$options = $this->get_options( 'notification' );
-		$option = $options['translation'];
-?>
+		$option  = $options['translation'];
+		?>
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[notification][translation]" value="1"<?php checked( true, $option ); ?>> <?php echo esc_html__( 'Enable update notification', 'wp-auto-updater' ); ?></label></p>
-<?php
+		<?php
 	}
 
 	/**
@@ -561,11 +561,11 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function settings_field_cb_from_mail() {
 		$options = $this->get_options( 'mail' );
-		$option = $options['from'];
-?>
+		$option  = $options['from'];
+		?>
 <p><input type="text" name="wp_auto_updater_notification_options[mail][from]" value="<?php echo esc_attr( $option ); ?>"</p>
 <p><span class="dashicons dashicons-info"></span> <?php esc_html_e( 'WP Auto Updater will send notifications from this email address. Leave blank to use the WordPress default.', 'wp-auto-updater' ); ?></p>
-<?php
+		<?php
 	}
 
 	/**
@@ -579,19 +579,19 @@ class WP_Auto_Updater_Notification {
 	 */
 	public function settings_field_cb_recipients() {
 		$options = $this->get_options( 'mail' );
-		$option = $options['admin_email'];
-?>
+		$option  = $options['admin_email'];
+		?>
 <p><span class="dashicons dashicons-info"></span> <?php esc_html_e( 'Select one or more recipients. Only users with the Administrator role can select recipients.', 'wp-auto-updater' ); ?></p>
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[mail][admin_email]" value="1"<?php checked( true, $option ); ?>> <?php echo esc_html__( 'Administration Email Address (General Settings)', 'wp-auto-updater' ); ?></label></p>
-<?php
-		$recipients = $options['recipients'];
+		<?php
+		$recipients   = $options['recipients'];
 		$args['role'] = 'administrator';
-		$users = get_users( $args );
+		$users        = get_users( $args );
 
-		foreach( $users as $user ) {
-?>
+		foreach ( $users as $user ) {
+			?>
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[mail][recipients][]" value="<?php echo esc_attr( $user->id ); ?>"<?php checked( true, in_array( $user->id, $recipients ) ); ?>> <?php echo esc_html( $user->user_login ); ?></label></p>
-<?php
+			<?php
 		}
 
 	}
@@ -622,7 +622,7 @@ class WP_Auto_Updater_Notification {
 			$output['mail']['admin_email'] = empty( $input['mail']['admin_email'] ) ? false : true;
 		}
 
-		$output['mail']['recipients']  = isset( $input['mail']['recipients'] ) ? $input['mail']['recipients'] : array();
+		$output['mail']['recipients'] = isset( $input['mail']['recipients'] ) ? $input['mail']['recipients'] : array();
 
 		$output = apply_filters( 'wp_auto_updater_notification/validate_options', $output, $input, $this->default_options );
 

@@ -158,37 +158,37 @@ class WP_Auto_Updater_History {
 	 */
 	public function admin_notice() {
 		if ( get_transient( 'wp_auto_updater/history_table/created' ) ) {
-?>
+			?>
 <div class="notice notice-success is-dismissible">
 <p>
-<?php
-printf(
-	__( 'Table <strong>%1$s (%2$s)</strong> create succeeded.', 'wp-auto-updater' ),
-	esc_html( $this->history_table_name ),
-	esc_html( $this->table_version )
-);
-?>
+			<?php
+			printf(
+				__( 'Table <strong>%1$s (%2$s)</strong> create succeeded.', 'wp-auto-updater' ),
+				esc_html( $this->history_table_name ),
+				esc_html( $this->table_version )
+			);
+			?>
 </p>
 
 </div>
-<?php
+			<?php
 			delete_transient( 'wp_auto_updater/history_table/created' );
 		}
 
 		if ( get_transient( 'wp_auto_updater/history_table/updated' ) ) {
-?>
+			?>
 <div class="notice notice-success is-dismissible">
 <p>
-<?php
-printf(
-	__( 'Table <strong>%1$s (%2$s)</strong> update succeeded.', 'wp-auto-updater' ),
-	esc_html( $this->history_table_name ),
-	esc_html( $this->table_version )
-);
-?>
+			<?php
+			printf(
+				__( 'Table <strong>%1$s (%2$s)</strong> update succeeded.', 'wp-auto-updater' ),
+				esc_html( $this->history_table_name ),
+				esc_html( $this->table_version )
+			);
+			?>
 </p>
 </div>
-<?php
+			<?php
 			delete_transient( 'wp_auto_updater/history_table/updated' );
 		}
 
@@ -537,9 +537,9 @@ printf(
 	public function render_history_page() {
 
 		if ( ! $this->table_exists( $this->history_table_name ) ) {
-?>
+			?>
 <div class="notice notice-error is-dismissible"><p><strong><?php esc_html_e( 'Table no exists.', 'wp-auto-updater' ); ?></strong></p></div>
-<?php
+			<?php
 			return;
 		}
 
@@ -564,10 +564,10 @@ printf(
 		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$this->history_table_name}" );
 		$paginate  = $this->paginate( $row_count, $per_page, $paged );
 
-?>
+		?>
 <div class="wrap">
 <h2><?php esc_html_e( 'Update History', 'wp-auto-updater' ); ?></h2>
-<?php if ( $cleared ) { ?>
+		<?php if ( $cleared ) { ?>
 <div class="notice notice-error is-dismissible"><p><strong><?php esc_html_e( 'Logs cleared.', 'wp-auto-updater' ); ?></strong></p></div>
 <?php } ?>
 
@@ -575,16 +575,16 @@ printf(
 
 <div class="tablenav-pages">
 <span class="displaying-num">
-<?php
-if ( ! empty( $row_count ) ) {
-	printf(
-		esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
-		esc_html( number_format_i18n( $row_count ) )
-	);
-}
-?>
+		<?php
+		if ( ! empty( $row_count ) ) {
+			printf(
+				esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
+				esc_html( number_format_i18n( $row_count ) )
+			);
+		}
+		?>
 </span>
-<?php echo $paginate; ?>
+		<?php echo $paginate; ?>
 </div>
 <br class="clear">
 </div>
@@ -601,7 +601,7 @@ if ( ! empty( $row_count ) ) {
 </tr>
 </thead>
 <tbody id="the-list">
-<?php foreach ( $logs as $row ) { ?>
+		<?php foreach ( $logs as $row ) { ?>
 <tr>
 	<td><?php echo esc_html( $row->date ); ?></td>
 	<td><?php echo esc_html( $row->user ); ?></td>
@@ -628,7 +628,7 @@ if ( ! empty( $row_count ) ) {
 
 <div class="alignleft actions">
 <form action="" method="post" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return ture;}else{return false;}">
-<?php wp_nonce_field( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'], true, true ); ?>
+		<?php wp_nonce_field( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'], true, true ); ?>
 <input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>"></form>
 <br class="clear">
 </div>
@@ -639,23 +639,23 @@ if ( ! empty( $row_count ) ) {
 
 <div class="tablenav-pages">
 <span class="displaying-num">
-<?php
-if ( ! empty( $row_count ) ) {
-	printf(
-		esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
-		esc_html( number_format_i18n( $row_count ) )
-	);
-}
-?>
+		<?php
+		if ( ! empty( $row_count ) ) {
+			printf(
+				esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
+				esc_html( number_format_i18n( $row_count ) )
+			);
+		}
+		?>
 </span>
-<?php echo $paginate; ?>
+		<?php echo $paginate; ?>
 <br class="clear">
 </div>
 
 </div>
 
 </div>
-<?php
+		<?php
 	}
 
 	/**

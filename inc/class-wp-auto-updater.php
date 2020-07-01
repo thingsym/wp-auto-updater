@@ -916,20 +916,20 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function render_option_page() {
-?>
+		?>
 <div class="wrap">
 <h2><?php esc_html_e( 'WP Auto Updater', 'wp-auto-updater' ); ?></h2>
-<?php settings_errors(); ?>
+		<?php settings_errors(); ?>
 
 <form method="post" action="options.php">
-<?php
-	settings_fields( $this->option_group );
-	do_settings_sections( $this->option_group );
-	submit_button();
-?>
+		<?php
+		settings_fields( $this->option_group );
+		do_settings_sections( $this->option_group );
+		submit_button();
+		?>
 </form>
 </div>
-<?php
+		<?php
 	}
 
 	/**
@@ -1012,7 +1012,7 @@ class WP_Auto_Updater {
 	 */
 	public function settings_field_cb_scenario_core() {
 		$option = $this->get_options( 'core' );
-?>
+		?>
 <select name="wp_auto_updater_options[core]">
 <option value="minor"<?php selected( 'minor', $option ); ?>><?php esc_html_e( 'Minor Version Update (Recommended)', 'wp-auto-updater' ); ?></option>
 <option value="major"<?php selected( 'major', $option ); ?>><?php esc_html_e( 'Major Version Update', 'wp-auto-updater' ); ?></option>
@@ -1022,7 +1022,7 @@ class WP_Auto_Updater {
 </select>
 
 <p><span class="dashicons dashicons-info"></span><a href="<?php echo plugins_url( 'screenshot-3.png', __WP_AUTO_UPDATER__ ); ?>" target="_blank"><?php esc_html_e( 'See WordPress Update Process Chart', 'wp-auto-updater' ); ?></a></p>
-<?php
+		<?php
 	}
 
 	/**
@@ -1036,12 +1036,12 @@ class WP_Auto_Updater {
 	 */
 	public function settings_field_cb_scenario_theme() {
 		$option = $this->get_options( 'theme' );
-?>
+		?>
 <select name="wp_auto_updater_options[theme]">
 <option value="1"<?php selected( true, $option ); ?>><?php esc_html_e( 'Auto Update', 'wp-auto-updater' ); ?></option>
 <option value="0"<?php selected( false, $option ); ?>><?php esc_html_e( 'Manual Update', 'wp-auto-updater' ); ?></option>
 </select>
-<?php
+		<?php
 	}
 
 	/**
@@ -1055,12 +1055,12 @@ class WP_Auto_Updater {
 	 */
 	public function settings_field_cb_scenario_plugin() {
 		$option = $this->get_options( 'plugin' );
-?>
+		?>
 <select name="wp_auto_updater_options[plugin]">
 <option value="1"<?php selected( true, $option ); ?>><?php esc_html_e( 'Auto Update', 'wp-auto-updater' ); ?></option>
 <option value="0"<?php selected( false, $option ); ?>><?php esc_html_e( 'Manual Update', 'wp-auto-updater' ); ?></option>
 </select>
-<?php
+		<?php
 	}
 
 	/**
@@ -1074,12 +1074,12 @@ class WP_Auto_Updater {
 	 */
 	public function settings_field_cb_scenario_translation() {
 		$option = $this->get_options( 'translation' );
-?>
+		?>
 <select name="wp_auto_updater_options[translation]">
 <option value="1"<?php selected( true, $option ); ?>><?php esc_html_e( 'Auto Update', 'wp-auto-updater' ); ?></option>
 <option value="0"<?php selected( false, $option ); ?>><?php esc_html_e( 'Manual Update', 'wp-auto-updater' ); ?></option>
 </select>
-<?php
+		<?php
 	}
 
 	/**
@@ -1098,10 +1098,10 @@ class WP_Auto_Updater {
 			return;
 		}
 
-		$gmt_offset_sec = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
+		$gmt_offset_sec    = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 		$schedule_interval = $this->get_schedule_interval();
 		echo '<p>' . esc_html( $schedule_interval[ $option['interval'] ] ) . '</p>';
-?>
+		?>
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
@@ -1177,7 +1177,7 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function settings_field_cb_schedule_interval() {
-		$option = $this->get_options( 'schedule' );
+		$option            = $this->get_options( 'schedule' );
 		$schedule_interval = $this->get_schedule_interval();
 		foreach ( $schedule_interval as $key => $label ) {
 			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html__( $label, 'wp-auto-updater' ) . '</label></p>';
@@ -1195,55 +1195,55 @@ class WP_Auto_Updater {
 	 */
 	public function settings_field_cb_schedule_date() {
 		$option = $this->get_options( 'schedule' );
-?>
+		?>
 
 <p class="schedule_day"><?php esc_html_e( 'Day: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][day]">
-	<?php
-	foreach ( range( 1, 31 ) as $day ) {
-		echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
-	}
-	?>
+		<?php
+		foreach ( range( 1, 31 ) as $day ) {
+			echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
+		}
+		?>
 </select></p>
 
 <p class="schedule_weekday"><?php esc_html_e( 'Weekday: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][weekday]">
-	<?php
-	$schedule_weekdays = array(
-		'monday'    => __( 'Monday', 'wp-auto-updater' ),
-		'tuesday'   => __( 'Tuesday', 'wp-auto-updater' ),
-		'wednesday' => __( 'Wednesday', 'wp-auto-updater' ),
-		'thursday'  => __( 'Thursday', 'wp-auto-updater' ),
-		'friday'    => __( 'Friday', 'wp-auto-updater' ),
-		'saturday'  => __( 'Saturday', 'wp-auto-updater' ),
-		'sunday'    => __( 'Sunday', 'wp-auto-updater' ),
-	);
+		<?php
+		$schedule_weekdays = array(
+			'monday'    => __( 'Monday', 'wp-auto-updater' ),
+			'tuesday'   => __( 'Tuesday', 'wp-auto-updater' ),
+			'wednesday' => __( 'Wednesday', 'wp-auto-updater' ),
+			'thursday'  => __( 'Thursday', 'wp-auto-updater' ),
+			'friday'    => __( 'Friday', 'wp-auto-updater' ),
+			'saturday'  => __( 'Saturday', 'wp-auto-updater' ),
+			'sunday'    => __( 'Sunday', 'wp-auto-updater' ),
+		);
 
-	foreach ( $schedule_weekdays as $key => $label ) {
-		echo '<option value="' . esc_attr( $key ) . '"' . selected( $key, $option['weekday'], false ) . '>' . esc_html( $label ) . '</option>';
-	}
-	?>
+		foreach ( $schedule_weekdays as $key => $label ) {
+			echo '<option value="' . esc_attr( $key ) . '"' . selected( $key, $option['weekday'], false ) . '>' . esc_html( $label ) . '</option>';
+		}
+		?>
 </select></p>
 
 <p class="schedule_hour"><?php esc_html_e( 'Hour: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][hour]">
-	<?php
-	foreach ( range( 0, 23 ) as $hour ) {
-		echo '<option value="' . esc_attr( $hour ) . '"' . selected( $hour, $option['hour'], false ) . '>' . esc_html( $hour ) . '</option>';
-	}
-	?>
+		<?php
+		foreach ( range( 0, 23 ) as $hour ) {
+			echo '<option value="' . esc_attr( $hour ) . '"' . selected( $hour, $option['hour'], false ) . '>' . esc_html( $hour ) . '</option>';
+		}
+		?>
 </select></p>
 
 <p class="schedule_minute"><?php esc_html_e( 'Minute: ', 'wp-auto-updater' ); ?>
 <select name="wp_auto_updater_options[schedule][minute]">
-	<?php
-	foreach ( range( 0, 59, 5 ) as $minute ) {
-		echo '<option value="' . esc_attr( $minute ) . '"' . selected( $minute, $option['minute'], false ) . '>' . esc_html( $minute ) . '</option>';
-	}
-	?>
+		<?php
+		foreach ( range( 0, 59, 5 ) as $minute ) {
+			echo '<option value="' . esc_attr( $minute ) . '"' . selected( $minute, $option['minute'], false ) . '>' . esc_html( $minute ) . '</option>';
+		}
+		?>
 </select></p>
 
-<?php
+		<?php
 	}
 
 	/**
@@ -1274,13 +1274,13 @@ class WP_Auto_Updater {
 
 		printf(
 			__( '%d installed', 'wp-auto-updater' ),
-			esc_html( count($themes) )
+			esc_html( count( $themes ) )
 		);
 
 		foreach ( $themes as $theme ) {
-?>
+			?>
 <p><label><input type="checkbox" name="wp_auto_updater_options[disable_auto_update][themes][]" value="<?php echo esc_attr( $theme->get_stylesheet() ); ?>"<?php checked( true, in_array( $theme->get_stylesheet(), $option['themes'], true ) ); ?>> <?php echo esc_html( $theme->get( 'Name' ) ); ?> v<?php echo esc_html( $theme->get( 'Version' ) ); ?></label></p>
-<?php
+			<?php
 		}
 	}
 
@@ -1312,13 +1312,13 @@ class WP_Auto_Updater {
 
 		printf(
 			__( '%d installed', 'wp-auto-updater' ),
-			esc_html( count($plugins) )
+			esc_html( count( $plugins ) )
 		);
 
 		foreach ( $plugins as $path => $plugin ) {
-		?>
+			?>
 <p><label><input type="checkbox" name="wp_auto_updater_options[disable_auto_update][plugins][]" value="<?php echo esc_attr( $path ); ?>"<?php checked( true, in_array( $path, $option['plugins'], true ) ); ?>> <?php echo esc_html( $plugin['Name'] ); ?> v<?php echo esc_html( $plugin['Version'] ); ?></label></p>
-<?php
+			<?php
 		}
 	}
 
@@ -1426,10 +1426,10 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function admin_notice_upgrader_disabled() {
-?>
+		?>
 <div class="notice notice-warning">
 <p><?php esc_html_e( 'Automatic updating is not possible.', 'wp-auto-updater' ); ?></p>
 </div>
-<?php
+		<?php
 	}
 }
