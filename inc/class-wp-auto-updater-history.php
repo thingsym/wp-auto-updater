@@ -80,7 +80,6 @@ class WP_Auto_Updater_History {
 		global $wpdb;
 		$this->history_table_name = $wpdb->prefix . $this->table_name;
 
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this, 'init' ) );
 
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
@@ -447,19 +446,6 @@ printf(
 	 * @since 1.0.0
 	 */
 	public function page_hook_suffix() {}
-
-	/**
-	 * Load textdomain
-	 *
-	 * @access public
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-auto-updater', false, dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/' );
-	}
 
 	/**
 	 * Display paginate.

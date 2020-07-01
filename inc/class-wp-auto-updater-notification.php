@@ -84,7 +84,6 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
@@ -392,19 +391,6 @@ class WP_Auto_Updater_Notification {
 		else {
 			return null;
 		}
-	}
-
-	/**
-	 * Load textdomain
-	 *
-	 * @access public
-	 *
-	 * @return void
-	 *
-	 * @since 1.4.0
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-auto-updater', false, dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/' );
 	}
 
 	/**
