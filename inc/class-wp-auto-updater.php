@@ -247,7 +247,11 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.0.0
 	 */
-	public function auto_update_result( $update_results ) {
+	public function auto_update_result( $update_results = null ) {
+		if ( empty( $update_results ) ) {
+			return;
+		}
+
 		$date = current_time( 'mysql' );
 
 		foreach ( $update_results as $type => $items ) {
@@ -324,7 +328,7 @@ class WP_Auto_Updater {
 	 *
 	 * @return void
 	 */
-	public function set_schedule( $schedule ) {
+	public function set_schedule( $schedule = null ) {
 		if ( ! isset( $schedule['interval'] ) ) {
 			return;
 		}
@@ -357,7 +361,7 @@ class WP_Auto_Updater {
 	 *
 	 * @return int
 	 */
-	public function get_timestamp( $schedule ) {
+	public function get_timestamp( $schedule = null ) {
 		$timestamp      = 0;
 		$gmt_offset_sec = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 		$current_time   = time();

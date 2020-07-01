@@ -267,7 +267,7 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function change_core_update_email( $email, $type, $core_update, $result ) {
-		$email = $this->change_email( $email );
+		$email = $this->change_email( $email, array(), array() );
 		return $email;
 	}
 
@@ -613,9 +613,9 @@ class WP_Auto_Updater_Notification {
 		$output['notification']['plugin']      = empty( $input['notification']['plugin'] ) ? false : true;
 		$output['notification']['translation'] = empty( $input['notification']['translation'] ) ? false : true;
 
-		$output['mail']['from'] = is_email( $input['mail']['from'] ) ? $input['mail']['from'] : '';
+		$output['mail']['from'] = isset( $input['mail']['from'] ) && is_email( $input['mail']['from'] ) ? $input['mail']['from'] : '';
 
-		if ( ! $input['mail']['admin_email'] && ! $input['mail']['recipients'] ) {
+		if ( isset( $input['mail']['admin_email'] ) && isset( $input['mail']['recipients'] ) ) {
 			$output['mail']['admin_email'] = true;
 		}
 		else {
@@ -623,6 +623,8 @@ class WP_Auto_Updater_Notification {
 		}
 
 		$output['mail']['recipients']  = isset( $input['mail']['recipients'] ) ? $input['mail']['recipients'] : array();
+
+		$output = apply_filters( 'wp_auto_updater_notification/validate_options', $output, $input, $this->default_options );
 
 		return $output;
 	}
