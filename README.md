@@ -143,6 +143,20 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.4.0
+	* fix validate
+	* fix Unexpected deprecated notice for WP_User->id
+	* update screenshot
+	* fix indent and reformat with phpcs and phpcbf
+	* refactoring with phpunit
+	* bump up phpunit version to 7
+	* add phpunit coverage composer script
+	* add test case
+	* remove duplicate load_textdomain
+	* change how options are merged
+	* display warning in case the cron schedule is out of sync
+	* fix phpdoc and add phpdoc
+	* add notification function
 * Version 1.3.0
 	* add link to WordPress Update Process Chart screenshot
 	* fix pot

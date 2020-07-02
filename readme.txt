@@ -1,10 +1,10 @@
 === WP Auto Updater ===
 Contributors: thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
+Stable tag: 1.4.0
 Tested up to: 5.4.2
 Requires at least: 3.9
 Requires PHP: 5.4
-Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,21 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.4.0 =
+* fix validate
+* fix Unexpected deprecated notice for WP_User->id
+* update screenshot
+* fix indent and reformat with phpcs and phpcbf
+* refactoring with phpunit
+* bump up phpunit version to 7
+* add phpunit coverage composer script
+* add test case
+* remove duplicate load_textdomain
+* change how options are merged
+* display warning in case the cron schedule is out of sync
+* fix phpdoc and add phpdoc
+* add notification function
 
 = 1.3.0 =
 * add link to WordPress Update Process Chart screenshot
