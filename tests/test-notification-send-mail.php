@@ -234,6 +234,41 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 
 		$email = $this->wp_auto_updater_notification->change_email( $email_array, array(), array() );
 		$this->assertEquals( 'somebody@example.com', $email['to'] );
+
+		$user_ids = $this->factory->user->create_many( 3, array(
+			'role' => 'administrator',
+		) );
+
+		$email_to = array();
+		$email_to[] = 'somebody@example.com';
+
+		$args['role'] = 'administrator';
+		$users = get_users( $args );
+
+		foreach( $users as $user ) {
+			if ( in_array( $user->ID, $user_ids, false ) ) {
+				$email_to[] = $user->user_email;
+			}
+		}
+
+		$options = array(
+			'notification' => array(
+				'core'        => true,
+				'theme'       => false,
+				'plugin'      => false,
+				'translation' => false,
+			),
+			'mail' => array(
+				'from'        => '',
+				'admin_email' => true,
+				'recipients'  => $user_ids,
+			),
+		);
+
+		update_option( 'wp_auto_updater_notification_options', $options );
+
+		$email = $this->wp_auto_updater_notification->change_email( $email_array, array(), array() );
+		$this->assertEquals( $email_to, $email['to'] );
 	}
 
 	/**

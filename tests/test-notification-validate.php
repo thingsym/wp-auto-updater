@@ -121,4 +121,42 @@ class Test_Wp_Auto_Updater_Notification_Validate extends WP_UnitTestCase {
 		$output['notification']['core'] = false;
 		return $output;
 	}
+
+	/**
+	 * @test
+	 * @group validate
+	 */
+	public function validate_case_nobody_recipients() {
+		$new_input = array(
+			'notification' => array(
+				'core'        => true,
+				'theme'       => false,
+				'plugin'      => false,
+				'translation' => false,
+			),
+			'mail' => array(
+				'from'        => '',
+				'admin_email' => null,
+				'recipients'  => null,
+			),
+		);
+		$expected  = array(
+			'notification' => array(
+				'core'        => true,
+				'theme'       => false,
+				'plugin'      => false,
+				'translation' => false,
+			),
+			'mail' => array(
+				'from'        => '',
+				'admin_email' => true,
+				'recipients'  => array(),
+			),
+		);
+
+		$output = $this->wp_auto_updater_notification->validate_options( $new_input );
+
+		$this->assertEquals( $expected, $output );
+	}
+
 }
