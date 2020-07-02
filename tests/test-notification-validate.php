@@ -27,7 +27,7 @@ class Test_Wp_Auto_Updater_Notification_Validate extends WP_UnitTestCase {
 			),
 			'mail' => array(
 				'from'        => '',
-				'admin_email' => false,
+				'admin_email' => true,
 				'recipients'  => array(),
 			),
 		);
