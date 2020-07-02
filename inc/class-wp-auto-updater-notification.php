@@ -615,7 +615,7 @@ class WP_Auto_Updater_Notification {
 
 		$output['mail']['from'] = isset( $input['mail']['from'] ) && is_email( $input['mail']['from'] ) ? $input['mail']['from'] : '';
 
-		if ( isset( $input['mail']['admin_email'] ) && isset( $input['mail']['recipients'] ) ) {
+		if ( empty( $input['mail']['admin_email'] ) && empty( $input['mail']['recipients'] ) ) {
 			$output['mail']['admin_email'] = true;
 		}
 		else {
