@@ -304,7 +304,7 @@ class WP_Auto_Updater_Notification {
 			$users        = get_users( $args );
 
 			foreach ( $users as $user ) {
-				if ( in_array( $user->id, $options['recipients'] ) ) {
+				if ( in_array( $user->ID, $options['recipients'] ) ) {
 					if ( is_email( $user->user_email ) ) {
 						$recipients_email_to[] = $user->user_email;
 					}
@@ -590,7 +590,7 @@ class WP_Auto_Updater_Notification {
 
 		foreach ( $users as $user ) {
 			?>
-<p><label><input type="checkbox" name="wp_auto_updater_notification_options[mail][recipients][]" value="<?php echo esc_attr( $user->id ); ?>"<?php checked( true, in_array( $user->id, $recipients ) ); ?>> <?php echo esc_html( $user->user_login ); ?></label></p>
+<p><label><input type="checkbox" name="wp_auto_updater_notification_options[mail][recipients][]" value="<?php echo esc_attr( $user->ID ); ?>"<?php checked( true, in_array( $user->ID, $recipients ) ); ?>> <?php echo esc_html( $user->user_login ); ?></label></p>
 			<?php
 		}
 
