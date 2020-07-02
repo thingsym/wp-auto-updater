@@ -13,6 +13,7 @@ This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugi
 * Set up a schedule automatic updates
 * Disable automatic updating of each Themes and Plugins
 * Record update history
+* Update notification
 
 **Important**: before updating, please back up your database and files.
 
@@ -95,6 +96,23 @@ At the time of automatic update, Automatically updates WordPress Core, Themes, P
 
 ### Auto Update History
 <img src="screenshot-2.png">
+
+## Frequently Asked Questions
+
+### Why not update on scheduled time ?
+
+The possible causes are as follows:
+
+- The cron schedule was updated somewhere else.
+- The cron schedule has been reset.
+
+For example, when updating with wp-cli, the cron schedule may be updated. The cron schedule does not match the one set in WP Auto Updater. In that case, an alert is displayed on the settings screen.
+
+### Why are themes or plugins not updating at once ?
+
+Depending on the update interval, it may not be surely updated.
+
+If you update monthly, there are too many themes and plugins to update and you cannot update at once. We recommend shortening the update interval.
 
 ## Resources
 
