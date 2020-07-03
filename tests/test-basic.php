@@ -16,6 +16,30 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
+	public function classAttr() {
+		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater' );
+		$this->assertClassHasAttribute( 'option_name', 'WP_Auto_Updater' );
+		$this->assertClassHasAttribute( 'capability', 'WP_Auto_Updater' );
+		$this->assertClassHasAttribute( 'default_options', 'WP_Auto_Updater' );
+		$this->assertClassHasAttribute( 'upgraded_version', 'WP_Auto_Updater' );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function objectAttr() {
+		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater() );
+		$this->assertObjectHasAttribute( 'option_name', new WP_Auto_Updater() );
+		$this->assertObjectHasAttribute( 'capability', new WP_Auto_Updater() );
+		$this->assertObjectHasAttribute( 'default_options', new WP_Auto_Updater() );
+		$this->assertObjectHasAttribute( 'upgraded_version', new WP_Auto_Updater() );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
 	public function constructor() {
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'load_textdomain' ) ) );
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'init' ) ) );
@@ -35,7 +59,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'deactivate_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this->wp_auto_updater, 'deactivate' ) ) );
 
 		$uninstallable_plugins = (array) get_option( 'uninstall_plugins' );
-		$this->assertEquals( $uninstallable_plugins[ plugin_basename( __WP_AUTO_UPDATER__ ) ], array( 'WP_Auto_Updater', 'uninstall' ) );
+		$this->assertEquals( array( 'WP_Auto_Updater', 'uninstall' ), $uninstallable_plugins[ plugin_basename( __WP_AUTO_UPDATER__ ) ] );
 	}
 
 	/**
@@ -83,4 +107,14 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$links = $this->wp_auto_updater->plugin_action_links( array() );
 		$this->assertContains( 'index.php?page=wp-auto-updater', $links[0] );
 	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function load_textdomain() {
+		$result = $this->wp_auto_updater->load_textdomain();
+		$this->assertNull( $result );
+	}
+
 }

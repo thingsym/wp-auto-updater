@@ -8,8 +8,14 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="unit">
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<file>./wp-auto-updater.php</file>
+			<directory suffix=".php">./inc</directory>
+		</whitelist>
+	</filter>
 </phpunit>

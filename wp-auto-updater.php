@@ -9,7 +9,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-auto-updater
  * Domain Path: /languages
- * Version:     1.3.0
+ * Version:     1.4.0
  *
  * @package         WP_Auto_Updater
  */
@@ -22,6 +22,7 @@ define( '__WP_AUTO_UPDATER__', __FILE__ );
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater-history.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater-notification.php';
 
 if ( class_exists( 'WP_Auto_Updater' ) ) {
 	new WP_Auto_Updater();
