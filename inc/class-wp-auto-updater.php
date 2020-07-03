@@ -939,7 +939,7 @@ class WP_Auto_Updater {
 	 *
 	 * @return array
 	 *
-	 * @since 1.3.0
+	 * @since 1.4.0
 	 */
 	public function get_schedule_interval() {
 		$schedule_interval = array(

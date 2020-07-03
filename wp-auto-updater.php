@@ -9,7 +9,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-auto-updater
  * Domain Path: /languages
- * Version:     1.3.0
+ * Version:     1.4.0
  *
  * @package         WP_Auto_Updater
  */
