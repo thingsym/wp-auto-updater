@@ -89,13 +89,31 @@ class WP_Auto_Updater {
 	 *
 	 * @access private
 	 *
-	 * @var array $upgraded_version {
+	 * @var array|null $upgraded_version {
 	 *   @type string core
 	 *   @type array  theme
 	 *   @type array  plugin
 	 * }
 	 */
 	private $upgraded_version = null;
+
+	/**
+	 * Public value.
+	 *
+	 * @access public
+	 *
+	 * @var object|null $update_history   update_history object
+	 */
+	public $update_history = null;
+
+	/**
+	 * Public value.
+	 *
+	 * @access public
+	 *
+	 * @var object|null $notification   notification object
+	 */
+	public $notification = null;
 
 	/**
 	 * Constructor
@@ -230,6 +248,7 @@ class WP_Auto_Updater {
 
 		if ( false === $this->upgraded_version ) {
 			global $wp_version;
+			/* @phpstan-ignore-next-line */
 			$this->upgraded_version['core']   = $wp_version;
 			$this->upgraded_version['theme']  = wp_get_themes();
 			$this->upgraded_version['plugin'] = get_plugins();
@@ -398,6 +417,7 @@ class WP_Auto_Updater {
 			$diff_last_day_sec = 0;
 
 			if ( 28 <= $schedule['day'] ) {
+				// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 				$last_day      = intval( date( 't', strtotime( 'first day of this month 00:00:00' ) ) );
 				$diff_last_day = $schedule['day'] - $last_day;
 				if ( 0 < $diff_last_day ) {
@@ -410,6 +430,7 @@ class WP_Auto_Updater {
 
 			if ( $current_time > $timestamp ) {
 				if ( 28 <= $schedule['day'] ) {
+					// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 					$last_day      = intval( date( 't', strtotime( 'first day of next month 00:00:00' ) ) );
 					$diff_last_day = $schedule['day'] - $last_day;
 					if ( 0 < $diff_last_day ) {
@@ -447,7 +468,7 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function auto_update_wordpress_core() {
-		$option = (string) $this->get_options( 'core' );
+		$option = $this->get_options( 'core' );
 
 		if ( ! $option ) {
 			return false;
@@ -479,7 +500,7 @@ class WP_Auto_Updater {
 
 		do_action( 'wp_auto_updater/before_auto_update/wordpress_core' );
 
-		if ( 'minor' === $option ) {
+		if ( 'minor' === $option ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
 			// default, Nothing to do.
 		}
 		elseif ( 'major' === $option ) {
@@ -577,6 +598,7 @@ class WP_Auto_Updater {
 	public function auto_update_specific_theme( $update, $item ) {
 		$option = $this->get_options( 'disable_auto_update' );
 
+		/* @phpstan-ignore-next-line */
 		if ( in_array( $item->theme, $option['themes'] ) ) {
 			return false;
 		}
@@ -618,6 +640,7 @@ class WP_Auto_Updater {
 	public function auto_update_specific_plugin( $update, $item ) {
 		$option = $this->get_options( 'disable_auto_update' );
 
+		/* @phpstan-ignore-next-line */
 		if ( in_array( $item->plugin, $option['plugins'] ) ) {
 			return false;
 		}
@@ -858,7 +881,7 @@ class WP_Auto_Updater {
 	 *
 	 * @param string $option_name Optional. The option name.
 	 *
-	 * @return array|null
+	 * @return string|int|bool|array|null
 	 *
 	 * @since 1.0.0
 	 */
@@ -983,6 +1006,7 @@ class WP_Auto_Updater {
 	public function settings_field_cb_newer_wp_version() {
 		$updates = get_core_updates();
 		if ( isset( $updates[0]->response ) ) {
+			/* @phpstan-ignore-next-line */
 			echo esc_html( $updates[0]->version );
 		}
 	}
@@ -1025,7 +1049,7 @@ class WP_Auto_Updater {
 <option value="disable-auto-update"<?php selected( 'disable-auto-update', $option ); ?>><?php esc_html_e( 'Manual Update', 'wp-auto-updater' ); ?></option>
 </select>
 
-<p><span class="dashicons dashicons-info"></span><a href="<?php echo plugins_url( 'screenshot-3.png', __WP_AUTO_UPDATER__ ); ?>" target="_blank"><?php esc_html_e( 'See WordPress Update Process Chart', 'wp-auto-updater' ); ?></a></p>
+<p><span class="dashicons dashicons-info"></span><a href="<?php echo esc_url( plugins_url( 'screenshot-3.png', __WP_AUTO_UPDATER__ ) ); ?>" target="_blank"><?php esc_html_e( 'See WordPress Update Process Chart', 'wp-auto-updater' ); ?></a></p>
 		<?php
 	}
 
@@ -1107,13 +1131,15 @@ class WP_Auto_Updater {
 		echo '<p>' . esc_html( $schedule_interval[ $option['interval'] ] ) . '</p>';
 		?>
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
-<p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
+<p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) /* phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date */ ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
 		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
 			echo '<p><span class="dashicons dashicons-warning"></span> The cron schedule is out of sync with the set schedule. You may have changed the cron schedule somewhere else.</p>';
 		}
 
+		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() + $gmt_offset_sec ) );
+		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) );
 
 		$diff = $current_time->diff( $datetime );
@@ -1122,12 +1148,14 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ),
+				/* @phpstan-ignore-next-line */
 				esc_html( $diff->d )
 			);
 			if ( $diff->h ) {
 				echo ' ';
 				printf(
 					esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
+					/* @phpstan-ignore-next-line */
 					esc_html( $diff->h )
 				);
 			}
@@ -1135,6 +1163,7 @@ class WP_Auto_Updater {
 				echo ' ';
 				printf(
 					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
 			}
@@ -1146,12 +1175,14 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
+				/* @phpstan-ignore-next-line */
 				esc_html( $diff->h )
 			);
 			if ( $diff->i ) {
 				echo ' ';
 				printf(
 					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
 			}
@@ -1163,6 +1194,7 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+				/* @phpstan-ignore-next-line */
 				esc_html( $diff->i )
 			);
 			echo ' ';
@@ -1184,6 +1216,7 @@ class WP_Auto_Updater {
 		$option            = $this->get_options( 'schedule' );
 		$schedule_interval = $this->get_schedule_interval();
 		foreach ( $schedule_interval as $key => $label ) {
+			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html__( $label, 'wp-auto-updater' ) . '</label></p>';
 		}
 	}
@@ -1205,6 +1238,7 @@ class WP_Auto_Updater {
 <select name="wp_auto_updater_options[schedule][day]">
 		<?php
 		foreach ( range( 1, 31 ) as $day ) {
+			/* @phpstan-ignore-next-line */
 			echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
 		}
 		?>
@@ -1233,6 +1267,7 @@ class WP_Auto_Updater {
 <select name="wp_auto_updater_options[schedule][hour]">
 		<?php
 		foreach ( range( 0, 23 ) as $hour ) {
+			/* @phpstan-ignore-next-line */
 			echo '<option value="' . esc_attr( $hour ) . '"' . selected( $hour, $option['hour'], false ) . '>' . esc_html( $hour ) . '</option>';
 		}
 		?>
@@ -1242,6 +1277,7 @@ class WP_Auto_Updater {
 <select name="wp_auto_updater_options[schedule][minute]">
 		<?php
 		foreach ( range( 0, 59, 5 ) as $minute ) {
+			/* @phpstan-ignore-next-line */
 			echo '<option value="' . esc_attr( $minute ) . '"' . selected( $minute, $option['minute'], false ) . '>' . esc_html( $minute ) . '</option>';
 		}
 		?>
@@ -1277,7 +1313,9 @@ class WP_Auto_Updater {
 		$themes = wp_get_themes();
 
 		printf(
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			__( '%d installed', 'wp-auto-updater' ),
+			/* @phpstan-ignore-next-line */
 			esc_html( count( $themes ) )
 		);
 
@@ -1315,7 +1353,9 @@ class WP_Auto_Updater {
 		$plugins = get_plugins();
 
 		printf(
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			__( '%d installed', 'wp-auto-updater' ),
+			/* @phpstan-ignore-next-line */
 			esc_html( count( $plugins ) )
 		);
 

@@ -46,6 +46,15 @@ class WP_Auto_Updater_History {
 	 *
 	 * @access public
 	 *
+	 * @var string|null $history_table_name   The name of the table with prefix
+	 */
+	public $history_table_name = null;
+
+	/**
+	 * Public value.
+	 *
+	 * @access public
+	 *
 	 * @var string $table_version   The version of the table
 	 */
 	public $table_version = '1.0.1';
@@ -138,8 +147,11 @@ class WP_Auto_Updater_History {
 		global $wpdb;
 
 		if ( version_compare( (string) $this->get_table_version(), '1.0.1', '<' ) ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->get_results( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->get_results( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$wpdb->get_results( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
 		}
 
@@ -163,6 +175,7 @@ class WP_Auto_Updater_History {
 <p>
 			<?php
 			printf(
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				__( 'Table <strong>%1$s (%2$s)</strong> create succeeded.', 'wp-auto-updater' ),
 				esc_html( $this->history_table_name ),
 				esc_html( $this->table_version )
@@ -181,6 +194,7 @@ class WP_Auto_Updater_History {
 <p>
 			<?php
 			printf(
+				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				__( 'Table <strong>%1$s (%2$s)</strong> update succeeded.', 'wp-auto-updater' ),
 				esc_html( $this->history_table_name ),
 				esc_html( $this->table_version )
@@ -230,6 +244,7 @@ class WP_Auto_Updater_History {
 			$table_name
 		);
 
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		if ( $table_name === $wpdb->get_var( $sql ) ) {
 			return true;
 		}
@@ -317,6 +332,7 @@ class WP_Auto_Updater_History {
 		);";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		/* @phpstan-ignore-next-line */
 		$results = dbDelta( $schema );
 
 		if ( in_array( 'Created table ' . $this->history_table_name, $results ) ) {
@@ -341,8 +357,11 @@ class WP_Auto_Updater_History {
 	public function drop_table( $table_name = null ) {
 		global $wpdb;
 		if ( $this->table_exists( $table_name ) ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			return $wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
 		}
+
+		return null;
 	}
 
 	/**
@@ -367,6 +386,7 @@ class WP_Auto_Updater_History {
 
 		if ( is_user_logged_in() ) {
 			$user_name = wp_get_current_user()->user_login;
+			/* @phpstan-ignore-next-line */
 			$user_id   = wp_get_current_user()->id;
 			$user      = $user_name . ' (' . $user_id . ')';
 		}
@@ -475,7 +495,7 @@ class WP_Auto_Updater_History {
 			$paginate .= sprintf(
 				"<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', 1 ) ),
-				__( 'First page' ),
+				__( 'First page', 'wp-auto-updater' ),
 				'&laquo;'
 			);
 		}
@@ -489,7 +509,7 @@ class WP_Auto_Updater_History {
 			$paginate .= sprintf(
 				"<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', max( 1, $current_paged - 1 ) ) ),
-				__( 'Previous page' ),
+				__( 'Previous page', 'wp-auto-updater' ),
 				'&lsaquo;'
 			);
 		}
@@ -503,7 +523,7 @@ class WP_Auto_Updater_History {
 			$paginate .= sprintf(
 				"<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', min( $total_pages, $current_paged + 1 ) ) ),
-				__( 'Next page' ),
+				__( 'Next page', 'wp-auto-updater' ),
 				'&rsaquo;'
 			);
 		}
@@ -517,7 +537,7 @@ class WP_Auto_Updater_History {
 			$paginate .= sprintf(
 				"<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
 				esc_url( add_query_arg( 'paged', $total_pages ) ),
-				__( 'Last page' ),
+				__( 'Last page', 'wp-auto-updater' ),
 				'&raquo;'
 			);
 		}
@@ -547,6 +567,7 @@ class WP_Auto_Updater_History {
 
 		$cleared = null;
 		if ( ! empty( $_POST[ $this->nonce['clear_logs']['name'] ] ) && current_user_can( 'manage_options' ) && check_admin_referer( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'] ) ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name}" );
 		}
 
@@ -554,13 +575,16 @@ class WP_Auto_Updater_History {
 		$paged    = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
 		$offset   = ( $paged - 1 ) * $per_page;
 
-		$sql  = $wpdb->prepare(
-			"SELECT * FROM {$this->history_table_name} ORDER BY date DESC LIMIT %d, %d",
-			$offset,
-			$per_page
+		$logs = $wpdb->get_results(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"SELECT * FROM {$this->history_table_name} ORDER BY date DESC LIMIT %d, %d",
+				$offset,
+				$per_page
+			)
 		);
-		$logs = $wpdb->get_results( $sql );
 
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$this->history_table_name}" );
 		$paginate  = $this->paginate( $row_count, $per_page, $paged );
 
@@ -584,7 +608,7 @@ class WP_Auto_Updater_History {
 		}
 		?>
 </span>
-		<?php echo $paginate; ?>
+		<?php echo $paginate; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </div>
 <br class="clear">
 </div>
@@ -648,7 +672,7 @@ class WP_Auto_Updater_History {
 		}
 		?>
 </span>
-		<?php echo $paginate; ?>
+		<?php echo $paginate; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 <br class="clear">
 </div>
 

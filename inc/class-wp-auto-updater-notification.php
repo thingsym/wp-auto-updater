@@ -137,6 +137,9 @@ class WP_Auto_Updater_Notification {
 			return;
 		}
 
+		$subject = '';
+		$body = array();
+
 		if ( 'theme' === $type && $notification['theme'] ) {
 			/* translators: %s: Site title. */
 			$subject = __( '[%s] Some themes were automatically updated', 'wp-auto-updater' );
@@ -152,7 +155,7 @@ class WP_Auto_Updater_Notification {
 					home_url()
 				);
 				$body[] = "\n";
-				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-autoupdates' );
+				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-auto-updater' );
 				$body[] = "\n";
 				$body[] = __( 'The following themes failed to update:', 'wp-auto-updater' );
 				$body[] = implode( "\n", $info_failed );
@@ -173,7 +176,7 @@ class WP_Auto_Updater_Notification {
 					home_url()
 				);
 				$body[] = "\n";
-				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-autoupdates' );
+				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-auto-updater' );
 				$body[] = "\n";
 				$body[] = __( 'The following plugins failed to update:', 'wp-auto-updater' );
 				$body[] = implode( "\n", $info_failed );
@@ -194,7 +197,7 @@ class WP_Auto_Updater_Notification {
 					home_url()
 				);
 				$body[] = "\n";
-				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-autoupdates' );
+				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-auto-updater' );
 				$body[] = "\n";
 				$body[] = __( 'The following translations failed to update:', 'wp-auto-updater' );
 				$body[] = implode( "\n", $info_failed );
@@ -205,9 +208,9 @@ class WP_Auto_Updater_Notification {
 		$body[] = __( 'See Update history:', 'wp-auto-updater' );
 		$body[] = admin_url( 'index.php?page=wp-auto-updater-history', 'https' );
 
-		$body    = implode( "\n", $body );
 		$to      = get_site_option( 'admin_email' );
 		$subject = sprintf( $subject, wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) );
+		$body    = implode( "\n", $body );
 		$headers = '';
 
 		$email = compact( 'to', 'subject', 'body', 'headers' );
