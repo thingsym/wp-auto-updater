@@ -100,6 +100,7 @@ class WP_Auto_Updater_Notification {
 	public function init() {
 		add_action( 'wp_loaded', array( $this, 'set_update_notification_core' ) );
 		add_filter( 'auto_core_update_email', array( $this, 'change_core_update_email' ), 10, 4 );
+		add_action( 'wp_loaded', array( $this, 'disable_theme_and_plugin_update_notification' ) );
 	}
 
 	/**
@@ -348,6 +349,20 @@ class WP_Auto_Updater_Notification {
 		else {
 			add_filter( 'auto_core_update_send_email', '__return_false' );
 		}
+	}
+
+	/**
+	 * Disable theme and plugin update notification mail.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.5.0
+	 */
+	public function disable_theme_and_plugin_update_notification() {
+		add_filter( 'auto_theme_update_send_email', '__return_false' );
+		add_filter( 'auto_plugin_update_send_email', '__return_false' );
 	}
 
 	/**
