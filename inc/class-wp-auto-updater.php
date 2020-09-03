@@ -145,6 +145,10 @@ class WP_Auto_Updater {
 		add_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this, 'plugin_action_links' ) );
 
 		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
+
+		// Disable auto-update UI elements.
+		add_filter( 'plugins_auto_update_enabled', '__return_false' );
+		add_filter( 'themes_auto_update_enabled', '__return_false' );
 	}
 
 	/**
