@@ -98,7 +98,7 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function init() {
-		add_action( 'plugin_loaded', array( $this, 'set_update_notification_core' ) );
+		add_action( 'wp_loaded', array( $this, 'set_update_notification_core' ) );
 		add_filter( 'auto_core_update_email', array( $this, 'change_core_update_email' ), 10, 4 );
 	}
 
