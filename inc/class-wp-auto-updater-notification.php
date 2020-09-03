@@ -105,6 +105,8 @@ class WP_Auto_Updater_Notification {
 	/**
 	 * Sends an email.
 	 *
+	 * Note that Core update uses built-in notification mail.
+	 *
 	 * @access public
 	 *
 	 * @param string $type           The type of update. Can be one of 'theme', 'plugin', 'translation'.
@@ -116,6 +118,14 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function send_email( $type, $info_success, $info_failed ) {
+		if ( empty( $type ) ) {
+			return;
+		}
+
+		if ( 'core' === $type ) {
+			return;
+		}
+
 		if ( empty( $info_success ) && empty( $info_failed ) ) {
 			return;
 		}
@@ -267,7 +277,9 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function change_core_update_email( $email, $type, $core_update, $result ) {
+		add_filter( 'wp_mail_from', array( $this, 'change_mail_from' ) );
 		$email = $this->change_email( $email, array(), array() );
+
 		return $email;
 	}
 
