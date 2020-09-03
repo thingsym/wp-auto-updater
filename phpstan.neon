@@ -1,9 +1,10 @@
 parameters:
-  level: max
+  level: 5
   paths:
     - ./
   excludes_analyse:
     - ./tests
     - ./vendor
+    - ./node_modules
   autoload_files:
     - ./tests/bootstrap.php
