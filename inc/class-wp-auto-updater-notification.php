@@ -98,12 +98,15 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function init() {
-		add_action( 'plugin_loaded', array( $this, 'set_update_notification_core' ) );
+		add_action( 'wp_loaded', array( $this, 'set_update_notification_core' ) );
 		add_filter( 'auto_core_update_email', array( $this, 'change_core_update_email' ), 10, 4 );
+		add_action( 'wp_loaded', array( $this, 'disable_theme_and_plugin_update_notification' ) );
 	}
 
 	/**
 	 * Sends an email.
+	 *
+	 * Note that Core update uses built-in notification mail.
 	 *
 	 * @access public
 	 *
@@ -116,6 +119,14 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function send_email( $type, $info_success, $info_failed ) {
+		if ( empty( $type ) ) {
+			return;
+		}
+
+		if ( 'core' === $type ) {
+			return;
+		}
+
 		if ( empty( $info_success ) && empty( $info_failed ) ) {
 			return;
 		}
@@ -125,6 +136,9 @@ class WP_Auto_Updater_Notification {
 		if ( ! $notification['theme'] && ! $notification['plugin'] && ! $notification['translation'] ) {
 			return;
 		}
+
+		$subject = '';
+		$body = array();
 
 		if ( 'theme' === $type && $notification['theme'] ) {
 			/* translators: %s: Site title. */
@@ -141,7 +155,7 @@ class WP_Auto_Updater_Notification {
 					home_url()
 				);
 				$body[] = "\n";
-				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-autoupdates' );
+				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-auto-updater' );
 				$body[] = "\n";
 				$body[] = __( 'The following themes failed to update:', 'wp-auto-updater' );
 				$body[] = implode( "\n", $info_failed );
@@ -162,7 +176,7 @@ class WP_Auto_Updater_Notification {
 					home_url()
 				);
 				$body[] = "\n";
-				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-autoupdates' );
+				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-auto-updater' );
 				$body[] = "\n";
 				$body[] = __( 'The following plugins failed to update:', 'wp-auto-updater' );
 				$body[] = implode( "\n", $info_failed );
@@ -183,7 +197,7 @@ class WP_Auto_Updater_Notification {
 					home_url()
 				);
 				$body[] = "\n";
-				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-autoupdates' );
+				$body[] = __( 'Please check out your site now. It’s possible that everything is working. If it says you need to update, you should do so.', 'wp-auto-updater' );
 				$body[] = "\n";
 				$body[] = __( 'The following translations failed to update:', 'wp-auto-updater' );
 				$body[] = implode( "\n", $info_failed );
@@ -194,9 +208,9 @@ class WP_Auto_Updater_Notification {
 		$body[] = __( 'See Update history:', 'wp-auto-updater' );
 		$body[] = admin_url( 'index.php?page=wp-auto-updater-history', 'https' );
 
-		$body    = implode( "\n", $body );
 		$to      = get_site_option( 'admin_email' );
 		$subject = sprintf( $subject, wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) );
+		$body    = implode( "\n", $body );
 		$headers = '';
 
 		$email = compact( 'to', 'subject', 'body', 'headers' );
@@ -267,7 +281,9 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function change_core_update_email( $email, $type, $core_update, $result ) {
+		add_filter( 'wp_mail_from', array( $this, 'change_mail_from' ) );
 		$email = $this->change_email( $email, array(), array() );
+
 		return $email;
 	}
 
@@ -336,6 +352,20 @@ class WP_Auto_Updater_Notification {
 		else {
 			add_filter( 'auto_core_update_send_email', '__return_false' );
 		}
+	}
+
+	/**
+	 * Disable theme and plugin update notification mail.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.5.0
+	 */
+	public function disable_theme_and_plugin_update_notification() {
+		add_filter( 'auto_theme_update_send_email', '__return_false' );
+		add_filter( 'auto_plugin_update_send_email', '__return_false' );
 	}
 
 	/**

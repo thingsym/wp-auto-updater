@@ -72,6 +72,9 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'option_page_capability_wp_auto_updater', array( $this->wp_auto_updater, 'option_page_capability' ) ) );
 		$this->assertEquals( 10, has_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this->wp_auto_updater, 'plugin_action_links' ) ) );
 		$this->assertEquals( 10, has_filter( 'cron_schedules', array( $this->wp_auto_updater, 'add_cron_interval' ) ) );
+
+		$this->assertEquals( 10, has_filter( 'plugins_auto_update_enabled', '__return_false' ) );
+		$this->assertEquals( 10, has_filter( 'themes_auto_update_enabled', '__return_false' ) );
 	}
 
 	/**
