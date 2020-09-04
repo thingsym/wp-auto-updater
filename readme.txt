@@ -1,8 +1,8 @@
 === WP Auto Updater ===
 Contributors: thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.4.0
-Tested up to: 5.4.2
+Stable tag: 1.5.0
+Tested up to: 5.5.1
 Requires at least: 3.9
 Requires PHP: 5.4
 License: GPLv2 or later
@@ -133,6 +133,18 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.5.0 =
+* update japanese translation
+* update pot
+* imporve code with phpcs, phpmd and phpstan
+* update testunit configuration
+* fix composer.json
+* fix test case
+* disable auto-update UI elements
+* disable theme and plugin auto-update notification email
+* change hook tag
+* fix to send only built-in core update notification email
 
 = 1.4.0 =
 * fix validate
