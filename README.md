@@ -143,6 +143,18 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.5.0
+	* update japanese translation
+	* update pot
+	* imporve code with phpcs, phpmd and phpstan
+	* update testunit configuration
+	* fix composer.json
+	* fix test case
+	* disable auto-update UI elements
+	* disable theme and plugin auto-update notification email
+	* change hook tag
+	* fix to send only built-in core update notification email
+
 * Version 1.4.0
 	* fix validate
 	* fix Unexpected deprecated notice for WP_User->id
