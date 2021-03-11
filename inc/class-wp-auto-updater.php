@@ -160,6 +160,8 @@ class WP_Auto_Updater {
 		add_action( 'pre_auto_update', array( $this, 'gather_upgraded_version' ) );
 
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
+
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_metadata_links' ), 10, 2 );
 		add_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this, 'plugin_action_links' ) );
 
 		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
@@ -1147,6 +1149,7 @@ class WP_Auto_Updater {
 		if ( $diff->d ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
+				/* translators: day: 1: day, 2: days */
 				esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ),
 				/* @phpstan-ignore-next-line */
 				esc_html( $diff->d )
@@ -1154,6 +1157,7 @@ class WP_Auto_Updater {
 			if ( $diff->h ) {
 				echo ' ';
 				printf(
+					/* translators: hour: 1: hour, 2: hours */
 					esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->h )
@@ -1162,7 +1166,8 @@ class WP_Auto_Updater {
 			if ( $diff->i ) {
 				echo ' ';
 				printf(
-					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					/* translators: minute: 1: minute, 2: minutes */
+					esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
@@ -1181,7 +1186,7 @@ class WP_Auto_Updater {
 			if ( $diff->i ) {
 				echo ' ';
 				printf(
-					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
@@ -1193,7 +1198,7 @@ class WP_Auto_Updater {
 		elseif ( $diff->i ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
-				esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+				esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
 				/* @phpstan-ignore-next-line */
 				esc_html( $diff->i )
 			);
@@ -1313,8 +1318,8 @@ class WP_Auto_Updater {
 		$themes = wp_get_themes();
 
 		printf(
-			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
-			__( '%d installed', 'wp-auto-updater' ),
+			/* translators: installed: 1: count */
+			__( '%d installed', 'wp-auto-updater' ), /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			/* @phpstan-ignore-next-line */
 			esc_html( count( $themes ) )
 		);
@@ -1415,6 +1420,30 @@ class WP_Auto_Updater {
 	 */
 	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'wp-auto-updater-admin', plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ), array( 'jquery' ), '2017-09-06', true );
+	}
+
+	/**
+	 * Set links below a plugin on the Plugins page.
+	 *
+	 * Hooks to plugin_row_meta
+	 *
+	 * @see https://developer.wordpress.org/reference/hooks/plugin_row_meta/
+	 *
+	 * @access public
+	 *
+	 * @param array  $links  An array of the plugin's metadata.
+	 * @param string $file   Path to the plugin file relative to the plugins directory.
+	 *
+	 * @return array $links
+	 *
+	 * @since 1.5.1
+	 */
+	public function plugin_metadata_links( $links, $file ) {
+		if ( $file == plugin_basename( __WP_AUTO_UPDATER__ ) ) {
+			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'wp-auto-updater' ) . '</a>';
+		}
+
+		return $links;
 	}
 
 	/**

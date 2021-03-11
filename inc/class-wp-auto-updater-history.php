@@ -175,8 +175,8 @@ class WP_Auto_Updater_History {
 <p>
 			<?php
 			printf(
-				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
-				__( 'Table <strong>%1$s (%2$s)</strong> create succeeded.', 'wp-auto-updater' ),
+				/* translators: table create notice: 1: table name, 2: table version */
+				__( 'Table <strong>%1$s (%2$s)</strong> create succeeded.', 'wp-auto-updater' ), /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				esc_html( $this->history_table_name ),
 				esc_html( $this->table_version )
 			);
@@ -194,8 +194,8 @@ class WP_Auto_Updater_History {
 <p>
 			<?php
 			printf(
-				/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
-				__( 'Table <strong>%1$s (%2$s)</strong> update succeeded.', 'wp-auto-updater' ),
+				/* translators: table update notice: 1: table name, 2: table version */
+				__( 'Table <strong>%1$s (%2$s)</strong> update succeeded.', 'wp-auto-updater' ), /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 				esc_html( $this->history_table_name ),
 				esc_html( $this->table_version )
 			);
@@ -602,6 +602,7 @@ class WP_Auto_Updater_History {
 		<?php
 		if ( ! empty( $row_count ) ) {
 			printf(
+				/* translators: item: 1: item, 2: items */
 				esc_html( _n( '%d item', '%d items', $row_count, 'wp-auto-updater' ) ),
 				esc_html( number_format_i18n( $row_count ) )
 			);

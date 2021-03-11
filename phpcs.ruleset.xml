@@ -65,5 +65,10 @@
     <exclude name="Squiz.Commenting.FunctionComment" />
     <exclude name="Generic.Commenting.DocComment" />
 
+    <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+  </rule>
+
+  <rule ref="PHPCompatibilityWP">
+    <config name="testVersion" value="5.6-"/>
   </rule>
 </ruleset>

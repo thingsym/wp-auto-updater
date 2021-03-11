@@ -16,3 +16,6 @@ indent_style = space
 
 [*.md]
 trim_trailing_whitespace = false
+
+[readme.txt]
+trim_trailing_whitespace = false

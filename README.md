@@ -1,9 +1,5 @@
 # Introducing WP Auto Updater
 
-[![Build Status](https://travis-ci.org/thingsym/wp-auto-updater.svg?branch=master)](https://travis-ci.org/thingsym/wp-auto-updater)
-
-[![WordPress](https://img.shields.io/wordpress/v/wp-auto-updater.svg)](https://wordpress.org/plugins/wp-auto-updater/)
-
 This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 ## Features
@@ -127,7 +123,7 @@ WP Auto Updater is hosted on the WordPress Plugin Directory.
 
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/wp-auto-updater)
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
 
 ## Contribution
 
@@ -143,6 +139,19 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.5.1
+	* tested up to 5.7.0
+	* update japanese translation
+	* update pot
+	* add comment for translators
+	* fix composer scripts
+	* add test case
+	* add sponsor link
+	* add FUNDING.yml
+	* add donate link
+	* update wordpress-test-matrix
+	* fix Trying to access array offset on value of type null on PHP7.4
+	* add GitHub actions for CI/CD, remove .travis.yml
 * Version 1.5.0
 	* update japanese translation
 	* update pot
@@ -154,7 +163,6 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 	* disable theme and plugin auto-update notification email
 	* change hook tag
 	* fix to send only built-in core update notification email
-
 * Version 1.4.0
 	* fix validate
 	* fix Unexpected deprecated notice for WP_User->id

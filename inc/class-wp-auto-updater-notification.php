@@ -163,6 +163,7 @@ class WP_Auto_Updater_Notification {
 		}
 
 		if ( 'plugin' === $type && $notification['plugin'] ) {
+			/* translators: subject: 1: blogname */
 			$subject = __( '[%s] Some plugins were automatically updated', 'wp-auto-updater' );
 
 			if ( $info_success ) {
@@ -184,6 +185,7 @@ class WP_Auto_Updater_Notification {
 		}
 
 		if ( 'translation' === $type && $notification['translation'] ) {
+			/* translators: subject: 1: blogname */
 			$subject = __( '[%s] Some translations were automatically updated', 'wp-auto-updater' );
 
 			if ( $info_success ) {
@@ -234,7 +236,9 @@ class WP_Auto_Updater_Notification {
 		 * @param object $info_failed     The updates that failed.
 		 */
 		$email = apply_filters( 'wp_auto_updater_notification/wp_mail', $email, $info_success, $info_failed );
-		wp_mail( $email['to'], wp_specialchars_decode( $email['subject'] ), $email['body'], $email['headers'] );
+		if ( $email ) {
+			wp_mail( $email['to'], wp_specialchars_decode( $email['subject'] ), $email['body'], $email['headers'] );
+		}
 
 		remove_filter( 'wp_mail_from', array( $this, 'change_mail_from' ) );
 		remove_filter( 'wp_auto_updater_notification/wp_mail', array( $this, 'change_email' ) );
@@ -311,7 +315,7 @@ class WP_Auto_Updater_Notification {
 
 		$recipients_email_to = array();
 
-		if ( $options['admin_email'] ) {
+		if ( $options['admin_email'] && $email ) {
 			$recipients_email_to[] = $email['to'];
 		}
 
