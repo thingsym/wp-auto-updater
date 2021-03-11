@@ -28,8 +28,8 @@
       "@phpmd",
       "@phpstan"
     ],
-    "makepot": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../wp-auto-updater ../wp-auto-updater/languages/wp-auto-updater.pot",
-    "makepot:php": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../wp-auto-updater-ja ../wp-auto-updater-ja/languages/wp-auto-updater-ja.pot",
+    "makepot:php": "php /usr/local/share/wp-i18n/makepot.php wp-plugin ../wp-auto-updater ../wp-auto-updater/languages/wp-auto-updater.pot",
+    "makepot:wpcli": "wp i18n make-pot ./ ./languages/wp-auto-updater.pot --exclude=dist,bin,tests,node_modules,vendor",
     "msgfmt:ja": "msgfmt languages/wp-auto-updater-ja.po -o languages/wp-auto-updater-ja.mo"
   }
 }
