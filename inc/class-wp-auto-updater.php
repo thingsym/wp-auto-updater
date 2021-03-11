@@ -1167,7 +1167,7 @@ class WP_Auto_Updater {
 				echo ' ';
 				printf(
 					/* translators: minute: 1: minute, 2: minutes */
-					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
@@ -1186,7 +1186,7 @@ class WP_Auto_Updater {
 			if ( $diff->i ) {
 				echo ' ';
 				printf(
-					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+					esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
@@ -1198,7 +1198,7 @@ class WP_Auto_Updater {
 		elseif ( $diff->i ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
-				esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
+				esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
 				/* @phpstan-ignore-next-line */
 				esc_html( $diff->i )
 			);
