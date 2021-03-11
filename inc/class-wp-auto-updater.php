@@ -1437,7 +1437,7 @@ class WP_Auto_Updater {
 	 */
 	public function plugin_metadata_links( $links, $file ) {
 		if ( $file == plugin_basename( __WP_AUTO_UPDATER__ ) ) {
-			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'nav-menu-trim' ) . '</a>';
+			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'wp-auto-updater' ) . '</a>';
 		}
 
 		return $links;
