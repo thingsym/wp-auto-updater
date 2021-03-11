@@ -163,6 +163,7 @@ class WP_Auto_Updater_Notification {
 		}
 
 		if ( 'plugin' === $type && $notification['plugin'] ) {
+			/* translators: subject: 1: blogname */
 			$subject = __( '[%s] Some plugins were automatically updated', 'wp-auto-updater' );
 
 			if ( $info_success ) {
@@ -184,6 +185,7 @@ class WP_Auto_Updater_Notification {
 		}
 
 		if ( 'translation' === $type && $notification['translation'] ) {
+			/* translators: subject: 1: blogname */
 			$subject = __( '[%s] Some translations were automatically updated', 'wp-auto-updater' );
 
 			if ( $info_success ) {

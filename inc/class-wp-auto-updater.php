@@ -1149,6 +1149,7 @@ class WP_Auto_Updater {
 		if ( $diff->d ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
+				/* translators: day: 1: day, 2: days */
 				esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ),
 				/* @phpstan-ignore-next-line */
 				esc_html( $diff->d )
@@ -1156,6 +1157,7 @@ class WP_Auto_Updater {
 			if ( $diff->h ) {
 				echo ' ';
 				printf(
+					/* translators: hour: 1: hour, 2: hours */
 					esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->h )
@@ -1164,6 +1166,7 @@ class WP_Auto_Updater {
 			if ( $diff->i ) {
 				echo ' ';
 				printf(
+					/* translators: minute: 1: minute, 2: minutes */
 					esc_html( _n( '%d Minute', '%d Minutes', $diff->i, 'wp-auto-updater' ) ),
 					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
@@ -1315,8 +1318,8 @@ class WP_Auto_Updater {
 		$themes = wp_get_themes();
 
 		printf(
-			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
-			__( '%d installed', 'wp-auto-updater' ),
+			/* translators: installed: 1: count */
+			__( '%d installed', 'wp-auto-updater' ), /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			/* @phpstan-ignore-next-line */
 			esc_html( count( $themes ) )
 		);
