@@ -82,7 +82,7 @@ At the time of automatic update, Automatically updates WordPress Core, Themes, P
 
 = Test Matrix =
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/wp-auto-updater)
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
 
 = Contributing =
 

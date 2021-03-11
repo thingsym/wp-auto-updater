@@ -1,9 +1,5 @@
 # Introducing WP Auto Updater
 
-[![Build Status](https://travis-ci.org/thingsym/wp-auto-updater.svg?branch=master)](https://travis-ci.org/thingsym/wp-auto-updater)
-
-[![WordPress](https://img.shields.io/wordpress/v/wp-auto-updater.svg)](https://wordpress.org/plugins/wp-auto-updater/)
-
 This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 ## Features
@@ -127,7 +123,7 @@ WP Auto Updater is hosted on the WordPress Plugin Directory.
 
 ## Test Matrix
 
-For operation compatibility between PHP version and WordPress version, see below [Travis CI](https://travis-ci.org/thingsym/wp-auto-updater)
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
 
 ## Contribution
 
