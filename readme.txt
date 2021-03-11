@@ -1,5 +1,6 @@
 === WP Auto Updater ===
 Contributors: thingsym
+Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
 Stable tag: 1.5.0
 Tested up to: 5.5.1
