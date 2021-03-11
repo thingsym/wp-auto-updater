@@ -70,6 +70,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->wp_auto_updater->init();
 
 		$this->assertEquals( 10, has_filter( 'option_page_capability_wp_auto_updater', array( $this->wp_auto_updater, 'option_page_capability' ) ) );
+		$this->assertEquals( 10, has_filter( 'plugin_row_meta', array( $this->wp_auto_updater, 'plugin_metadata_links' ) ) );
 		$this->assertEquals( 10, has_filter( 'plugin_action_links_' . plugin_basename( __WP_AUTO_UPDATER__ ), array( $this->wp_auto_updater, 'plugin_action_links' ) ) );
 		$this->assertEquals( 10, has_filter( 'cron_schedules', array( $this->wp_auto_updater, 'add_cron_interval' ) ) );
 
@@ -100,6 +101,14 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	public function admin_enqueue_scripts() {
 		$this->wp_auto_updater->admin_enqueue_scripts();
 		$this->assertTrue( wp_script_is( 'wp-auto-updater-admin' ) );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function plugin_metadata_links() {
+		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 
 	/**
