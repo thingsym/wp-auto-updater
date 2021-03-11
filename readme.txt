@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 Tested up to: 5.7.0
 Requires at least: 3.9
 Requires PHP: 5.4
@@ -135,6 +135,20 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.5.1 =
+* tested up to 5.7.0
+* update japanese translation
+* update pot
+* add comment for translators
+* fix composer scripts
+* add test case
+* add sponsor link
+* add FUNDING.yml
+* add donate link
+* update wordpress-test-matrix
+* fix Trying to access array offset on value of type null on PHP7.4
+* add GitHub actions for CI/CD, remove .travis.yml
 
 = 1.5.0 =
 * update japanese translation

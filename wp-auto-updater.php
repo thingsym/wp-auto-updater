@@ -3,13 +3,13 @@
  * Plugin Name: WP Auto Updater
  * Plugin URI:  https://github.com/thingsym/wp-auto-updater
  * Description: This plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
+ * Version:     1.5.1
  * Author:      thingsym
  * Author URI:  https://management.thingslabo.com/
  * License:     GPL2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-auto-updater
  * Domain Path: /languages
- * Version:     1.5.0
  *
  * @package         WP_Auto_Updater
  */

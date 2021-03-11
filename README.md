@@ -139,6 +139,19 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.5.1
+	* tested up to 5.7.0
+	* update japanese translation
+	* update pot
+	* add comment for translators
+	* fix composer scripts
+	* add test case
+	* add sponsor link
+	* add FUNDING.yml
+	* add donate link
+	* update wordpress-test-matrix
+	* fix Trying to access array offset on value of type null on PHP7.4
+	* add GitHub actions for CI/CD, remove .travis.yml
 * Version 1.5.0
 	* update japanese translation
 	* update pot
@@ -150,7 +163,6 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 	* disable theme and plugin auto-update notification email
 	* change hook tag
 	* fix to send only built-in core update notification email
-
 * Version 1.4.0
 	* fix validate
 	* fix Unexpected deprecated notice for WP_User->id
