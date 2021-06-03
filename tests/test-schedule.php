@@ -200,7 +200,6 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		foreach ( $timezone as $zone ) {
 			update_option( 'timezone_string', $zone );
-			// date_default_timezone_set( $zone );
 
 			foreach ( range( 0, 23 ) as $hour ) {
 				$schedule = array(
@@ -215,7 +214,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 				$diff = time() - $timestamp;
 				$date = getdate( $timestamp );
-				$message = $zone . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['mday'] . '/' . $date['hours'];
+				$message = $zone . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['hours'];
 
 				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
@@ -230,7 +229,12 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
-				$this->assertGreaterThan( time(), $timestamp );
+
+				$diff = time() - (int) $timestamp;
+				$date = getdate( $timestamp );
+				$message = get_option( 'gmt_offset' ). ' | ' . $zone . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['hours'];
+
+				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
 
 			$schedule_weekdays = array(
