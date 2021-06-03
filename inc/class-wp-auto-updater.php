@@ -394,25 +394,44 @@ class WP_Auto_Updater {
 		if ( 'twicedaily' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
 			$timestamp     = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+
 			if ( $current_time > $timestamp ) {
 				$timestamp = strtotime( 'today 12:00:00' ) + $diff_time_sec - $gmt_offset_sec;
 			}
+
 			if ( $current_time > $timestamp ) {
-				$timestamp = strtotime( 'tomorrow 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				if ( 43200 > $current_time - $timestamp ) {
+					$timestamp = strtotime( '+1 day 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
+				else {
+					$timestamp = strtotime( '+1 day 12:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
 			}
 		}
 		elseif ( 'daily' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
 			$timestamp     = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+
 			if ( $current_time > $timestamp ) {
-				$timestamp = strtotime( 'tomorrow 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				if ( 86400 > $current_time - $timestamp ) {
+					$timestamp = strtotime( '+1 day 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
+				else {
+					$timestamp = strtotime( '+2 day 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
 			}
 		}
 		elseif ( 'weekly' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
 			$timestamp     = strtotime( "this {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+
 			if ( $current_time > $timestamp ) {
-				$timestamp = strtotime( "next {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+				if ( 604800 > $current_time - $timestamp ) {
+					$timestamp = strtotime( "+1 weeks {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+				}
+				else {
+					$timestamp = strtotime( "+2 weeks {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+				}
 			}
 		}
 		elseif ( 'monthly' === $schedule['interval'] ) {
