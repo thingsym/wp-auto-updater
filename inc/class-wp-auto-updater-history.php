@@ -594,7 +594,7 @@ class WP_Auto_Updater_History {
 		$cleared = null;
 		if ( ! empty( $_POST[ $this->nonce['clear_logs']['name'] ] ) && current_user_can( 'manage_options' ) && check_admin_referer( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'] ) ) {
 			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name}" );
+			$cleared = $this->clear_logs( $_POST['delete_priod'] );
 		}
 
 		$screen        = get_current_screen();
@@ -683,15 +683,8 @@ class WP_Auto_Updater_History {
 
 <div class="tablenav bottom">
 
-<div class="alignleft actions">
-<form action="" method="post" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return ture;}else{return false;}">
-		<?php wp_nonce_field( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'], true, true ); ?>
-<input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>"></form>
-<br class="clear">
-</div>
-
 <div class="alignleft">
-<p>Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?></p>
+Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?>
 </div>
 
 <div class="tablenav-pages">
@@ -706,13 +699,75 @@ class WP_Auto_Updater_History {
 		?>
 </span>
 		<?php echo $paginate; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+</div>
+</div>
 <br class="clear">
-</div>
 
+<div class="clear-logs alignright">
+<form action="" method="post">
+<?php wp_nonce_field( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'], true, true ); ?>
+<select name="delete_priod">
+<option value=""><?php esc_html_e( 'Select keep logs period', 'wp-auto-updater' ); ?></option>
+<option value="delete_all"><?php esc_html_e( 'Delete all', 'wp-auto-updater' ); ?></option>
+<option value="1month"><?php esc_html_e( 'for last 1 month', 'wp-auto-updater' ); ?></option>
+<option value="3months"><?php esc_html_e( 'for last 3 month', 'wp-auto-updater' ); ?></option>
+<option value="6months"><?php esc_html_e( 'for last 6 months', 'wp-auto-updater' ); ?></option>
+<option value="1year"><?php esc_html_e( 'for last 1 year', 'wp-auto-updater' ); ?></option>
+<option value="3years"><?php esc_html_e( 'for last 3 years', 'wp-auto-updater' ); ?></option>
+</select>
+<input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return ture;}else{return false;}"></form>
 </div>
+<br class="clear">
 
 </div>
 		<?php
+	}
+
+	/**
+	 * Clear logs.
+	 *
+	 * @access public
+	 *
+	 * @param string $delete_priod
+	 *
+	 * @return array
+	 *
+	 * @since 1.6.0
+	 */
+	public function clear_logs( $delete_priod ) {
+		if ( ! $delete_priod ) {
+			return;
+		}
+
+		global $wpdb;
+		$cleared = null;
+
+		if ( 'delete_all' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name}" );
+		}
+		else if ( '1month' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 1 MONTH))" );
+		}
+		else if ( '3months' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 3 MONTH))" );
+		}
+		else if ( '6months' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 6 MONTH))" );
+		}
+		else if ( '1year' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR))" );
+		}
+		else if ( '3years' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 3 YEAR))" );
+		}
+
+		return $cleared;
 	}
 
 	/**
