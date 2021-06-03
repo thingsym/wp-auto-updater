@@ -110,6 +110,7 @@ class WP_Auto_Updater_History {
 	 */
 	public function init() {
 		add_filter( 'option_page_capability_' . $this->option_group, array( $this, 'option_page_capability' ) );
+		add_filter( 'set-screen-option', array( $this, 'set_screen_option' ), 10, 3 );
 	}
 
 	/**
@@ -465,7 +466,32 @@ class WP_Auto_Updater_History {
 	 *
 	 * @since 1.0.0
 	 */
-	public function page_hook_suffix() {}
+	public function page_hook_suffix() {
+		$args = array(
+			'label'   => __( 'Number of items per page:', 'wp-auto-updater-history' ),
+			'default' => 10,
+			'option'  => 'wp_auto_updater_history_per_page'
+		);
+
+		add_screen_option( 'per_page', $args );
+	}
+
+	/**
+	 * Set screen option.
+	 *
+	 * Hooks to set-screen-option.
+	 *
+	 * @access public
+	 *
+	 * @return string
+	 *
+	 * @since 1.6.0
+	 */
+	public function set_screen_option( $status, $option, $value ) {
+		if ( 'wp_auto_updater_history_per_page' === $option ) {
+			return $value;
+		}
+	}
 
 	/**
 	 * Display paginate.
@@ -571,9 +597,15 @@ class WP_Auto_Updater_History {
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name}" );
 		}
 
-		$per_page = 15;
-		$paged    = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
-		$offset   = ( $paged - 1 ) * $per_page;
+		$screen        = get_current_screen();
+		$screen_option = $screen->get_option( 'per_page', 'option' );
+		$per_page      = get_user_meta( get_current_user_id(), $screen_option, true );
+		if ( empty ( $per_page) || $per_page < 1 ) {
+			$per_page = 10;
+		}
+
+		$paged  = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
+		$offset = ( $paged - 1 ) * $per_page;
 
 		$logs = $wpdb->get_results(
 			$wpdb->prepare(
