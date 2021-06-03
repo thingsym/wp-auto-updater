@@ -1154,16 +1154,16 @@ class WP_Auto_Updater {
 <p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?> <?php echo wp_timezone_string(); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) /* phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date */ ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
-		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
-			echo '<p><span class="dashicons dashicons-warning"></span> The cron schedule is out of sync with the set schedule. You may have changed the cron schedule somewhere else.</p>';
-		}
-
 		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() + $gmt_offset_sec ) );
+		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() ) );
 		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) );
+		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date ) );
 
 		$diff = $current_time->diff( $datetime );
+
+		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
+			echo '<p><span class="dashicons dashicons-warning"></span> The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.</p>';
+		}
 
 		if ( $diff->d ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
