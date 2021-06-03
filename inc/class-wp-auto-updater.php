@@ -1151,7 +1151,7 @@ class WP_Auto_Updater {
 		$schedule_interval = $this->get_schedule_interval();
 		echo '<p>' . esc_html( $schedule_interval[ $option['interval'] ] ) . '</p>';
 		?>
-<p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
+<p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?> <?php echo wp_timezone_string(); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) /* phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date */ ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
 		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
