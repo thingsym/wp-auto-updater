@@ -1162,7 +1162,7 @@ class WP_Auto_Updater {
 		$diff = $current_time->diff( $datetime );
 
 		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
-			echo '<p><span class="dashicons dashicons-warning"></span> The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.</p>';
+			echo '<p><span class="dashicons dashicons-warning"></span> ' . __( 'The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.', 'wp-auto-updater' ) . '</p>';
 		}
 
 		if ( $diff->d ) {
