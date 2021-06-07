@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WP Auto Updater plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Auto Updater 1.5.1\n"
+"Project-Id-Version: WP Auto Updater 1.6.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-auto-updater\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-11T09:33:56+00:00\n"
+"POT-Creation-Date: 2021-06-03T12:24:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-auto-updater\n"
@@ -113,13 +113,41 @@ msgstr "ラベル"
 msgid "Info"
 msgstr "内容"
 
-#: inc/class-wp-auto-updater-history.php:655
-msgid "Would you like to delete the logs?"
-msgstr "ログを削除しますか?"
+#: inc/class-wp-auto-updater-history.php:722
+msgid "Select keep logs period"
+msgstr "ログを残す期間を選択"
 
-#: inc/class-wp-auto-updater-history.php:657
+#: inc/class-wp-auto-updater-history.php:723
+msgid "Delete all"
+msgstr "すべて削除"
+
+#: inc/class-wp-auto-updater-history.php:724
+msgid "for last 1 month"
+msgstr "1ヶ月分を残す"
+
+#: inc/class-wp-auto-updater-history.php:725
+msgid "for last 3 month"
+msgstr "3ヶ月分を残す"
+
+#: inc/class-wp-auto-updater-history.php:726
+msgid "for last 6 months"
+msgstr "6ヶ月分を残す"
+
+#: inc/class-wp-auto-updater-history.php:727
+msgid "for last 1 year"
+msgstr "1年分を残す"
+
+#: inc/class-wp-auto-updater-history.php:728
+msgid "for last 3 years"
+msgstr "3年分を残す"
+
+#: inc/class-wp-auto-updater-history.php:730
 msgid "Clear Logs"
 msgstr "ログをクリア"
+
+#: inc/class-wp-auto-updater-history.php:730
+msgid "Would you like to delete the logs?"
+msgstr "ログを削除しますか?"
 
 #. translators: %s: Site title.
 #: inc/class-wp-auto-updater-notification.php:145
@@ -353,6 +381,10 @@ msgstr "現地時間"
 #: inc/class-wp-auto-updater.php:1136
 msgid "GMT"
 msgstr "グリニッジ標準時"
+
+#: inc/class-wp-auto-updater.php:1165
+msgid "The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else."
+msgstr "cron スケジュールが設定されたスケジュールと同期していません。 cron スケジュールまたはタイムゾーンを別の場所で変更した可能性があります。"
 
 #. translators: day: 1: day, 2: days
 #: inc/class-wp-auto-updater.php:1153

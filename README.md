@@ -139,6 +139,14 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.6.0
+	* update japanese translation
+	* update pot
+	* add an option to delete logs for a specified period range
+	* add per_page screen option
+	* fix cron schedule warning
+	* add timezone string
+	* add correction for timestamp when the time has passed
 * Version 1.5.1
 	* tested up to 5.7.0
 	* update japanese translation

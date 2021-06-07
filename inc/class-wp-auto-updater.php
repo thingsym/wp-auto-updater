@@ -394,25 +394,44 @@ class WP_Auto_Updater {
 		if ( 'twicedaily' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
 			$timestamp     = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+
 			if ( $current_time > $timestamp ) {
 				$timestamp = strtotime( 'today 12:00:00' ) + $diff_time_sec - $gmt_offset_sec;
 			}
+
 			if ( $current_time > $timestamp ) {
-				$timestamp = strtotime( 'tomorrow 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				if ( 43200 > $current_time - $timestamp ) {
+					$timestamp = strtotime( '+1 day 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
+				else {
+					$timestamp = strtotime( '+1 day 12:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
 			}
 		}
 		elseif ( 'daily' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
 			$timestamp     = strtotime( 'today 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+
 			if ( $current_time > $timestamp ) {
-				$timestamp = strtotime( 'tomorrow 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				if ( 86400 > $current_time - $timestamp ) {
+					$timestamp = strtotime( '+1 day 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
+				else {
+					$timestamp = strtotime( '+2 day 00:00:00' ) + $diff_time_sec - $gmt_offset_sec;
+				}
 			}
 		}
 		elseif ( 'weekly' === $schedule['interval'] ) {
 			$diff_time_sec = $schedule['hour'] * HOUR_IN_SECONDS + $schedule['minute'] * MINUTE_IN_SECONDS;
 			$timestamp     = strtotime( "this {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+
 			if ( $current_time > $timestamp ) {
-				$timestamp = strtotime( "next {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+				if ( 604800 > $current_time - $timestamp ) {
+					$timestamp = strtotime( "+1 weeks {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+				}
+				else {
+					$timestamp = strtotime( "+2 weeks {$schedule['weekday']} 00:00:00" ) + $diff_time_sec - $gmt_offset_sec;
+				}
 			}
 		}
 		elseif ( 'monthly' === $schedule['interval'] ) {
@@ -1132,19 +1151,19 @@ class WP_Auto_Updater {
 		$schedule_interval = $this->get_schedule_interval();
 		echo '<p>' . esc_html( $schedule_interval[ $option['interval'] ] ) . '</p>';
 		?>
-<p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?>)</p>
+<p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?> <?php echo wp_timezone_string(); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) /* phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date */ ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
-		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
-			echo '<p><span class="dashicons dashicons-warning"></span> The cron schedule is out of sync with the set schedule. You may have changed the cron schedule somewhere else.</p>';
-		}
-
 		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() + $gmt_offset_sec ) );
+		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() ) );
 		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) );
+		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date ) );
 
 		$diff = $current_time->diff( $datetime );
+
+		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
+			echo '<p><span class="dashicons dashicons-warning"></span> ' . __( 'The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.', 'wp-auto-updater' ) . '</p>';
+		}
 
 		if ( $diff->d ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
