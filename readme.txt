@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 Tested up to: 5.7.0
 Requires at least: 3.9
 Requires PHP: 5.4
@@ -135,6 +135,15 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.6.0 =
+* update japanese translation
+* update pot
+* add an option to delete logs for a specified period range
+* add per_page screen option
+* fix cron schedule warning
+* add timezone string
+* add correction for timestamp when the time has passed
 
 = 1.5.1 =
 * tested up to 5.7.0
