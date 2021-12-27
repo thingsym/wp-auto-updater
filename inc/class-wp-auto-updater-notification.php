@@ -15,36 +15,36 @@
 class WP_Auto_Updater_Notification {
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_group   The group name of option
 	 */
-	protected $option_group = 'wp_auto_updater';
+	public $option_group = 'wp_auto_updater';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_name   The option name
 	 */
-	protected $option_name = 'wp_auto_updater_notification_options';
+	public $option_name = 'wp_auto_updater_notification_options';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $capability   The types of capability
 	 */
-	protected $capability = 'update_core';
+	public $capability = 'update_core';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var array $default_options {
 	 *   default options
@@ -62,7 +62,7 @@ class WP_Auto_Updater_Notification {
 	 *   }
 	 * }
 	 */
-	protected $default_options = array(
+	public $default_options = array(
 		'notification' => array(
 			'core'        => true,
 			'theme'       => false,

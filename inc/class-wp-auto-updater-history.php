@@ -15,34 +15,34 @@
 class WP_Auto_Updater_History {
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_group   The group name of option
 	 */
-	protected $option_group = 'wp_auto_updater';
+	public $option_group = 'wp_auto_updater';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $capability   The types of capability
 	 */
-	protected $capability = 'update_core';
+	public $capability = 'update_core';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $table_name   The name of the table
 	 */
-	protected $table_name = 'auto_updater_history';
+	public $table_name = 'auto_updater_history';
 
 	/**
-	 * Public value.
+	 * Public variable.
 	 *
 	 * @access public
 	 *
@@ -51,7 +51,7 @@ class WP_Auto_Updater_History {
 	public $history_table_name = null;
 
 	/**
-	 * Public value.
+	 * Public variable.
 	 *
 	 * @access public
 	 *
@@ -60,9 +60,9 @@ class WP_Auto_Updater_History {
 	public $table_version = '1.0.1';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var array $this->nonce {
 	 *   @type array clear_logs {
@@ -71,7 +71,7 @@ class WP_Auto_Updater_History {
 	 *   }
 	 * }
 	 */
-	protected $nonce = array(
+	public $nonce = array(
 		'clear_logs' => array(
 			'name'   => '_wpnonce_clear_logs',
 			'action' => 'clear_logs',

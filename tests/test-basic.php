@@ -40,6 +40,43 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
+	function public_variable() {
+		$this->assertEquals( 'wp_auto_updater', $this->wp_auto_updater->option_group );
+		$this->assertEquals( 'wp_auto_updater_options', $this->wp_auto_updater->option_name );
+		$this->assertEquals( 'update_core', $this->wp_auto_updater->capability );
+
+		$expected = array(
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
+			'disable_auto_update' => array(
+				'themes'  => array(),
+				'plugins' => array(),
+			),
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
+			),
+		);
+		$this->assertEquals( $expected, $this->wp_auto_updater->default_options );
+
+		$this->assertNull( $this->wp_auto_updater->upgraded_version );
+
+		$this->assertIsArray( $this->wp_auto_updater->plugin_data );
+		$this->assertEmpty( $this->wp_auto_updater->plugin_data );
+
+		$this->assertIsObject( $this->wp_auto_updater->update_history );
+		$this->assertIsObject( $this->wp_auto_updater->notification );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
 	public function constructor() {
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'load_textdomain' ) ) );
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'init' ) ) );
@@ -99,6 +136,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function admin_enqueue_scripts() {
+		$this->wp_auto_updater->load_plugin_data();
+
 		$this->wp_auto_updater->admin_enqueue_scripts();
 		$this->assertTrue( wp_script_is( 'wp-auto-updater-admin' ) );
 	}
@@ -108,7 +147,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function plugin_metadata_links() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$links = $this->wp_auto_updater->plugin_metadata_links( array(), plugin_basename( __WP_AUTO_UPDATER__ ) );
+		$this->assertContains( '<a href="https://github.com/sponsors/thingsym">Become a sponsor</a>', $links );
 	}
 
 	/**
@@ -117,7 +157,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 */
 	public function plugin_action_links() {
 		$links = $this->wp_auto_updater->plugin_action_links( array() );
-		$this->assertContains( 'index.php?page=wp-auto-updater', $links[0] );
+		$this->assertContains( '<a href="index.php?page=wp-auto-updater">Settings</a>', $links );
 	}
 
 	/**
@@ -127,6 +167,14 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	public function load_textdomain() {
 		$result = $this->wp_auto_updater->load_textdomain();
 		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	function load_plugin_data() {
+		$this->assertTrue( $this->wp_auto_updater->load_plugin_data() );
 	}
 
 }

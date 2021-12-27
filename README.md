@@ -139,6 +139,17 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.6.1
+	* update composer dependencies
+	* fix test case
+	* separate the method into print_update_message
+	* add load_plugin_data method
+	* change from protected variable to public variable for unit test
+	* add timeout-minutes to workflows
+	* add phpunit-polyfills
+	* update install-wp-tests.sh
+	* fix .editorconfig
+	* tested up to 5.8.0
 * Version 1.6.0
 	* update japanese translation
 	* update pot

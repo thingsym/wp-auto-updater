@@ -29,7 +29,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 
 	/**
 	 * @test
-	 * @group basic
+	 * @group history
 	 */
 	public function classAttr() {
 		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater_History' );
@@ -40,13 +40,35 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 
 	/**
 	 * @test
-	 * @group basic
+	 * @group history
 	 */
 	public function objectAttr() {
 		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_History() );
 		$this->assertObjectHasAttribute( 'table_name', new WP_Auto_Updater_History() );
 		$this->assertObjectHasAttribute( 'table_version', new WP_Auto_Updater_History() );
 		$this->assertObjectHasAttribute( 'nonce', new WP_Auto_Updater_History() );
+	}
+
+	/**
+	 * @test
+	 * @group history
+	 */
+	function public_variable() {
+		$this->assertEquals( 'wp_auto_updater', $this->wp_auto_updater_history->option_group );
+		$this->assertEquals( 'update_core', $this->wp_auto_updater_history->capability );
+		$this->assertEquals( 'auto_updater_history', $this->wp_auto_updater_history->table_name );
+		$this->assertEquals( '1.0.1', $this->wp_auto_updater_history->table_version );
+
+		global $wpdb;
+		$this->assertEquals( $wpdb->prefix . $this->wp_auto_updater_history->table_name, $this->wp_auto_updater_history->history_table_name );
+
+		$expected = array(
+			'clear_logs' => array(
+				'name'   => '_wpnonce_clear_logs',
+				'action' => 'clear_logs',
+			),
+		);
+		$this->assertEquals( $expected, $this->wp_auto_updater_history->nonce );
 	}
 
 	/**

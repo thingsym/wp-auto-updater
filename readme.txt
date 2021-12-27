@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 Tested up to: 5.8.0
 Requires at least: 3.9
 Requires PHP: 5.4
@@ -135,6 +135,18 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.6.1 =
+* update composer dependencies
+* fix test case
+* separate the method into print_update_message
+* add load_plugin_data method
+* change from protected variable to public variable for unit test
+* add timeout-minutes to workflows
+* add phpunit-polyfills
+* update install-wp-tests.sh
+* fix .editorconfig
+* tested up to 5.8.0
 
 = 1.6.0 =
 * update japanese translation

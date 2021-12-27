@@ -15,36 +15,36 @@
 class WP_Auto_Updater {
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_group   The group name of option
 	 */
-	protected $option_group = 'wp_auto_updater';
+	public $option_group = 'wp_auto_updater';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_name   The option name
 	 */
-	protected $option_name = 'wp_auto_updater_options';
+	public $option_name = 'wp_auto_updater_options';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $capability   The types of capability
 	 */
-	protected $capability = 'update_core';
+	public $capability = 'update_core';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var array $default_options {
 	 *   default options
@@ -66,7 +66,7 @@ class WP_Auto_Updater {
 	 *   }
 	 * }
 	 */
-	protected $default_options = array(
+	public $default_options = array(
 		'core'                => 'minor',
 		'theme'               => false,
 		'plugin'              => false,
@@ -85,9 +85,9 @@ class WP_Auto_Updater {
 	);
 
 	/**
-	 * Private value.
+	 * Public variable.
 	 *
-	 * @access private
+	 * @access public
 	 *
 	 * @var array|null $upgraded_version {
 	 *   @type string core
@@ -95,10 +95,10 @@ class WP_Auto_Updater {
 	 *   @type array  plugin
 	 * }
 	 */
-	private $upgraded_version = null;
+	public $upgraded_version = null;
 
 	/**
-	 * Public value.
+	 * Public variable.
 	 *
 	 * @access public
 	 *
@@ -107,13 +107,22 @@ class WP_Auto_Updater {
 	public $update_history = null;
 
 	/**
-	 * Public value.
+	 * Public variable.
 	 *
 	 * @access public
 	 *
 	 * @var object|null $notification   notification object
 	 */
 	public $notification = null;
+
+	/**
+	 * Public variable.
+	 *
+	 * @access public
+	 *
+	 * @var array|null $plugin_data
+	 */
+	public $plugin_data = array();
 
 	/**
 	 * Constructor
@@ -126,6 +135,8 @@ class WP_Auto_Updater {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'auto_update' ) );
+
+		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
@@ -169,6 +180,29 @@ class WP_Auto_Updater {
 		// Disable auto-update UI elements.
 		add_filter( 'plugins_auto_update_enabled', '__return_false' );
 		add_filter( 'themes_auto_update_enabled', '__return_false' );
+	}
+
+	/**
+	 * Load plugin data
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.6.1
+	 */
+	public function load_plugin_data() {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
+		$this->plugin_data = get_plugin_data( __WP_AUTO_UPDATER__ );
+
+		if ( ! $this->plugin_data ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -1165,6 +1199,19 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-warning"></span> ' . __( 'The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.', 'wp-auto-updater' ) . '</p>';
 		}
 
+		$this->print_update_message( $diff );
+	}
+
+	/**
+	 * Print the time to update.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.6.1
+	 */
+	public function print_update_message( $diff ) {
 		if ( $diff->d ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
@@ -1437,8 +1484,14 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.0.0
 	 */
-	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'wp-auto-updater-admin', plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ), array( 'jquery' ), '2017-09-06', true );
+	public function admin_enqueue_scripts( $hook_suffix = '' ) {
+		wp_enqueue_script(
+			'wp-auto-updater-admin',
+			plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ),
+			array( 'jquery' ),
+			$this->plugin_data['Version'],
+			true
+		);
 	}
 
 	/**

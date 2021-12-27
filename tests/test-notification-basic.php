@@ -14,7 +14,7 @@ class Test_Wp_Auto_Updater_Notification_Basic extends WP_UnitTestCase {
 
 	/**
 	 * @test
-	 * @group basic
+	 * @group notification
 	 */
 	public function classAttr() {
 		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater_Notification' );
@@ -25,13 +25,38 @@ class Test_Wp_Auto_Updater_Notification_Basic extends WP_UnitTestCase {
 
 	/**
 	 * @test
-	 * @group basic
+	 * @group notification
 	 */
 	public function objectAttr() {
 		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_Notification() );
 		$this->assertObjectHasAttribute( 'option_name', new WP_Auto_Updater_Notification() );
 		$this->assertObjectHasAttribute( 'capability', new WP_Auto_Updater_Notification() );
 		$this->assertObjectHasAttribute( 'default_options', new WP_Auto_Updater_Notification() );
+	}
+
+	/**
+	 * @test
+	 * @group notification
+	 */
+	function public_variable() {
+		$this->assertEquals( 'wp_auto_updater', $this->wp_auto_updater_notification->option_group );
+		$this->assertEquals( 'wp_auto_updater_notification_options', $this->wp_auto_updater_notification->option_name );
+		$this->assertEquals( 'update_core', $this->wp_auto_updater_notification->capability );
+
+		$expected = array(
+			'notification' => array(
+				'core'        => true,
+				'theme'       => false,
+				'plugin'      => false,
+				'translation' => false,
+			),
+			'mail'         => array(
+				'from'        => '',
+				'admin_email' => true,
+				'recipients'  => array(),
+			),
+		);
+		$this->assertEquals( $expected, $this->wp_auto_updater_notification->default_options );
 	}
 
 	/**
