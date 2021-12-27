@@ -138,7 +138,7 @@ class Test_Wp_Auto_Updater_Option_Page extends WP_UnitTestCase {
 	 * @test
 	 * @group options_page
 	 */
-	public function options_page() {
+	public function add_option_page() {
 		$this->markTestIncomplete( 'This test has not been implemented yet.' );
 	}
 

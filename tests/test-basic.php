@@ -147,7 +147,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function plugin_metadata_links() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$links = $this->wp_auto_updater->plugin_metadata_links( array(), plugin_basename( __WP_AUTO_UPDATER__ ) );
+		$this->assertContains( '<a href="https://github.com/sponsors/thingsym">Become a sponsor</a>', $links );
 	}
 
 	/**
@@ -156,7 +157,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 */
 	public function plugin_action_links() {
 		$links = $this->wp_auto_updater->plugin_action_links( array() );
-		$this->assertContains( 'index.php?page=wp-auto-updater', $links[0] );
+		$this->assertContains( '<a href="index.php?page=wp-auto-updater">Settings</a>', $links );
 	}
 
 	/**
