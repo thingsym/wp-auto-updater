@@ -1209,7 +1209,7 @@ class WP_Auto_Updater {
 	 *
 	 * @return void
 	 *
-	 * @since 1.6.0
+	 * @since 1.6.1
 	 */
 	public function print_update_message( $diff ) {
 		if ( $diff->d ) {
