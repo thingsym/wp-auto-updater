@@ -136,6 +136,8 @@ class WP_Auto_Updater {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'auto_update' ) );
 
+		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
+
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
@@ -178,6 +180,29 @@ class WP_Auto_Updater {
 		// Disable auto-update UI elements.
 		add_filter( 'plugins_auto_update_enabled', '__return_false' );
 		add_filter( 'themes_auto_update_enabled', '__return_false' );
+	}
+
+	/**
+	 * Load plugin data
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.6.1
+	 */
+	public function load_plugin_data() {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
+		$this->plugin_data = get_plugin_data( __WP_AUTO_UPDATER__ );
+
+		if ( ! $this->plugin_data ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -1446,8 +1471,14 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.0.0
 	 */
-	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'wp-auto-updater-admin', plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ), array( 'jquery' ), '2017-09-06', true );
+	public function admin_enqueue_scripts( $hook_suffix = '' ) {
+		wp_enqueue_script(
+			'wp-auto-updater-admin',
+			plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ),
+			array( 'jquery' ),
+			$this->plugin_data['Version'],
+			true
+		);
 	}
 
 	/**

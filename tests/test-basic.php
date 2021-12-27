@@ -136,6 +136,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function admin_enqueue_scripts() {
+		$this->wp_auto_updater->load_plugin_data();
+
 		$this->wp_auto_updater->admin_enqueue_scripts();
 		$this->assertTrue( wp_script_is( 'wp-auto-updater-admin' ) );
 	}
@@ -164,6 +166,14 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	public function load_textdomain() {
 		$result = $this->wp_auto_updater->load_textdomain();
 		$this->assertNull( $result );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
+	function load_plugin_data() {
+		$this->assertTrue( $this->wp_auto_updater->load_plugin_data() );
 	}
 
 }
