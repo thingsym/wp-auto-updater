@@ -15,36 +15,36 @@
 class WP_Auto_Updater {
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_group   The group name of option
 	 */
-	protected $option_group = 'wp_auto_updater';
+	public $option_group = 'wp_auto_updater';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $option_name   The option name
 	 */
-	protected $option_name = 'wp_auto_updater_options';
+	public $option_name = 'wp_auto_updater_options';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var string $capability   The types of capability
 	 */
-	protected $capability = 'update_core';
+	public $capability = 'update_core';
 
 	/**
-	 * Protected value.
+	 * Public variable.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @var array $default_options {
 	 *   default options
@@ -66,7 +66,7 @@ class WP_Auto_Updater {
 	 *   }
 	 * }
 	 */
-	protected $default_options = array(
+	public $default_options = array(
 		'core'                => 'minor',
 		'theme'               => false,
 		'plugin'              => false,
@@ -85,9 +85,9 @@ class WP_Auto_Updater {
 	);
 
 	/**
-	 * Private value.
+	 * Public variable.
 	 *
-	 * @access private
+	 * @access public
 	 *
 	 * @var array|null $upgraded_version {
 	 *   @type string core
@@ -95,10 +95,10 @@ class WP_Auto_Updater {
 	 *   @type array  plugin
 	 * }
 	 */
-	private $upgraded_version = null;
+	public $upgraded_version = null;
 
 	/**
-	 * Public value.
+	 * Public variable.
 	 *
 	 * @access public
 	 *
@@ -107,13 +107,22 @@ class WP_Auto_Updater {
 	public $update_history = null;
 
 	/**
-	 * Public value.
+	 * Public variable.
 	 *
 	 * @access public
 	 *
 	 * @var object|null $notification   notification object
 	 */
 	public $notification = null;
+
+	/**
+	 * Public variable.
+	 *
+	 * @access public
+	 *
+	 * @var array|null $plugin_data
+	 */
+	public $plugin_data = array();
 
 	/**
 	 * Constructor

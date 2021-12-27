@@ -40,6 +40,43 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @test
 	 * @group basic
 	 */
+	function public_variable() {
+		$this->assertEquals( 'wp_auto_updater', $this->wp_auto_updater->option_group );
+		$this->assertEquals( 'wp_auto_updater_options', $this->wp_auto_updater->option_name );
+		$this->assertEquals( 'update_core', $this->wp_auto_updater->capability );
+
+		$expected = array(
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
+			'disable_auto_update' => array(
+				'themes'  => array(),
+				'plugins' => array(),
+			),
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 1,
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
+			),
+		);
+		$this->assertEquals( $expected, $this->wp_auto_updater->default_options );
+
+		$this->assertNull( $this->wp_auto_updater->upgraded_version );
+
+		$this->assertIsArray( $this->wp_auto_updater->plugin_data );
+		$this->assertEmpty( $this->wp_auto_updater->plugin_data );
+
+		$this->assertIsObject( $this->wp_auto_updater->update_history );
+		$this->assertIsObject( $this->wp_auto_updater->notification );
+	}
+
+	/**
+	 * @test
+	 * @group basic
+	 */
 	public function constructor() {
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'load_textdomain' ) ) );
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'init' ) ) );
