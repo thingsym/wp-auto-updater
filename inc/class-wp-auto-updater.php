@@ -1199,6 +1199,19 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-warning"></span> ' . __( 'The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.', 'wp-auto-updater' ) . '</p>';
 		}
 
+		$this->print_update_message( $diff );
+	}
+
+	/**
+	 * Print the time to update.
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.6.0
+	 */
+	public function print_update_message( $diff ) {
 		if ( $diff->d ) {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
