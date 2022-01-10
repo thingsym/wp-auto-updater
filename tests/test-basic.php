@@ -174,7 +174,10 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function load_plugin_data() {
-		$this->assertTrue( $this->wp_auto_updater->load_plugin_data() );
+		$this->wp_auto_updater->load_plugin_data();
+		$result = $this->wp_auto_updater->plugin_data;
+
+		$this->assertTrue( is_array( $result ) );
 	}
 
 }
