@@ -242,3 +242,9 @@ We recommend shortening the update interval.
 
 = 1.0.0 =
 * initial release
+
+== Upgrade Notice ==
+
+= 1.6.2 =
+* Requires at least version 4.9 of the WordPress
+* Requires PHP version 5.6
