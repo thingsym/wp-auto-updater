@@ -5,7 +5,7 @@ Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
 Stable tag: 1.6.1
 Tested up to: 5.8.0
-Requires at least: 3.9
+Requires at least: 4.9
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
