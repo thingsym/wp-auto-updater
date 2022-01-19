@@ -82,6 +82,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'init', array( $this->wp_auto_updater, 'init' ) ) );
 		$this->assertEquals( 10, has_filter( 'wp_loaded', array( $this->wp_auto_updater, 'auto_update' ) ) );
 
+		$this->assertEquals( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater, 'load_plugin_data' ) ) );
+
 		$this->assertEquals( 10, has_filter( 'admin_init', array( $this->wp_auto_updater, 'register_settings' ) ) );
 		$this->assertEquals( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater, 'add_option_page' ) ) );
 
@@ -174,7 +176,10 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	function load_plugin_data() {
-		$this->assertTrue( $this->wp_auto_updater->load_plugin_data() );
+		$this->wp_auto_updater->load_plugin_data();
+		$result = $this->wp_auto_updater->plugin_data;
+
+		$this->assertTrue( is_array( $result ) );
 	}
 
 }

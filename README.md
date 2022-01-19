@@ -139,6 +139,10 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 
 ## Changelog
 
+* Version 1.6.2
+	* change requires at least to wordpress 4.9
+	* change requires to PHP 5.6
+	* add test case
 * Version 1.6.1
 	* update composer dependencies
 	* fix test case
@@ -233,6 +237,12 @@ Small patches and bug reports can be submitted a issue tracker in Github. Forkin
 	* add PHPDoc comments
 * Version 1.0.0
 	* initial release
+
+## Upgrade Notice
+
+* Version 1.6.2
+	* Requires at least version 4.9 of the WordPress
+	* Requires PHP version 5.6
 
 ## License
 
