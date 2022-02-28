@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Tested up to: 5.9.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -135,6 +135,11 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.6.3 =
+* change makepot from php script to wp cli
+* change plugin initialization to plugins_loaded hook
+* replace assert from assertEquals to assertSame
 
 = 1.6.2 =
 * change requires at least to wordpress 4.9
