@@ -56,6 +56,20 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	public function auto_update_result() {
 		$result = $this->wp_auto_updater->auto_update_result();
 		$this->assertNull( $result );
+
+		// $update_results = array();
+		// $update_theme = new stdClass();
+		// $update_theme->item = new stdClass();
+		// $update_theme->item->new_version = '1.1.1';
+		// $update_theme->item->theme = 'test';
+		// $update_theme->result = 1;
+		// $update_results['theme'] = array( $update_theme );
+
+		// $this->upgraded_version;
+
+		// $result = $this->wp_auto_updater->auto_update_result( $update_results );
+		// $this->assertNull( $result );
+
 	}
 
 	/**
@@ -120,7 +134,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'minor-only',
@@ -130,7 +144,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'pre-version',
@@ -140,9 +154,9 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
-		$this->assertEquals( 10, has_filter( 'pre_site_option_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
-		$this->assertEquals( 10, has_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'pre_site_option_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
+		$this->assertSame( 10, has_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) ) );
 
 		remove_filter( 'pre_site_option_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) );
 		remove_filter( 'site_transient_update_core', array( $this->wp_auto_updater, 'updates_previous_version' ) );
@@ -155,7 +169,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'auto_update_core', '__return_false' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'auto_update_core', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
 	}
 
@@ -220,7 +234,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'minor-only',
@@ -230,7 +244,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'pre-version',
@@ -252,7 +266,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'auto_update_core', '__return_false' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'auto_update_core', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
 	}
 
@@ -317,7 +331,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'minor-only',
@@ -327,7 +341,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'pre-version',
@@ -349,7 +363,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'auto_update_core', '__return_false' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'auto_update_core', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
 	}
 
@@ -414,7 +428,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'allow_major_auto_core_updates', '__return_true' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'allow_major_auto_core_updates', '__return_true' ) );
 
 		$options = array(
 			'core' => 'minor-only',
@@ -446,7 +460,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		remove_filter( 'auto_update_core', '__return_false' );
 		$this->wp_auto_updater->auto_update_wordpress_core();
-		$this->assertEquals( 10, has_filter( 'auto_update_core', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
 	}
 
@@ -516,7 +530,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 
 		$updates = $this->wp_auto_updater->updates_previous_version( $updates );
 
-		$this->assertEquals( '4.8.0', $updates->updates[1]->current );
+		$this->assertSame( '4.8.0', $updates->updates[1]->current );
 
 		$updates = $this->wp_auto_updater->updates_previous_version( array() );
 		$this->assertNull( $updates );
@@ -536,7 +550,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		remove_filter( 'auto_update_theme', array( $this->wp_auto_updater, 'auto_update_specific_theme' ) );
 		$this->wp_auto_updater->auto_update_theme();
 
-		$this->assertEquals( 10, has_filter( 'auto_update_theme', array( $this->wp_auto_updater, 'auto_update_specific_theme' ) ) );
+		$this->assertSame( 10, has_filter( 'auto_update_theme', array( $this->wp_auto_updater, 'auto_update_specific_theme' ) ) );
 
 		$options = array(
 			'theme' => false,
@@ -601,7 +615,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		remove_filter( 'auto_update_plugin', array( $this->wp_auto_updater, 'auto_update_specific_plugin' ) );
 		$this->wp_auto_updater->auto_update_plugin();
 
-		$this->assertEquals( 10, has_filter( 'auto_update_plugin', array( $this->wp_auto_updater, 'auto_update_specific_plugin' ) ) );
+		$this->assertSame( 10, has_filter( 'auto_update_plugin', array( $this->wp_auto_updater, 'auto_update_specific_plugin' ) ) );
 
 		$options = array(
 			'plugin' => false,
@@ -673,7 +687,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		remove_filter( 'auto_update_translation', '__return_false' );
 		$this->wp_auto_updater->auto_update_translation();
 
-		$this->assertEquals( 10, has_filter( 'auto_update_translation', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'auto_update_translation', '__return_false' ) );
 
 	}
 

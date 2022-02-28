@@ -30,7 +30,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			),
 		);
 
-		$this->assertEquals( $expected, $schedules );
+		$this->assertSame( $expected, $schedules );
 	}
 
 	/**
@@ -54,9 +54,9 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
 
-		$this->assertEquals( $timestamp, $update_wp_scheduled );
-		$this->assertEquals( $timestamp, $update_themes_scheduled );
-		$this->assertEquals( $timestamp, $update_plugins_scheduled );
+		$this->assertSame( $timestamp, $update_wp_scheduled );
+		$this->assertSame( $timestamp, $update_themes_scheduled );
+		$this->assertSame( $timestamp, $update_plugins_scheduled );
 
 		$schedule = array(
 			'interval' => '',
