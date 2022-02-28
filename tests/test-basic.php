@@ -78,8 +78,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function constructor() {
-		$this->assertSame( 10, has_filter( 'init', array( $this->wp_auto_updater, 'load_textdomain' ) ) );
-		$this->assertSame( 10, has_filter( 'init', array( $this->wp_auto_updater, 'init' ) ) );
+		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater, 'load_textdomain' ) ) );
+		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater, 'init' ) ) );
 		$this->assertSame( 10, has_filter( 'wp_loaded', array( $this->wp_auto_updater, 'auto_update' ) ) );
 
 		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater, 'load_plugin_data' ) ) );

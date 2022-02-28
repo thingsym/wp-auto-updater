@@ -64,7 +64,7 @@ class Test_Wp_Auto_Updater_Notification_Basic extends WP_UnitTestCase {
 	 * @group notification
 	 */
 	public function constructor() {
-		$this->assertSame( 10, has_filter( 'init', array( $this->wp_auto_updater_notification, 'init' ) ) );
+		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater_notification, 'init' ) ) );
 		$this->assertSame( 10, has_filter( 'admin_init', array( $this->wp_auto_updater_notification, 'register_settings' ) ) );
 	}
 

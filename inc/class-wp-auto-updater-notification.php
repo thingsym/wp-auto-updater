@@ -84,14 +84,14 @@ class WP_Auto_Updater_Notification {
 	 * @since 1.4.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
 
 	/**
 	 * Initialize.
 	 *
-	 * Hooks to init
+	 * Hooks to plugins_loaded
 	 *
 	 * @access public
 	 *

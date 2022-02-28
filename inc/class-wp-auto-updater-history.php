@@ -89,7 +89,7 @@ class WP_Auto_Updater_History {
 		global $wpdb;
 		$this->history_table_name = $wpdb->prefix . $this->table_name;
 
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'plugins_loaded', array( $this, 'init' ) );
 
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
 
@@ -102,7 +102,7 @@ class WP_Auto_Updater_History {
 	/**
 	 * Initialize.
 	 *
-	 * Hooks to init
+	 * Hooks to plugins_loaded
 	 *
 	 * @access public
 	 *

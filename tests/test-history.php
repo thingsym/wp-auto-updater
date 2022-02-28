@@ -76,7 +76,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function constructor() {
-		$this->assertSame( 10, has_filter( 'init', array( $this->wp_auto_updater_history, 'init' ) ) );
+		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater_history, 'init' ) ) );
 
 		$this->assertSame( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater_history, 'add_option_page' ) ) );
 
