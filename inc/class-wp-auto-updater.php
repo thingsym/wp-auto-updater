@@ -132,8 +132,8 @@ class WP_Auto_Updater {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'auto_update' ) );
 
 		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
@@ -161,7 +161,7 @@ class WP_Auto_Updater {
 	/**
 	 * Initialize.
 	 *
-	 * Hooks to init
+	 * Hooks to plugins_loaded
 	 *
 	 * @access public
 	 *

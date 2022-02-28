@@ -32,7 +32,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 			),
 		);
 
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$options = $this->wp_auto_updater_notification->get_options();
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 
 		$options = array(
 			'notification' => array(),
@@ -69,7 +69,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$options = $this->wp_auto_updater_notification->get_options();
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 
 		$options = array(
 			'notification' => array(
@@ -83,7 +83,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$options = $this->wp_auto_updater_notification->get_options();
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 		$options = $this->wp_auto_updater_notification->get_options();
 		$this->assertFalse( $options['notification']['core'] );
 		$this->assertTrue( $options['notification']['theme'] );
-		$this->assertEquals( 'test@example.com', $options['mail']['from'] );
+		$this->assertSame( 'test@example.com', $options['mail']['from'] );
 		$this->assertFalse( $options['mail']['admin_email'] );
 		$this->assertContains( 3, $options['mail']['recipients'] );
 
@@ -123,7 +123,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 		$this->assertTrue( $options['theme'] );
 
 		$options = $this->wp_auto_updater_notification->get_options( 'mail' );
-		$this->assertEquals( 'test@example.com', $options['from'] );
+		$this->assertSame( 'test@example.com', $options['from'] );
 		$this->assertFalse( $options['admin_email'] );
 		$this->assertContains( 3, $options['recipients'] );
 
@@ -165,7 +165,7 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 		add_filter( 'wp_auto_updater_notification/get_option', array( $this, '_filter_option' ), 10, 2 );
 
 		$options = $this->wp_auto_updater_notification->get_options( 'mail' );
-		$this->assertEquals( 'abc@example.com', $options['from'] );
+		$this->assertSame( 'abc@example.com', $options['from'] );
 		$this->assertFalse( $options['admin_email'] );
 		$this->assertContains( 6, $options['recipients'] );
 	}
@@ -201,8 +201,8 @@ class Test_Wp_Auto_Updater_Notification_Options extends WP_UnitTestCase {
 			'recipients'  => array(),
 		);
 
-		$this->assertEquals( $expected, $option );
-		$this->assertEquals( 'mail', $name );
+		$this->assertSame( $expected, $option );
+		$this->assertSame( 'mail', $name );
 
 		$option = array(
 			'from'        => 'abc@example.com',

@@ -128,7 +128,7 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$from = $this->wp_auto_updater_notification->change_mail_from( 'somebody@example.com' );
-		$this->assertEquals( 'somebody@example.com', $from );
+		$this->assertSame( 'somebody@example.com', $from );
 
 		$options = array(
 			'notification' => array(
@@ -147,7 +147,7 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$from = $this->wp_auto_updater_notification->change_mail_from( 'test@example.com' );
-		$this->assertEquals( 'test@example.com', $from );
+		$this->assertSame( 'test@example.com', $from );
 	}
 
 	/**
@@ -179,8 +179,8 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		);
 
 		$email = $this->wp_auto_updater_notification->change_core_update_email( $email_array, 'success', '', '' );
-		$this->assertEquals( $email_array, $email );
-		$this->assertEquals( 'somebody@example.com', $email['to'] );
+		$this->assertSame( $email_array, $email );
+		$this->assertSame( 'somebody@example.com', $email['to'] );
 	}
 
 	/**
@@ -212,8 +212,8 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		);
 
 		$email = $this->wp_auto_updater_notification->change_email( $email_array, array(), array() );
-		$this->assertEquals( $email_array, $email );
-		$this->assertEquals( 'somebody@example.com', $email['to'] );
+		$this->assertSame( $email_array, $email );
+		$this->assertSame( 'somebody@example.com', $email['to'] );
 
 
 		$options = array(
@@ -233,7 +233,7 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$email = $this->wp_auto_updater_notification->change_email( $email_array, array(), array() );
-		$this->assertEquals( 'somebody@example.com', $email['to'] );
+		$this->assertSame( 'somebody@example.com', $email['to'] );
 
 		$user_ids = $this->factory->user->create_many( 3, array(
 			'role' => 'administrator',
@@ -268,7 +268,7 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$email = $this->wp_auto_updater_notification->change_email( $email_array, array(), array() );
-		$this->assertEquals( $email_to, $email['to'] );
+		$this->assertSame( $email_to, $email['to'] );
 	}
 
 	/**
@@ -277,7 +277,7 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 	 */
 	public function set_update_notification_core() {
 		$this->wp_auto_updater_notification->set_update_notification_core();
-		$this->assertEquals( 10, has_filter( 'auto_core_update_send_email', '__return_true' ) );
+		$this->assertSame( 10, has_filter( 'auto_core_update_send_email', '__return_true' ) );
 
 		$options = array(
 			'notification' => array(
@@ -296,7 +296,7 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_notification_options', $options );
 
 		$this->wp_auto_updater_notification->set_update_notification_core();
-		$this->assertEquals( 10, has_filter( 'auto_core_update_send_email', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'auto_core_update_send_email', '__return_false' ) );
 	}
 
 }

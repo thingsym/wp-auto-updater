@@ -36,7 +36,7 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 			),
 		);
 
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_options', $options );
 
 		$options = $this->wp_auto_updater->get_options();
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 
 		$options = array(
 			'disable_auto_update' => array(
@@ -81,7 +81,7 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_options', $options );
 
 		$options = $this->wp_auto_updater->get_options();
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 
 		$options = array(
 			'core'                => 'minor',
@@ -99,7 +99,7 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_options', $options );
 
 		$options = $this->wp_auto_updater->get_options();
-		$this->assertEquals( $expected, $options );
+		$this->assertSame( $expected, $options );
 	}
 
 	/**
@@ -128,10 +128,10 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 		update_option( 'wp_auto_updater_options', $options );
 
 		$options = $this->wp_auto_updater->get_options();
-		$this->assertEquals( 'minor', $options['core'] );
+		$this->assertSame( 'minor', $options['core'] );
 
 		$options = $this->wp_auto_updater->get_options( 'core' );
-		$this->assertEquals( 'minor', $options );
+		$this->assertSame( 'minor', $options );
 
 		$option = $this->wp_auto_updater->get_options( 'test' );
 		$this->assertNull( $option );
@@ -165,12 +165,12 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 		add_filter( 'wp_auto_updater/get_options', array( $this, '_filter_options' ), 10 );
 
 		$options = $this->wp_auto_updater->get_options();
-		$this->assertEquals( 'aaa', $options['core'] );
+		$this->assertSame( 'aaa', $options['core'] );
 
 		add_filter( 'wp_auto_updater/get_option', array( $this, '_filter_option' ), 10, 2 );
 
 		$options = $this->wp_auto_updater->get_options( 'core' );
-		$this->assertEquals( 'bbb', $options );
+		$this->assertSame( 'bbb', $options );
 	}
 
 	public function _filter_options( $options ) {
@@ -181,8 +181,8 @@ class Test_Wp_Auto_Updater_Options extends WP_UnitTestCase {
 	}
 
 	public function _filter_option( $option, $name ) {
-		$this->assertEquals( 'minor', $option );
-		$this->assertEquals( 'core', $name );
+		$this->assertSame( 'minor', $option );
+		$this->assertSame( 'core', $name );
 
 		$option = 'bbb';
 		return $option;
