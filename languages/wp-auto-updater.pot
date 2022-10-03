@@ -1,5 +1,5 @@
-# Copyright (C) 2021 thingsym
-# This file is distributed under the same license as the WP Auto Updater plugin.
+# Copyright (C) 2022 thingsym
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Auto Updater 1.6.3\n"
