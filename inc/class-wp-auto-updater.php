@@ -976,15 +976,15 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return boolean
 	 *
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain(
+		return load_plugin_textdomain(
 			'wp-auto-updater',
 			false,
-			dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/'
+			plugin_dir_path( __WP_AUTO_UPDATER__ ) . 'languages'
 		);
 	}
 

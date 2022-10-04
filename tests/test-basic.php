@@ -167,13 +167,40 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain() {
-		$result = $this->wp_auto_updater->load_textdomain();
-		$this->assertNull( $result );
+		$loaded = $this->wp_auto_updater->load_textdomain();
+		$this->assertFalse( $loaded );
 
-		// $this->markTestIncomplete( 'This test has not been implemented yet.' );
-		// Site Language
-		// $this->wp_auto_updater->load_textdomain();
-		// var_dump( is_textdomain_loaded('wp-auto-updater') );
+		unload_textdomain( 'wp-auto-updater' );
+
+		add_filter( 'locale', [ $this, '_change_locale' ] );
+		add_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ], 10, 2 );
+
+		$loaded = $this->wp_auto_updater->load_textdomain();
+		$this->assertTrue( $loaded );
+
+		remove_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ] );
+		remove_filter( 'locale', [ $this, '_change_locale' ] );
+
+		unload_textdomain( 'wp-auto-updater' );
+	}
+
+	/**
+	 * hook for load_textdomain
+	 */
+	function _change_locale( $locale ) {
+		return 'ja';
+	}
+
+	function _change_textdomain_mofile( $mofile, $domain ) {
+		if ( $domain === 'wp-auto-updater' ) {
+			$locale = determine_locale();
+			$mofile = plugin_dir_path( __WP_AUTO_UPDATER__ ) . 'languages/wp-auto-updater-' . $locale . '.mo';
+
+			$this->assertSame( $locale, get_locale() );
+			$this->assertFileExists( $mofile );
+		}
+
+		return $mofile;
 	}
 
 	/**
