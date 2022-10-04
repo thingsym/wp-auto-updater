@@ -30,6 +30,7 @@
       "@phpstan"
     ],
     "makepot:wpcli": "wp i18n make-pot ./ ./languages/wp-auto-updater.pot --exclude=dist,bin,tests,node_modules,vendor",
+    "msgmerge:ja": "msgmerge --update --backup off ./languages/wp-auto-updater-ja.po ./languages/wp-auto-updater.pot",
     "makemo:ja": "wp i18n make-mo languages/wp-auto-updater-ja.po languages/",
     "msgfmt:ja": "msgfmt languages/wp-auto-updater-ja.po -o languages/wp-auto-updater-ja.mo"
   }
