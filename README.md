@@ -1,6 +1,6 @@
 # Introducing WP Auto Updater
 
-This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
+WP Auto Updater plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 ## Features
 
@@ -121,21 +121,51 @@ WP Auto Updater is hosted on the WordPress Plugin Directory.
 
 [https://wordpress.org/plugins/wp-auto-updater/](https://wordpress.org/plugins/wp-auto-updater/)
 
-## Test Matrix
+## Support
 
-For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
+If you have any trouble, you can use the forums or report bugs.
+
+* Forum: [https://wordpress.org/support/plugin/wp-auto-updater/](https://wordpress.org/support/plugin/wp-auto-updater/)
+* Issues: [https://github.com/thingsym/wp-auto-updater/issues](https://github.com/thingsym/wp-auto-updater/issues)
 
 ## Contribution
 
+Small patches and bug reports can be submitted a issue tracker in Github.
+
+Translating a plugin takes a lot of time, effort, and patience. I really appreciate the hard work from these contributors.
+
+If you have created or updated your own language pack, you can send gettext PO and MO files to author. I can bundle it into plugin.
+
+* VCS - Github: [https://github.com/thingsym/wp-auto-updater/](https://github.com/thingsym/wp-auto-updater/)
+* [Translate WP Auto Updater into your language.](https://translate.wordpress.org/projects/wp-plugins/wp-auto-updater)
+
+You can also contribute by answering issues on the forums.
+
+* Forum: [https://wordpress.org/support/plugin/wp-auto-updater/](https://wordpress.org/support/plugin/wp-auto-updater/)
+* Issues: [https://github.com/thingsym/wp-auto-updater/issues](https://github.com/thingsym/wp-auto-updater/issues)
+
 ### Patches and Bug Fixes
 
-Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
+Forking on Github is another good way. You can send a pull request.
 
 1. Fork [WP Auto Updater](https://github.com/thingsym/wp-auto-updater) from GitHub repository
 2. Create a feature branch: git checkout -b my-new-feature
 3. Commit your changes: git commit -am 'Add some feature'
 4. Push to the branch: git push origin my-new-feature
 5. Create new Pull Request
+
+### Contribute guidlines
+
+If you would like to contribute, here are some notes and guidlines.
+
+* All development happens on the **develop** branch, so it is always the most up-to-date
+* The **master** branch only contains tagged releases
+* If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
+* See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
+## Test Matrix
+
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
 
 ## Changelog
 

@@ -10,11 +10,11 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
+WP Auto Updater plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 == Description ==
 
-This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
+WP Auto Updater plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 = Features =
 
@@ -80,18 +80,42 @@ You can also set the day, the day of the week, the hour and the minute of the Up
 
 At the time of automatic update, Automatically updates WordPress Core, Themes, Plugins and Translations to be updated.
 
-= Test Matrix =
+= Support =
 
-For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
+If you have any trouble, you can use the forums or report bugs.
 
-= Contributing =
+* Forum: [https://wordpress.org/support/plugin/wp-auto-updater/](https://wordpress.org/support/plugin/wp-auto-updater/)
+* Issues: [https://github.com/thingsym/wp-auto-updater/issues](https://github.com/thingsym/wp-auto-updater/issues)
 
-= Patches and Bug Fixes =
+= Contribution =
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-* [wp-auto-updater - GitHub](https://github.com/thingsym/wp-auto-updater)
-* [WP Auto Updater - WordPress Plugin](https://wordpress.org/plugins/wp-auto-updater/)
+Translating a plugin takes a lot of time, effort, and patience. I really appreciate the hard work from these contributors.
+
+If you have created or updated your own language pack, you can send gettext PO and MO files to author. I can bundle it into plugin.
+
+* [VCS - GitHub](https://github.com/thingsym/wp-auto-updater)
+* [Homepage - WordPress Plugin](https://wordpress.org/plugins/wp-auto-updater/)
+* [Translate WP Auto Updater into your language.](https://translate.wordpress.org/projects/wp-plugins/wp-auto-updater)
+
+You can also contribute by answering issues on the forums.
+
+* Forum: [https://wordpress.org/support/plugin/wp-auto-updater/](https://wordpress.org/support/plugin/wp-auto-updater/)
+* Issues: [https://github.com/thingsym/wp-auto-updater/issues](https://github.com/thingsym/wp-auto-updater/issues)
+
+= Contribute guidlines =
+
+If you would like to contribute, here are some notes and guidlines.
+
+* All development happens on the **develop** branch, so it is always the most up-to-date
+* The **master** branch only contains tagged releases
+* If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
+* See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
+= Test Matrix =
+
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
 
 == Installation ==
 
