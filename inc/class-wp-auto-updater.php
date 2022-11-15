@@ -1288,7 +1288,7 @@ class WP_Auto_Updater {
 		$schedule_interval = $this->get_schedule_interval();
 		foreach ( $schedule_interval as $key => $label ) {
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html__( $label, 'wp-auto-updater' ) . '</label></p>';
+			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html( $label ) . '</label></p>';
 		}
 	}
 
