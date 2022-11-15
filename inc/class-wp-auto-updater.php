@@ -188,7 +188,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return bool
 	 *
 	 * @since 1.6.1
 	 */
@@ -1586,7 +1586,7 @@ class WP_Auto_Updater {
 	/**
 	 * Display notice.
 	 *
-	 * @access public static
+	 * @access public
 	 *
 	 * @return void
 	 *
