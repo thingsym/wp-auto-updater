@@ -33,15 +33,15 @@ First of all, we will make an **Auto Update Scenario** which decide the policy o
 
 You can choose from the following five automatic updates of WordPress Core.
 
-* Minor Version Update (Recommended)
+* Minor Version Update
 * Major Version Update
 * Minor Only Version Update
 * Previous Generation Version Update
 * Manual Update
 
-= Minor Version Update (Recommended) =
+= Minor Version Update =
 
-**Minor Version Update (Recommended)** enable minor updates. Minor updates is default behavior in WordPress for security updates. The transition of the version number is as follows: update from 4.8 to 4.8.1, 4.8.2 ...
+**Minor Version Update** enable minor updates. Minor updates is default behavior in WordPress for security updates. The transition of the version number is as follows: update from 4.8 to 4.8.1, 4.8.2 ...
 
 = Major Version Update =
 

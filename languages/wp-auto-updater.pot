@@ -341,8 +341,8 @@ msgstr ""
 msgid "Monthly"
 msgstr ""
 
-#: inc/class-wp-auto-updater.php:1066
-msgid "Minor Version Update (Recommended)"
+#: inc/class-wp-auto-updater.php:1100
+msgid "Minor Version Update"
 msgstr ""
 
 #: inc/class-wp-auto-updater.php:1067

@@ -341,9 +341,9 @@ msgstr "毎週"
 msgid "Monthly"
 msgstr "毎月"
 
-#: inc/class-wp-auto-updater.php:1047
-msgid "Minor Version Update (Recommended)"
-msgstr "マイナーバージョンをアップデート (推奨)"
+#: inc/class-wp-auto-updater.php:1100
+msgid "Minor Version Update"
+msgstr "マイナーバージョンをアップデート"
 
 #: inc/class-wp-auto-updater.php:1048
 msgid "Major Version Update"

@@ -1097,7 +1097,7 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'core' );
 		?>
 <select name="wp_auto_updater_options[core]">
-<option value="minor"<?php selected( 'minor', $option ); ?>><?php esc_html_e( 'Minor Version Update (Recommended)', 'wp-auto-updater' ); ?></option>
+<option value="minor"<?php selected( 'minor', $option ); ?>><?php esc_html_e( 'Minor Version Update', 'wp-auto-updater' ); ?></option>
 <option value="major"<?php selected( 'major', $option ); ?>><?php esc_html_e( 'Major Version Update', 'wp-auto-updater' ); ?></option>
 <option value="minor-only"<?php selected( 'minor-only', $option ); ?>><?php esc_html_e( 'Minor Only Version Update', 'wp-auto-updater' ); ?></option>
 <option value="pre-version"<?php selected( 'pre-version', $option ); ?>><?php esc_html_e( 'Previous Generation Version Update', 'wp-auto-updater' ); ?></option>
