@@ -115,6 +115,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 
 		$this->assertSame( 10, has_filter( 'plugins_auto_update_enabled', '__return_false' ) );
 		$this->assertSame( 10, has_filter( 'themes_auto_update_enabled', '__return_false' ) );
+		$this->assertSame( 10, has_filter( 'admin_print_footer_scripts', array( $this->wp_auto_updater, 'hidden_auto_update_status' ) ) );
 	}
 
 	/**
