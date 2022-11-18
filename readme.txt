@@ -49,13 +49,13 @@ You can choose from the following five automatic updates of WordPress Core.
 
 = Minor Only Version Update =
 
-**Minor Only Version Update** enable major updates and minor updates **except version x.y.0**.
+**Minor Only Version Update** enable major updates and minor updates **except version x.y.0**. It make sense to take a "skip" approach to avoid introducing new vulnerabilities into the latest major version release.
 
 Update the WordPress Core version (eg. x.y.1 or later) with security fixed. Not automatically update the latest major version of x.y.0. The transition of the version number is as follows: update from 4.7.z to 4.8.z, 4.9.z ... skiped 4.7.0, 4.8.0, 4.9.0 ...
 
 = Previous Generation Version Update =
 
-**Previous Generation Version Update** enable major updates and minor updates **except the latest major version**.
+**Previous Generation Version Update** enable major updates and minor updates **except the latest major version**. It make sense to take a "wait and see" approach to ensure the latest major version release is stable before.
 
 With the installed WordPress Core version as 4.6.z. If the latest WordPress Core version released to 4.8.0, automatically update it to version 4.7.z. It will be always automatically updated to the previous generation WordPress Core version with probably security fixed.
 
