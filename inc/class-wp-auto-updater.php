@@ -180,7 +180,7 @@ class WP_Auto_Updater {
 		// Disable auto-update UI elements.
 		add_filter( 'plugins_auto_update_enabled', '__return_false' );
 		add_filter( 'themes_auto_update_enabled', '__return_false' );
-		add_action( 'admin_print_footer_scripts', array( $this, 'hidden_auto_update_status' ) );
+		add_action( 'after_core_auto_updates_settings', array( $this, 'hidden_auto_update_status' ) );
 	}
 
 	/**
@@ -1571,16 +1571,13 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.6.4
 	 */
-	public function hidden_auto_update_status() {
-		$screen = get_current_screen();
-		if ( $screen->id === 'update-core' ) {
-			?>
+	public function hidden_auto_update_status( $auto_update_settings ) {
+?>
 <style>
 .auto-update-status {
 	display: none
 }
 </style><?php
-		}
 	}
 
 	/**
