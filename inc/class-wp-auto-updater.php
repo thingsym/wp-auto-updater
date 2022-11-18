@@ -218,6 +218,9 @@ class WP_Auto_Updater {
 	public function activate() {
 		$option = $this->get_options( 'schedule' );
 		do_action( 'wp_auto_updater/set_cron', $option );
+
+		// Set auto_update_core_major to disable.
+		update_site_option( 'auto_update_core_major' , 'disable' );
 	}
 
 	/**
