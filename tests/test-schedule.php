@@ -184,6 +184,16 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 
+		$schedule = array(
+			'interval' => 'monthly',
+			'day'      => 'last_day',
+			'weekday'  => 'monday',
+			'hour'     => 6,
+			'minute'   => 0,
+		);
+
+		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+		$this->assertGreaterThan( time(), $timestamp );
 	}
 
 	/**
@@ -272,6 +282,17 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
+
+			$schedule = array(
+				'interval' => 'monthly',
+				'day'      => 'last_day',
+				'weekday'  => 'monday',
+				'hour'     => 6,
+				'minute'   => 0,
+			);
+
+			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertGreaterThan( time(), $timestamp );
 		}
 	}
 
@@ -357,6 +378,17 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
+
+			$schedule = array(
+				'interval' => 'monthly',
+				'day'      => 'last_day',
+				'weekday'  => 'monday',
+				'hour'     => 6,
+				'minute'   => 0,
+			);
+
+			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertGreaterThan( time(), $timestamp );
 		}
 	}
 

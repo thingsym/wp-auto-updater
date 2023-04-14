@@ -475,6 +475,10 @@ class WP_Auto_Updater {
 		elseif ( 'monthly' === $schedule['interval'] ) {
 			$diff_last_day_sec = 0;
 
+			if ( 'last_day' === $schedule['day'] ) {
+				$schedule['day'] = 31;
+			}
+
 			if ( 28 <= $schedule['day'] ) {
 				// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 				$last_day      = intval( date( 't', strtotime( 'first day of this month 00:00:00' ) ) );
@@ -1316,6 +1320,7 @@ class WP_Auto_Updater {
 			/* @phpstan-ignore-next-line */
 			echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
 		}
+		echo '<option value="last_day"' . selected( 'last_day', $option['day'], false ) . '>' . esc_html__( 'last day', 'wp-auto-updater' ) . '</option>';
 		?>
 </select></p>
 
@@ -1463,7 +1468,15 @@ class WP_Auto_Updater {
 
 		$output['schedule']['interval'] = isset( $input['schedule']['interval'] ) ? $input['schedule']['interval'] : $this->default_options['schedule']['interval'];
 
-		$output['schedule']['day'] = isset( $input['schedule']['day'] ) ? (int) $input['schedule']['day'] : (int) $this->default_options['schedule']['day'];
+		$output['schedule']['day'] = (int) $this->default_options['schedule']['day'];
+		if ( isset( $input['schedule']['day'] ) ) {
+			if ( $input['schedule']['day'] === 'last_day' ) {
+				$output['schedule']['day'] = $input['schedule']['day'];
+			}
+			else {
+				$output['schedule']['day'] = (int) $input['schedule']['day'];
+			}
+		}
 
 		$output['schedule']['weekday'] = empty( $input['schedule']['weekday'] ) ? $this->default_options['schedule']['weekday'] : strtolower( $input['schedule']['weekday'] );
 
