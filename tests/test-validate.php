@@ -141,4 +141,50 @@ class Test_Wp_Auto_Updater_Validate extends WP_UnitTestCase {
 		$output['core'] = 'aaa';
 		return $output;
 	}
+
+	/**
+	 * @test
+	 * @group validate
+	 */
+	public function validate_case_last_day() {
+		$new_input = array(
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
+			'disable_auto_update' => array(
+				'themes'  => array(),
+				'plugins' => array(),
+			),
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 'last_day',
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
+			),
+		);
+		$expected  = array(
+			'core'                => 'minor',
+			'theme'               => false,
+			'plugin'              => false,
+			'translation'         => true,
+			'disable_auto_update' => array(
+				'themes'  => array(),
+				'plugins' => array(),
+			),
+			'schedule'            => array(
+				'interval' => 'twicedaily',
+				'day'      => 'last_day',
+				'weekday'  => 'monday',
+				'hour'     => 4,
+				'minute'   => 0,
+			),
+		);
+
+		$output = $this->wp_auto_updater->validate_options( $new_input );
+
+		$this->assertSame( $expected, $output );
+	}
+
 }

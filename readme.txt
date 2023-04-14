@@ -3,18 +3,18 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.6.3
-Tested up to: 6.0.0
+Stable tag: 1.7.0
+Tested up to: 6.2.0
 Requires at least: 4.9
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
+WP Auto Updater plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 == Description ==
 
-This WordPress plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
+WP Auto Updater plugin enables automatic updates of WordPress Core, Themes, Plugins and Translations. Version control of WordPress Core makes automatic update more safely.
 
 = Features =
 
@@ -33,15 +33,15 @@ First of all, we will make an **Auto Update Scenario** which decide the policy o
 
 You can choose from the following five automatic updates of WordPress Core.
 
-* Minor Version Update (Recommended)
+* Minor Version Update
 * Major Version Update
 * Minor Only Version Update
 * Previous Generation Version Update
 * Manual Update
 
-= Minor Version Update (Recommended) =
+= Minor Version Update =
 
-**Minor Version Update (Recommended)** enable minor updates. Minor updates is default behavior in WordPress for security updates. The transition of the version number is as follows: update from 4.8 to 4.8.1, 4.8.2 ...
+**Minor Version Update** enable minor updates. Minor updates is default behavior in WordPress for security updates. The transition of the version number is as follows: update from 4.8 to 4.8.1, 4.8.2 ...
 
 = Major Version Update =
 
@@ -49,13 +49,13 @@ You can choose from the following five automatic updates of WordPress Core.
 
 = Minor Only Version Update =
 
-**Minor Only Version Update** enable major updates and minor updates **except version x.y.0**.
+**Minor Only Version Update** enable major updates and minor updates **except version x.y.0**. It make sense to take a "skip" approach to avoid introducing new vulnerabilities into the latest major version release.
 
 Update the WordPress Core version (eg. x.y.1 or later) with security fixed. Not automatically update the latest major version of x.y.0. The transition of the version number is as follows: update from 4.7.z to 4.8.z, 4.9.z ... skiped 4.7.0, 4.8.0, 4.9.0 ...
 
 = Previous Generation Version Update =
 
-**Previous Generation Version Update** enable major updates and minor updates **except the latest major version**.
+**Previous Generation Version Update** enable major updates and minor updates **except the latest major version**. It make sense to take a "wait and see" approach to ensure the latest major version release is stable before.
 
 With the installed WordPress Core version as 4.6.z. If the latest WordPress Core version released to 4.8.0, automatically update it to version 4.7.z. It will be always automatically updated to the previous generation WordPress Core version with probably security fixed.
 
@@ -80,18 +80,42 @@ You can also set the day, the day of the week, the hour and the minute of the Up
 
 At the time of automatic update, Automatically updates WordPress Core, Themes, Plugins and Translations to be updated.
 
-= Test Matrix =
+= Support =
 
-For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
+If you have any trouble, you can use the forums or report bugs.
 
-= Contributing =
+* Forum: [https://wordpress.org/support/plugin/wp-auto-updater/](https://wordpress.org/support/plugin/wp-auto-updater/)
+* Issues: [https://github.com/thingsym/wp-auto-updater/issues](https://github.com/thingsym/wp-auto-updater/issues)
 
-= Patches and Bug Fixes =
+= Contribution =
 
 Small patches and bug reports can be submitted a issue tracker in Github. Forking on Github is another good way. You can send a pull request.
 
-* [wp-auto-updater - GitHub](https://github.com/thingsym/wp-auto-updater)
-* [WP Auto Updater - WordPress Plugin](https://wordpress.org/plugins/wp-auto-updater/)
+Translating a plugin takes a lot of time, effort, and patience. I really appreciate the hard work from these contributors.
+
+If you have created or updated your own language pack, you can send gettext PO and MO files to author. I can bundle it into plugin.
+
+* [VCS - GitHub](https://github.com/thingsym/wp-auto-updater)
+* [Homepage - WordPress Plugin](https://wordpress.org/plugins/wp-auto-updater/)
+* [Translate WP Auto Updater into your language.](https://translate.wordpress.org/projects/wp-plugins/wp-auto-updater)
+
+You can also contribute by answering issues on the forums.
+
+* Forum: [https://wordpress.org/support/plugin/wp-auto-updater/](https://wordpress.org/support/plugin/wp-auto-updater/)
+* Issues: [https://github.com/thingsym/wp-auto-updater/issues](https://github.com/thingsym/wp-auto-updater/issues)
+
+= Contribute guidlines =
+
+If you would like to contribute, here are some notes and guidlines.
+
+* All development happens on the **develop** branch, so it is always the most up-to-date
+* The **master** branch only contains tagged releases
+* If you are going to be submitting a pull request, please submit your pull request to the **develop** branch
+* See about [forking](https://help.github.com/articles/fork-a-repo/) and [pull requests](https://help.github.com/articles/using-pull-requests/)
+
+= Test Matrix =
+
+For operation compatibility between PHP version and WordPress version, see below [Github Actions](https://github.com/thingsym/wp-auto-updater/actions).
 
 == Installation ==
 
@@ -135,6 +159,20 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.7.0 =
+* tested up to 6.2.0
+* update japanese translation
+* update pot
+* add test case
+* add last day to schedule
+* fix composer scripts
+* update github actions
+* set auto_update_core_major to disable when activate
+* add support section and enhance contribution section
+* add support section and enhance contribution section to README
+* fix license
+* fix wp-plugin-unit-test.yml
 
 = 1.6.3 =
 * change makepot from php script to wp cli

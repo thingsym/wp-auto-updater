@@ -49,8 +49,8 @@ class WP_Auto_Updater {
 	 * @var array $default_options {
 	 *   default options
 	 *
-	 *   @type string core
-	 *   @type bool   theme    minor|major|minor-only|pre-version|null
+	 *   @type string core    minor|major|minor-only|pre-version|null
+	 *   @type bool   theme
 	 *   @type bool   plugin
 	 *   @type bool   translation
 	 *   @type array  disable_auto_update {
@@ -58,11 +58,11 @@ class WP_Auto_Updater {
 	 *       @type array plugins
 	 *   }
 	 *   @type array  schedule {
-	 *       @type string interval
-	 *       @type int    day
-	 *       @type string weekday
-	 *       @type int    hour
-	 *       @type int    minute
+	 *       @type string      interval
+	 *       @type int|string  day
+	 *       @type string      weekday
+	 *       @type int         hour
+	 *       @type int         minute
 	 *   }
 	 * }
 	 */
@@ -180,6 +180,7 @@ class WP_Auto_Updater {
 		// Disable auto-update UI elements.
 		add_filter( 'plugins_auto_update_enabled', '__return_false' );
 		add_filter( 'themes_auto_update_enabled', '__return_false' );
+		add_action( 'after_core_auto_updates_settings', array( $this, 'hidden_auto_update_status' ) );
 	}
 
 	/**
@@ -187,7 +188,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return bool
 	 *
 	 * @since 1.6.1
 	 */
@@ -217,6 +218,9 @@ class WP_Auto_Updater {
 	public function activate() {
 		$option = $this->get_options( 'schedule' );
 		do_action( 'wp_auto_updater/set_cron', $option );
+
+		// Set auto_update_core_major to disable.
+		update_site_option( 'auto_update_core_major' , 'disable' );
 	}
 
 	/**
@@ -470,6 +474,10 @@ class WP_Auto_Updater {
 		}
 		elseif ( 'monthly' === $schedule['interval'] ) {
 			$diff_last_day_sec = 0;
+
+			if ( 'last_day' === $schedule['day'] ) {
+				$schedule['day'] = 31;
+			}
 
 			if ( 28 <= $schedule['day'] ) {
 				// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
@@ -976,15 +984,15 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @return void
+	 * @return boolean
 	 *
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain(
+		return load_plugin_textdomain(
 			'wp-auto-updater',
 			false,
-			dirname( plugin_basename( __WP_AUTO_UPDATER__ ) ) . '/languages/'
+			plugin_dir_path( __WP_AUTO_UPDATER__ ) . 'languages'
 		);
 	}
 
@@ -1097,7 +1105,7 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'core' );
 		?>
 <select name="wp_auto_updater_options[core]">
-<option value="minor"<?php selected( 'minor', $option ); ?>><?php esc_html_e( 'Minor Version Update (Recommended)', 'wp-auto-updater' ); ?></option>
+<option value="minor"<?php selected( 'minor', $option ); ?>><?php esc_html_e( 'Minor Version Update', 'wp-auto-updater' ); ?></option>
 <option value="major"<?php selected( 'major', $option ); ?>><?php esc_html_e( 'Major Version Update', 'wp-auto-updater' ); ?></option>
 <option value="minor-only"<?php selected( 'minor-only', $option ); ?>><?php esc_html_e( 'Minor Only Version Update', 'wp-auto-updater' ); ?></option>
 <option value="pre-version"<?php selected( 'pre-version', $option ); ?>><?php esc_html_e( 'Previous Generation Version Update', 'wp-auto-updater' ); ?></option>
@@ -1288,7 +1296,7 @@ class WP_Auto_Updater {
 		$schedule_interval = $this->get_schedule_interval();
 		foreach ( $schedule_interval as $key => $label ) {
 			// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html__( $label, 'wp-auto-updater' ) . '</label></p>';
+			echo '<p><label><input type="radio" name="wp_auto_updater_options[schedule][interval]" value="' . esc_attr( $key ) . '"' . checked( $key, $option['interval'], false ) . '> ' . esc_html( $label ) . '</label></p>';
 		}
 	}
 
@@ -1312,6 +1320,7 @@ class WP_Auto_Updater {
 			/* @phpstan-ignore-next-line */
 			echo '<option value="' . esc_attr( $day ) . '"' . selected( $day, $option['day'], false ) . '>' . esc_html( $day ) . '</option>';
 		}
+		echo '<option value="last_day"' . selected( 'last_day', $option['day'], false ) . '>' . esc_html__( 'last day', 'wp-auto-updater' ) . '</option>';
 		?>
 </select></p>
 
@@ -1459,7 +1468,15 @@ class WP_Auto_Updater {
 
 		$output['schedule']['interval'] = isset( $input['schedule']['interval'] ) ? $input['schedule']['interval'] : $this->default_options['schedule']['interval'];
 
-		$output['schedule']['day'] = isset( $input['schedule']['day'] ) ? (int) $input['schedule']['day'] : (int) $this->default_options['schedule']['day'];
+		$output['schedule']['day'] = (int) $this->default_options['schedule']['day'];
+		if ( isset( $input['schedule']['day'] ) ) {
+			if ( $input['schedule']['day'] === 'last_day' ) {
+				$output['schedule']['day'] = $input['schedule']['day'];
+			}
+			else {
+				$output['schedule']['day'] = (int) $input['schedule']['day'];
+			}
+		}
 
 		$output['schedule']['weekday'] = empty( $input['schedule']['weekday'] ) ? $this->default_options['schedule']['weekday'] : strtolower( $input['schedule']['weekday'] );
 
@@ -1562,9 +1579,27 @@ class WP_Auto_Updater {
 	}
 
 	/**
+	 * Hidden auto update status on the update-core screen
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 *
+	 * @since 1.6.4
+	 */
+	public function hidden_auto_update_status( $auto_update_settings ) {
+?>
+<style>
+.auto-update-status {
+	display: none
+}
+</style><?php
+	}
+
+	/**
 	 * Display notice.
 	 *
-	 * @access public static
+	 * @access public
 	 *
 	 * @return void
 	 *
