@@ -169,6 +169,19 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.7.0
+	* tested up to 6.2.0
+	* update japanese translation
+	* update pot
+	* add test case
+	* add last day to schedule
+	* fix composer scripts
+	* update github actions
+	* set auto_update_core_major to disable when activate
+	* add support section and enhance contribution section
+	* add support section and enhance contribution section to README
+	* fix license
+	* fix wp-plugin-unit-test.yml
 * Version 1.6.3
 	* change makepot from php script to wp cli
 	* change plugin initialization to plugins_loaded hook
