@@ -49,8 +49,8 @@ class WP_Auto_Updater {
 	 * @var array $default_options {
 	 *   default options
 	 *
-	 *   @type string core
-	 *   @type bool   theme    minor|major|minor-only|pre-version|null
+	 *   @type string core    minor|major|minor-only|pre-version|null
+	 *   @type bool   theme
 	 *   @type bool   plugin
 	 *   @type bool   translation
 	 *   @type array  disable_auto_update {
@@ -58,11 +58,11 @@ class WP_Auto_Updater {
 	 *       @type array plugins
 	 *   }
 	 *   @type array  schedule {
-	 *       @type string interval
-	 *       @type int    day
-	 *       @type string weekday
-	 *       @type int    hour
-	 *       @type int    minute
+	 *       @type string      interval
+	 *       @type int|string  day
+	 *       @type string      weekday
+	 *       @type int         hour
+	 *       @type int         minute
 	 *   }
 	 * }
 	 */
