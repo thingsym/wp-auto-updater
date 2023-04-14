@@ -115,7 +115,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 
 		$this->assertSame( 10, has_filter( 'plugins_auto_update_enabled', '__return_false' ) );
 		$this->assertSame( 10, has_filter( 'themes_auto_update_enabled', '__return_false' ) );
-		$this->assertSame( 10, has_filter( 'admin_print_footer_scripts', array( $this->wp_auto_updater, 'hidden_auto_update_status' ) ) );
+		$this->assertSame( 10, has_filter( 'after_core_auto_updates_settings', array( $this->wp_auto_updater, 'hidden_auto_update_status' ) ) );
 	}
 
 	/**
@@ -123,7 +123,9 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function activate() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$this->wp_auto_updater->activate();
+
+		$this->assertSame( 'disable', get_site_option( 'auto_update_core_major' ) );
 	}
 
 	/**
