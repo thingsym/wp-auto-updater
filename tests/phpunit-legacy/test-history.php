@@ -211,7 +211,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->wp_auto_updater_history->migrate_table( $table_name );
 
 		$this->assertSame( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
-		$this->assertSame( 1, get_transient( 'wp_auto_updater/history_table/updated' ) );
+		$this->assertSame( '1', get_transient( 'wp_auto_updater/history_table/updated' ) );
 
 		// $sql = $wpdb->prepare(
 		// 'SHOW COLUMNS FROM "%s"',
