@@ -19,13 +19,13 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	/**
 	 * Delete the custom table on teardown.
 	 */
-	public function tearDown() {
-		parent::tearDown();
-
+	public function tearDown(): void {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auto_updater_history';
 
 		$wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
+
+		parent::tearDown();
 	}
 
 	/**
