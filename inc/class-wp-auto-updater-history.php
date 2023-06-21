@@ -157,7 +157,7 @@ class WP_Auto_Updater_History {
 		}
 
 		$this->set_table_version();
-		set_transient( 'wp_auto_updater/history_table/updated', 1, 5 );
+		set_transient( 'wp_auto_updater/history_table/updated', '1', 5 );
 
 		return true;
 	}
@@ -541,6 +541,15 @@ class WP_Auto_Updater_History {
 		}
 
 		$paginate .= ' ' . $current_paged . ' / ' . $total_pages . ' ';
+
+		// $paginate .= sprintf(
+		// 	" %s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
+		// 	'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page' ) . '</label>',
+		// 	$current_paged,
+		// 	strlen( $total_pages )
+		// );
+		// $paginate .= ' / ' . $total_pages . ' ';
+
 
 		if ( $current_paged === $total_pages ) {
 			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
