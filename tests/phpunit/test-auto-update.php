@@ -47,7 +47,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 */
 	public function gather_upgraded_version() {
 		$this->wp_auto_updater->gather_upgraded_version();
-		$this->assertInternalType( 'array', get_site_transient( 'wp_auto_updater/upgraded_version' ) );
+		$this->assertIsArray( get_site_transient( 'wp_auto_updater/upgraded_version' ) );
 	}
 
 	/**

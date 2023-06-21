@@ -169,7 +169,7 @@ class Test_Wp_Auto_Updater_Option_Page extends WP_UnitTestCase {
 	 */
 	public function get_schedule_interval() {
 		$result = $this->wp_auto_updater->get_schedule_interval();
-		$this->assertInternalType( 'array', $result );
+		$this->assertIsArray( $result );
 	}
 
 	/**
