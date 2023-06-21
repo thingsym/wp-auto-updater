@@ -6,8 +6,9 @@
  */
 
 class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
+	public $wp_auto_updater_history;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->wp_auto_updater_history = new WP_Auto_Updater_History();
 
@@ -18,13 +19,13 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	/**
 	 * Delete the custom table on teardown.
 	 */
-	public function tearDown() {
-		parent::tearDown();
-
+	public function tearDown(): void {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'auto_updater_history';
 
 		$wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
+
+		parent::tearDown();
 	}
 
 	/**
@@ -211,7 +212,7 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->wp_auto_updater_history->migrate_table( $table_name );
 
 		$this->assertSame( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
-		$this->assertSame( 1, get_transient( 'wp_auto_updater/history_table/updated' ) );
+		$this->assertSame( '1', get_transient( 'wp_auto_updater/history_table/updated' ) );
 
 		// $sql = $wpdb->prepare(
 		// 'SHOW COLUMNS FROM "%s"',
