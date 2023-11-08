@@ -148,11 +148,11 @@ class WP_Auto_Updater_History {
 		global $wpdb;
 
 		if ( version_compare( (string) $this->get_table_version(), '1.0.1', '<' ) ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->get_results( "ALTER TABLE {$table_name} ADD user varchar(255) NOT NULL;" );
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->get_results( "ALTER TABLE {$table_name} MODIFY info text NOT NULL;" );
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$wpdb->get_results( "ALTER TABLE {$table_name} ADD INDEX user (user);" );
 		}
 
@@ -245,7 +245,7 @@ class WP_Auto_Updater_History {
 			$table_name
 		);
 
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		if ( $table_name === $wpdb->get_var( $sql ) ) {
 			return true;
 		}
@@ -336,7 +336,7 @@ class WP_Auto_Updater_History {
 		/* @phpstan-ignore-next-line */
 		$results = dbDelta( $schema );
 
-		if ( in_array( 'Created table ' . $this->history_table_name, $results ) ) {
+		if ( in_array( 'Created table ' . $this->history_table_name, $results, true ) ) {
 			$this->set_table_version();
 			set_transient( 'wp_auto_updater/history_table/created', 1, 5 );
 		}
@@ -358,7 +358,7 @@ class WP_Auto_Updater_History {
 	public function drop_table( $table_name = null ) {
 		global $wpdb;
 		if ( $this->table_exists( $table_name ) ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			return $wpdb->get_results( "DROP TABLE IF EXISTS {$table_name}" );
 		}
 
@@ -388,8 +388,8 @@ class WP_Auto_Updater_History {
 		if ( is_user_logged_in() ) {
 			$user_name = wp_get_current_user()->user_login;
 			/* @phpstan-ignore-next-line */
-			$user_id   = wp_get_current_user()->id;
-			$user      = $user_name . ' (' . $user_id . ')';
+			$user_id = wp_get_current_user()->id;
+			$user    = $user_name . ' (' . $user_id . ')';
 		}
 		else {
 			$user = 'nobody';
@@ -414,6 +414,7 @@ class WP_Auto_Updater_History {
 		);
 
 		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 		return $wpdb->insert( $this->history_table_name, $data, $format );
 	}
 
@@ -468,9 +469,9 @@ class WP_Auto_Updater_History {
 	 */
 	public function page_hook_suffix() {
 		$args = array(
-			'label'   => __( 'Number of items per page:', 'wp-auto-updater-history' ),
+			'label'   => __( 'Number of items per page:', 'wp-auto-updater' ),
 			'default' => 10,
-			'option'  => 'wp_auto_updater_history_per_page'
+			'option'  => 'wp_auto_updater_history_per_page',
 		);
 
 		add_screen_option( 'per_page', $args );
@@ -483,7 +484,7 @@ class WP_Auto_Updater_History {
 	 *
 	 * @access public
 	 *
-	 * @return string
+	 * @return mixed
 	 *
 	 * @since 1.6.0
 	 */
@@ -550,7 +551,6 @@ class WP_Auto_Updater_History {
 		// );
 		// $paginate .= ' / ' . $total_pages . ' ';
 
-
 		if ( $current_paged === $total_pages ) {
 			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
 		}
@@ -602,8 +602,11 @@ class WP_Auto_Updater_History {
 
 		$cleared = null;
 		if ( ! empty( $_POST[ $this->nonce['clear_logs']['name'] ] ) && current_user_can( 'manage_options' ) && check_admin_referer( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'] ) ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			$cleared = $this->clear_logs( $_POST['delete_priod'] );
+			$priod = '';
+			if ( isset( $_POST['delete_priod'] ) ) {
+				$priod = esc_url_raw( wp_unslash( $_POST['delete_priod'] ) );
+			}
+			$cleared = $this->clear_logs( $priod );
 		}
 
 		$screen        = get_current_screen();
@@ -616,6 +619,7 @@ class WP_Auto_Updater_History {
 		$paged  = isset( $_GET['paged'] ) ? intval( $_GET['paged'] ) : 1;
 		$offset = ( $paged - 1 ) * $per_page;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$logs = $wpdb->get_results(
 			$wpdb->prepare(
 				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -625,7 +629,7 @@ class WP_Auto_Updater_History {
 			)
 		);
 
-		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$this->history_table_name}" );
 		$paginate  = $this->paginate( $row_count, $per_page, $paged );
 
@@ -739,40 +743,40 @@ Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?>
 	 *
 	 * @param string $delete_priod
 	 *
-	 * @return array
+	 * @return array|object|null Database query results.
 	 *
 	 * @since 1.6.0
 	 */
 	public function clear_logs( $delete_priod ) {
 		if ( ! $delete_priod ) {
-			return;
+			return null;
 		}
 
 		global $wpdb;
 		$cleared = null;
 
 		if ( 'delete_all' === $delete_priod ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name}" );
 		}
-		else if ( '1month' === $delete_priod ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		elseif ( '1month' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 1 MONTH))" );
 		}
-		else if ( '3months' === $delete_priod ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		elseif ( '3months' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 3 MONTH))" );
 		}
-		else if ( '6months' === $delete_priod ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		elseif ( '6months' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 6 MONTH))" );
 		}
-		else if ( '1year' === $delete_priod ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		elseif ( '1year' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR))" );
 		}
-		else if ( '3years' === $delete_priod ) {
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		elseif ( '3years' === $delete_priod ) {
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$cleared = $wpdb->get_results( "DELETE FROM {$this->history_table_name} WHERE (date < DATE_SUB(CURDATE(), INTERVAL 3 YEAR))" );
 		}
 
