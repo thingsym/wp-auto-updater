@@ -169,6 +169,15 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.7.1
+	* tested up to 6.4.0
+	* update japanese translation
+	* update pot
+	* imporve code with phpcs, phpmd and phpstan
+	* change variable type
+	* fix Undefined property: stdClass
+	* phpunit bump up to version 8
+	* ci support php 8.0 later
 * Version 1.7.0
 	* tested up to 6.2.0
 	* update japanese translation

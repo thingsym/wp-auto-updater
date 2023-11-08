@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Tested up to: 6.4.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -159,6 +159,16 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.7.1 =
+* tested up to 6.4.0
+* update japanese translation
+* update pot
+* imporve code with phpcs, phpmd and phpstan
+* change variable type
+* fix Undefined property: stdClass
+* phpunit bump up to version 8
+* ci support php 8.0 later
 
 = 1.7.0 =
 * tested up to 6.2.0
