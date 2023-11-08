@@ -662,7 +662,7 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'disable_auto_update' );
 
 		/* @phpstan-ignore-next-line */
-		if ( in_array( $item->theme, $option['themes'] ) ) {
+		if ( ! empty( $item->theme ) && in_array( $item->theme, $option['themes'], true ) ) {
 			return false;
 		}
 
@@ -704,7 +704,7 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'disable_auto_update' );
 
 		/* @phpstan-ignore-next-line */
-		if ( in_array( $item->plugin, $option['plugins'] ) ) {
+		if ( ! empty( $item->plugin ) && in_array( $item->plugin, $option['plugins'], true ) ) {
 			return false;
 		}
 
