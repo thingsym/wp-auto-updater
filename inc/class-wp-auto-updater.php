@@ -89,13 +89,13 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @var array|null $upgraded_version {
+	 * @var array $upgraded_version {
 	 *   @type string core
 	 *   @type array  theme
 	 *   @type array  plugin
 	 * }
 	 */
-	public $upgraded_version = null;
+	public $upgraded_version = array();
 
 	/**
 	 * Public variable.
@@ -120,7 +120,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @var array|null $plugin_data
+	 * @var array $plugin_data
 	 */
 	public $plugin_data = array();
 
