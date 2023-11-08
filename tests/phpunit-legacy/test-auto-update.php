@@ -46,7 +46,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 */
 	public function gather_upgraded_version() {
 		$this->wp_auto_updater->gather_upgraded_version();
-		$this->assertInternalType( 'array', get_site_transient( 'wp_auto_updater/upgraded_version' ) );
+		$this->assertIsArray( get_site_transient( 'wp_auto_updater/upgraded_version' ) );
 	}
 
 	/**
@@ -605,6 +605,30 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 	 * @test
 	 * @group auto_update
 	 */
+	public function auto_update_specific_theme_undefined() {
+		$options = array(
+			'disable_auto_update' => array(
+				'themes'  => array(
+					'twentysixteen',
+					'twentyseventeen',
+				),
+				'plugins' => array(),
+			),
+		);
+
+		update_option( 'wp_auto_updater_options', $options );
+
+		// Undefined property: stdClass::$theme
+		$item = new stdClass();
+
+		$updated = $this->wp_auto_updater->auto_update_specific_theme( false, $item );
+		$this->assertTrue( $updated );
+	}
+
+	/**
+	 * @test
+	 * @group auto_update
+	 */
 	public function auto_update_plugin() {
 		$options = array(
 			'plugin' => true,
@@ -671,6 +695,29 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$updated = $this->wp_auto_updater->auto_update_specific_plugin( false, $item );
 		$this->assertFalse( $updated );
 
+	}
+
+	/**
+	 * @test
+	 * @group auto_update
+	 */
+	public function auto_update_specific_plugin_undefined() {
+		$options = array(
+			'disable_auto_update' => array(
+				'themes'  => array(),
+				'plugins' => array(
+					'wp-multibyte-patch/wp-multibyte-patch.php',
+				),
+			),
+		);
+
+		update_option( 'wp_auto_updater_options', $options );
+
+		// Undefined property: stdClass::$plugin
+		$item = new stdClass();
+
+		$updated = $this->wp_auto_updater->auto_update_specific_plugin( false, $item );
+		$this->assertTrue( $updated );
 	}
 
 	/**

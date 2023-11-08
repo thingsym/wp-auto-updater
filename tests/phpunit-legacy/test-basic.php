@@ -64,7 +64,8 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		);
 		$this->assertSame( $expected, $this->wp_auto_updater->default_options );
 
-		$this->assertNull( $this->wp_auto_updater->upgraded_version );
+		$this->assertIsArray( $this->wp_auto_updater->upgraded_version );
+		$this->assertEmpty( $this->wp_auto_updater->upgraded_version );
 
 		$this->assertIsArray( $this->wp_auto_updater->plugin_data );
 		$this->assertEmpty( $this->wp_auto_updater->plugin_data );

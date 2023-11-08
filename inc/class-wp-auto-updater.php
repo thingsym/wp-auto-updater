@@ -89,13 +89,13 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @var array|null $upgraded_version {
+	 * @var array $upgraded_version {
 	 *   @type string core
 	 *   @type array  theme
 	 *   @type array  plugin
 	 * }
 	 */
-	public $upgraded_version = null;
+	public $upgraded_version = array();
 
 	/**
 	 * Public variable.
@@ -120,7 +120,7 @@ class WP_Auto_Updater {
 	 *
 	 * @access public
 	 *
-	 * @var array|null $plugin_data
+	 * @var array $plugin_data
 	 */
 	public $plugin_data = array();
 
@@ -136,7 +136,7 @@ class WP_Auto_Updater {
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'auto_update' ) );
 
-		add_action( 'plugins_loaded', [ $this, 'load_plugin_data' ] );
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_data' ) );
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
@@ -194,7 +194,7 @@ class WP_Auto_Updater {
 	 */
 	public function load_plugin_data() {
 		if ( ! function_exists( 'get_plugin_data' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
 		$this->plugin_data = get_plugin_data( __WP_AUTO_UPDATER__ );
@@ -220,7 +220,7 @@ class WP_Auto_Updater {
 		do_action( 'wp_auto_updater/set_cron', $option );
 
 		// Set auto_update_core_major to disable.
-		update_site_option( 'auto_update_core_major' , 'disable' );
+		update_site_option( 'auto_update_core_major', 'disable' );
 	}
 
 	/**
@@ -284,11 +284,8 @@ class WP_Auto_Updater {
 	 * @since 1.0.2
 	 */
 	public function gather_upgraded_version() {
-		$this->upgraded_version = get_site_transient( 'wp_auto_updater/upgraded_version' );
-
-		if ( false === $this->upgraded_version ) {
+		if ( ! get_site_transient( 'wp_auto_updater/upgraded_version' ) ) {
 			global $wp_version;
-			/* @phpstan-ignore-next-line */
 			$this->upgraded_version['core']   = $wp_version;
 			$this->upgraded_version['theme']  = wp_get_themes();
 			$this->upgraded_version['plugin'] = get_plugins();
@@ -662,7 +659,7 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'disable_auto_update' );
 
 		/* @phpstan-ignore-next-line */
-		if ( in_array( $item->theme, $option['themes'] ) ) {
+		if ( ! empty( $item->theme ) && in_array( $item->theme, $option['themes'], true ) ) {
 			return false;
 		}
 
@@ -704,7 +701,7 @@ class WP_Auto_Updater {
 		$option = $this->get_options( 'disable_auto_update' );
 
 		/* @phpstan-ignore-next-line */
-		if ( in_array( $item->plugin, $option['plugins'] ) ) {
+		if ( ! empty( $item->plugin ) && in_array( $item->plugin, $option['plugins'], true ) ) {
 			return false;
 		}
 
@@ -1193,17 +1190,18 @@ class WP_Auto_Updater {
 		$schedule_interval = $this->get_schedule_interval();
 		echo '<p>' . esc_html( $schedule_interval[ $option['interval'] ] ) . '</p>';
 		?>
-<p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?> <?php echo wp_timezone_string(); ?>)</p>
+<p><?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $next_updete_date + $gmt_offset_sec ) ); ?> (<?php esc_html_e( 'Local time', 'wp-auto-updater' ); ?> <?php echo esc_html( wp_timezone_string() ); ?>)</p>
 <p><?php echo esc_html( date( 'Y-m-d H:i:s', $next_updete_date ) /* phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date */ ); ?> (<?php esc_html_e( 'GMT', 'wp-auto-updater' ); ?>)</p>
 		<?php
 		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 		$current_time = new DateTime( date( 'Y-m-d H:i:s', time() ) );
 		// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-		$datetime     = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date ) );
+		$datetime = new DateTime( date( 'Y-m-d H:i:s', $next_updete_date ) );
 
 		$diff = $current_time->diff( $datetime );
 
-		if ( $next_updete_date != $this->get_timestamp( $option ) ) {
+		if ( $next_updete_date !== $this->get_timestamp( $option ) ) {
+			/* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped */
 			echo '<p><span class="dashicons dashicons-warning"></span> ' . __( 'The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.', 'wp-auto-updater' ) . '</p>';
 		}
 
@@ -1225,7 +1223,6 @@ class WP_Auto_Updater {
 			printf(
 				/* translators: day: 1: day, 2: days */
 				esc_html( _n( '%d day', '%d days', $diff->d, 'wp-auto-updater' ) ),
-				/* @phpstan-ignore-next-line */
 				esc_html( $diff->d )
 			);
 			if ( $diff->h ) {
@@ -1233,7 +1230,6 @@ class WP_Auto_Updater {
 				printf(
 					/* translators: hour: 1: hour, 2: hours */
 					esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
-					/* @phpstan-ignore-next-line */
 					esc_html( $diff->h )
 				);
 			}
@@ -1242,7 +1238,6 @@ class WP_Auto_Updater {
 				printf(
 					/* translators: minute: 1: minute, 2: minutes */
 					esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
-					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
 			}
@@ -1254,14 +1249,12 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d hour', '%d hours', $diff->h, 'wp-auto-updater' ) ),
-				/* @phpstan-ignore-next-line */
 				esc_html( $diff->h )
 			);
 			if ( $diff->i ) {
 				echo ' ';
 				printf(
 					esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
-					/* @phpstan-ignore-next-line */
 					esc_html( $diff->i )
 				);
 			}
@@ -1273,7 +1266,6 @@ class WP_Auto_Updater {
 			echo '<p><span class="dashicons dashicons-clock"></span> ';
 			printf(
 				esc_html( _n( '%d minute', '%d minutes', $diff->i, 'wp-auto-updater' ) ),
-				/* @phpstan-ignore-next-line */
 				esc_html( $diff->i )
 			);
 			echo ' ';
@@ -1528,7 +1520,7 @@ class WP_Auto_Updater {
 	 * @since 1.5.1
 	 */
 	public function plugin_metadata_links( $links, $file ) {
-		if ( $file == plugin_basename( __WP_AUTO_UPDATER__ ) ) {
+		if ( $file === plugin_basename( __WP_AUTO_UPDATER__ ) ) {
 			$links[] = '<a href="https://github.com/sponsors/thingsym">' . __( 'Become a sponsor', 'wp-auto-updater' ) . '</a>';
 		}
 

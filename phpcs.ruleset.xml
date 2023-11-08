@@ -54,6 +54,7 @@
     <exclude name="Squiz.Commenting.VariableComment.Missing" />
     <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect" />
     <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
+    <exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeOpen" />
 
     <exclude name="Squiz.Commenting.FileComment.Missing" />
     <exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
@@ -66,6 +67,7 @@
     <exclude name="Generic.Commenting.DocComment" />
 
     <exclude name="WordPress.PHP.YodaConditions.NotYoda" />
+    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
   </rule>
 
   <rule ref="PHPCompatibilityWP">
