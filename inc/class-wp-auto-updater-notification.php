@@ -656,7 +656,7 @@ class WP_Auto_Updater_Notification {
 			$output['mail']['admin_email'] = empty( $input['mail']['admin_email'] ) ? false : true;
 		}
 
-		$output['mail']['recipients'] = isset( $input['mail']['recipients'] ) ? $input['mail']['recipients'] : array();
+		$output['mail']['recipients'] = isset( $input['mail']['recipients'] ) ? array_map( 'intval', $input['mail']['recipients'] ) : array();
 
 		$output = apply_filters( 'wp_auto_updater_notification/validate_options', $output, $input, $this->default_options );
 

@@ -502,7 +502,7 @@ class WP_Auto_Updater {
 			}
 		}
 
-		return apply_filters( 'wp_auto_updater/get_timestamp', $timestamp, $schedule );
+		return apply_filters( 'wp_auto_updater/get_timestamp', (int) $timestamp, $schedule );
 	}
 
 	/**

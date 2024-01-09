@@ -169,6 +169,11 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.7.2
+	* add php 8.3 to matrix and actions/checkout bump up for ci
+	* imporve code with phpcs
+	* change the type of a variable
+	* add phpunit-legacy job to ci
 * Version 1.7.1
 	* tested up to 6.4.0
 	* update japanese translation

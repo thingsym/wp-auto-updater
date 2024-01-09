@@ -543,14 +543,6 @@ class WP_Auto_Updater_History {
 
 		$paginate .= ' ' . $current_paged . ' / ' . $total_pages . ' ';
 
-		// $paginate .= sprintf(
-		// 	" %s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>",
-		// 	'<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page' ) . '</label>',
-		// 	$current_paged,
-		// 	strlen( $total_pages )
-		// );
-		// $paginate .= ' / ' . $total_pages . ' ';
-
 		if ( $current_paged === $total_pages ) {
 			$paginate .= '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
 		}
@@ -612,7 +604,7 @@ class WP_Auto_Updater_History {
 		$screen        = get_current_screen();
 		$screen_option = $screen->get_option( 'per_page', 'option' );
 		$per_page      = get_user_meta( get_current_user_id(), $screen_option, true );
-		if ( empty ( $per_page) || $per_page < 1 ) {
+		if ( empty( $per_page ) || $per_page < 1 ) {
 			$per_page = 10;
 		}
 

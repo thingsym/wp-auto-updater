@@ -54,6 +54,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
 
+		$this->assertIsInt( $timestamp );
 		$this->assertSame( $timestamp, $update_wp_scheduled );
 		$this->assertSame( $timestamp, $update_themes_scheduled );
 		$this->assertSame( $timestamp, $update_plugins_scheduled );
@@ -87,6 +88,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+		$this->assertIsInt( $timestamp );
 		$this->assertGreaterThan( time(), $timestamp );
 
 		foreach ( range( 0, 23 ) as $hour ) {
@@ -99,6 +101,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertIsInt( $timestamp );
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 
@@ -111,6 +114,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+		$this->assertIsInt( $timestamp );
 		$this->assertGreaterThan( time(), $timestamp );
 
 		foreach ( range( 0, 23 ) as $hour ) {
@@ -123,6 +127,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertIsInt( $timestamp );
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 
@@ -135,6 +140,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+		$this->assertIsInt( $timestamp );
 		$this->assertGreaterThan( time(), $timestamp );
 
 		$schedule_weekdays = array(
@@ -157,6 +163,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertIsInt( $timestamp );
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 
@@ -169,6 +176,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+		$this->assertIsInt( $timestamp );
 		$this->assertGreaterThan( time(), $timestamp );
 
 		foreach ( range( 1, 31 ) as $day ) {
@@ -181,6 +189,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertIsInt( $timestamp );
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 
@@ -193,6 +202,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 		);
 
 		$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+		$this->assertIsInt( $timestamp );
 		$this->assertGreaterThan( time(), $timestamp );
 	}
 
@@ -226,6 +236,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				$date = getdate( $timestamp );
 				$message = $zone . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['hours'];
 
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
 
@@ -244,6 +255,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				$date = getdate( $timestamp );
 				$message = get_option( 'gmt_offset' ). ' | ' . $zone . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['hours'];
 
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
 
@@ -267,6 +279,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
 
@@ -280,6 +293,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
 
@@ -292,6 +306,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertIsInt( $timestamp );
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 	}
@@ -327,6 +342,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				$date = getdate( $timestamp );
 				$message = $offset . ' | ' . $hour . ' | ' . $diff . ' | ' . $date['mday'] . '/' . $date['hours'];
 
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp, $message );
 			}
 
@@ -340,6 +356,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
 
@@ -363,6 +380,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
 
@@ -376,6 +394,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 				);
 
 				$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+				$this->assertIsInt( $timestamp );
 				$this->assertGreaterThan( time(), $timestamp );
 			}
 
@@ -388,6 +407,7 @@ class Test_Wp_Auto_Updater_Schedule extends WP_UnitTestCase {
 			);
 
 			$timestamp = $this->wp_auto_updater->get_timestamp( $schedule );
+			$this->assertIsInt( $timestamp );
 			$this->assertGreaterThan( time(), $timestamp );
 		}
 	}
