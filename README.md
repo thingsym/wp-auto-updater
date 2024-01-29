@@ -169,6 +169,10 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.7.3
+	* add phpcs job to ci
+	* add test case
+	* fix sanitize for clear logs
 * Version 1.7.2
 	* add php 8.3 to matrix and actions/checkout bump up for ci
 	* imporve code with phpcs
