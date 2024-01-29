@@ -314,6 +314,76 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @test
 	 * @group history
 	 */
+	public function clear_logs() {
+		$this->wp_auto_updater_history->activate();
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'auto_updater_history';
+
+		$this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '3', $row_count );
+
+		$this->wp_auto_updater_history->clear_logs( 'delete_all' );
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '0', $row_count );
+
+		$this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( null, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$data = date( 'Y-m-d H:i:s', strtotime( '-32 days', current_time( 'timestamp' ) ) );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$this->wp_auto_updater_history->clear_logs( '1month' );
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '3', $row_count );
+
+		$data = date( 'Y-m-d H:i:s', strtotime( '-92 days', current_time( 'timestamp' ) ) );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$this->wp_auto_updater_history->clear_logs( '3months' );
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '6', $row_count );
+
+		$data = date( 'Y-m-d H:i:s', strtotime( '-182 days', current_time( 'timestamp' ) ) );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$this->wp_auto_updater_history->clear_logs( '6months' );
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '9', $row_count );
+
+		$data = date( 'Y-m-d H:i:s', strtotime( '-362 days', current_time( 'timestamp' ) ) );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$this->wp_auto_updater_history->clear_logs( '1year' );
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '12', $row_count );
+
+		$data = date( 'Y-m-d H:i:s', strtotime( '-1082 days', current_time( 'timestamp' ) ) );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+		$this->wp_auto_updater_history->logging( $data, 'aa', 'bbb', 'cccc', 'dddd' );
+
+		$this->wp_auto_updater_history->clear_logs( '3years' );
+		$row_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" );
+		$this->assertSame( '15', $row_count );
+	}
+
+	/**
+	 * @test
+	 * @group history
+	 */
 	public function uninstall() {
 		$this->wp_auto_updater_history->activate();
 		$this->wp_auto_updater_history->uninstall();

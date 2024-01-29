@@ -596,7 +596,7 @@ class WP_Auto_Updater_History {
 		if ( ! empty( $_POST[ $this->nonce['clear_logs']['name'] ] ) && current_user_can( 'manage_options' ) && check_admin_referer( $this->nonce['clear_logs']['action'], $this->nonce['clear_logs']['name'] ) ) {
 			$priod = '';
 			if ( isset( $_POST['delete_priod'] ) ) {
-				$priod = esc_url_raw( wp_unslash( $_POST['delete_priod'] ) );
+				$priod = sanitize_text_field( wp_unslash( $_POST['delete_priod'] ) );
 			}
 			$cleared = $this->clear_logs( $priod );
 		}
@@ -720,7 +720,7 @@ Table Version: <?php echo esc_html( (string) $this->get_table_version() ); ?>
 <option value="1year"><?php esc_html_e( 'for last 1 year', 'wp-auto-updater' ); ?></option>
 <option value="3years"><?php esc_html_e( 'for last 3 years', 'wp-auto-updater' ); ?></option>
 </select>
-<input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return ture;}else{return false;}"></form>
+<input type="submit" id="clear-logs" class="button button-primary" value="<?php esc_html_e( 'Clear Logs', 'wp-auto-updater' ); ?>" onclick="if(window.confirm('<?php esc_html_e( 'Would you like to delete the logs?', 'wp-auto-updater' ); ?>')){return true;}else{return false;}"></form>
 </div>
 <br class="clear">
 
