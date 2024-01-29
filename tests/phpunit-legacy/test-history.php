@@ -213,14 +213,6 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 		$this->assertSame( $this->wp_auto_updater_history->table_version, $this->wp_auto_updater_history->get_table_version() );
 		$this->assertSame( '1', get_transient( 'wp_auto_updater/history_table/updated' ) );
 
-		// $sql = $wpdb->prepare(
-		// 'SHOW COLUMNS FROM "%s"',
-		// $table_name
-		// );
-		// $a = $wpdb->get_results( $sql );
-		// // var_dump( $wpdb->get_results( "SHOW COLUMNS FROM {$table_name}" ) );
-		// var_dump( $a );
-
 		$result = $this->wp_auto_updater_history->migrate_table();
 		$this->assertFalse( $result );
 
@@ -298,7 +290,33 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function paginate() {
-		$this->markTestIncomplete( 'This test has not been implemented yet.' );
+		$paginate = $this->wp_auto_updater_history->paginate( 0, 5, 1 );
+		$this->assertSame( '', $paginate );
+		$paginate = $this->wp_auto_updater_history->paginate( 30, 0, 1 );
+		$this->assertSame( '', $paginate );
+		$paginate = $this->wp_auto_updater_history->paginate( 30, 5, 0 );
+		$this->assertSame( '', $paginate );
+
+		$paginate = $this->wp_auto_updater_history->paginate( 30, 5, 1 );
+		$this->assertStringContainsString( '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>', $paginate );
+		$this->assertStringContainsString( '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>', $paginate );
+		$this->assertStringContainsString( '1 / 6', $paginate );
+		$this->assertStringContainsString( '<a class="next-page button" href="?paged=2"><span class="screen-reader-text">Next page</span><span aria-hidden="true">&rsaquo;</span></a>', $paginate );
+		$this->assertStringContainsString( '<a class="last-page button" href="?paged=6"><span class="screen-reader-text">Last page</span><span aria-hidden="true">&raquo;</span></a>', $paginate );
+
+		$paginate = $this->wp_auto_updater_history->paginate( 30, 5, 3 );
+		$this->assertStringContainsString( '<a class="first-page button" href="?paged=1"><span class="screen-reader-text">First page</span><span aria-hidden="true">&laquo;</span></a>', $paginate );
+		$this->assertStringContainsString( '<a class="prev-page button" href="?paged=2"><span class="screen-reader-text">Previous page</span><span aria-hidden="true">&lsaquo;</span></a>', $paginate );
+		$this->assertStringContainsString( '3 / 6', $paginate );
+		$this->assertStringContainsString( '<a class="next-page button" href="?paged=4"><span class="screen-reader-text">Next page</span><span aria-hidden="true">&rsaquo;</span></a>', $paginate );
+		$this->assertStringContainsString( '<a class="last-page button" href="?paged=6"><span class="screen-reader-text">Last page</span><span aria-hidden="true">&raquo;</span></a>', $paginate );
+
+		$paginate = $this->wp_auto_updater_history->paginate( 30, 5, 6 );
+		$this->assertStringContainsString( '<a class="first-page button" href="?paged=1"><span class="screen-reader-text">First page</span><span aria-hidden="true">&laquo;</span></a>', $paginate );
+		$this->assertStringContainsString( '<a class="prev-page button" href="?paged=5"><span class="screen-reader-text">Previous page</span><span aria-hidden="true">&lsaquo;</span></a>', $paginate );
+		$this->assertStringContainsString( '6 / 6', $paginate );
+		$this->assertStringContainsString( '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>', $paginate );
+		$this->assertStringContainsString( '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>', $paginate );
 	}
 
 	/**

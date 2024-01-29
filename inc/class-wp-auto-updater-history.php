@@ -520,7 +520,7 @@ class WP_Auto_Updater_History {
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				'<a class="first-page button" href="%s"><span class="screen-reader-text">%s</span><span aria-hidden="true">%s</span></a>',
 				esc_url( add_query_arg( 'paged', 1 ) ),
 				__( 'First page', 'wp-auto-updater' ),
 				'&laquo;'
@@ -534,7 +534,7 @@ class WP_Auto_Updater_History {
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				'<a class="prev-page button" href="%s"><span class="screen-reader-text">%s</span><span aria-hidden="true">%s</span></a>',
 				esc_url( add_query_arg( 'paged', max( 1, $current_paged - 1 ) ) ),
 				__( 'Previous page', 'wp-auto-updater' ),
 				'&lsaquo;'
@@ -548,7 +548,7 @@ class WP_Auto_Updater_History {
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				'<a class="next-page button" href="%s"><span class="screen-reader-text">%s</span><span aria-hidden="true">%s</span></a>',
 				esc_url( add_query_arg( 'paged', min( $total_pages, $current_paged + 1 ) ) ),
 				__( 'Next page', 'wp-auto-updater' ),
 				'&rsaquo;'
@@ -562,7 +562,7 @@ class WP_Auto_Updater_History {
 		}
 		else {
 			$paginate .= sprintf(
-				"<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>",
+				'<a class="last-page button" href="%s"><span class="screen-reader-text">%s</span><span aria-hidden="true">%s</span></a>',
 				esc_url( add_query_arg( 'paged', $total_pages ) ),
 				__( 'Last page', 'wp-auto-updater' ),
 				'&raquo;'
