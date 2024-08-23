@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 Tested up to: 6.4.0
 Requires at least: 4.9
 Requires PHP: 5.6
@@ -159,6 +159,11 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.7.3 =
+* add phpcs job to ci
+* add test case
+* fix sanitize for clear logs
 
 = 1.7.2 =
 * add php 8.3 to matrix and actions/checkout bump up for ci
