@@ -196,7 +196,6 @@ For operation compatibility between PHP version and WordPress version, see below
 	* fix composer scripts
 	* update github actions
 	* set auto_update_core_major to disable when activate
-	* add support section and enhance contribution section
 	* add support section and enhance contribution section to README
 	* fix license
 	* fix wp-plugin-unit-test.yml
