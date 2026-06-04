@@ -103,8 +103,8 @@ class Test_Wp_Auto_Updater_Notification_Send_Mail extends WP_UnitTestCase {
 	}
 
 	public function _wp_body( $email, $info_success, $info_failed ) {
-		$this->assertRegExp( '/test v1\.0\.0 \(upgraded from v0\.0\.0\)/', $email['body'] );
-		$this->assertRegExp( '/test v2\.0\.0/', $email['body'] );
+		$this->assertMatchesRegularExpression( '/test v1\.0\.0 \(upgraded from v0\.0\.0\)/', $email['body'] );
+		$this->assertMatchesRegularExpression( '/test v2\.0\.0/', $email['body'] );
 	}
 
 	/**
