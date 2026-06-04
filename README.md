@@ -182,6 +182,19 @@ For operation compatibility between PHP version and WordPress version, see below
 
 ## Changelog
 
+* Version 1.7.4
+  * tested up to 7.0
+  * change requires at least to wordpress 5.9
+  * change requires to PHP 7.4
+  * edit README
+  * improve code with phpcs
+  * fix test case
+  * change hook to init action, Notice: Function _load_textdomain_just_in_time was called incorrectly
+  * fix plugin_textdomain rel path
+  * update github workflows
+  * update phpunit v9 and wpcs v3
+  * update composer dependencies
+  * update wp-tests script
 * Version 1.7.3
   * add phpcs job to ci
   * add test case
