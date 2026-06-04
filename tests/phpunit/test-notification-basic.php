@@ -18,10 +18,10 @@ class Test_Wp_Auto_Updater_Notification_Basic extends WP_UnitTestCase {
 	 * @group notification
 	 */
 	public function classAttr() {
-		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater_Notification' );
-		$this->assertClassHasAttribute( 'option_name', 'WP_Auto_Updater_Notification' );
-		$this->assertClassHasAttribute( 'capability', 'WP_Auto_Updater_Notification' );
-		$this->assertClassHasAttribute( 'default_options', 'WP_Auto_Updater_Notification' );
+		$this->assertTrue( property_exists( WP_Auto_Updater_Notification::class, 'option_group' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater_Notification::class, 'option_name' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater_Notification::class, 'capability' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater_Notification::class, 'default_options' ) );
 	}
 
 	/**
@@ -29,10 +29,10 @@ class Test_Wp_Auto_Updater_Notification_Basic extends WP_UnitTestCase {
 	 * @group notification
 	 */
 	public function objectAttr() {
-		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_Notification() );
-		$this->assertObjectHasAttribute( 'option_name', new WP_Auto_Updater_Notification() );
-		$this->assertObjectHasAttribute( 'capability', new WP_Auto_Updater_Notification() );
-		$this->assertObjectHasAttribute( 'default_options', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'option_group', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'option_name', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'capability', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'default_options', new WP_Auto_Updater_Notification() );
 	}
 
 	/**

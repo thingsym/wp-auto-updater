@@ -28,10 +28,10 @@ class Test_Wp_Auto_Updater_Notification_Basic extends WP_UnitTestCase {
 	 * @group notification
 	 */
 	public function objectAttr() {
-		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_Notification() );
-		$this->assertObjectHasAttribute( 'option_name', new WP_Auto_Updater_Notification() );
-		$this->assertObjectHasAttribute( 'capability', new WP_Auto_Updater_Notification() );
-		$this->assertObjectHasAttribute( 'default_options', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'option_group', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'option_name', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'capability', new WP_Auto_Updater_Notification() );
+		$this->assertObjectHasProperty( 'default_options', new WP_Auto_Updater_Notification() );
 	}
 
 	/**

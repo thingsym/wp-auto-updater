@@ -18,11 +18,11 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function classAttr() {
-		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'option_name', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'capability', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'default_options', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'upgraded_version', 'WP_Auto_Updater' );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'option_group' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'option_name' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'capability' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'default_options' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'upgraded_version' ) );
 	}
 
 	/**
@@ -30,11 +30,11 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function objectAttr() {
-		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'option_name', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'capability', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'default_options', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'upgraded_version', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'option_group', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'option_name', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'capability', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'default_options', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'upgraded_version', new WP_Auto_Updater() );
 	}
 
 	/**

@@ -29,11 +29,11 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function objectAttr() {
-		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'option_name', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'capability', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'default_options', new WP_Auto_Updater() );
-		$this->assertObjectHasAttribute( 'upgraded_version', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'option_group', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'option_name', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'capability', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'default_options', new WP_Auto_Updater() );
+		$this->assertObjectHasProperty( 'upgraded_version', new WP_Auto_Updater() );
 	}
 
 	/**
