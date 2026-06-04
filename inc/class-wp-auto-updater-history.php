@@ -206,7 +206,6 @@ class WP_Auto_Updater_History {
 			<?php
 			delete_transient( 'wp_auto_updater/history_table/updated' );
 		}
-
 	}
 
 	/**

@@ -4,9 +4,9 @@ Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
 Stable tag: 1.7.3
-Tested up to: 6.6.1
-Requires at least: 4.9
-Requires PHP: 5.6
+Tested up to: 7.0
+Requires at least: 5.9
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,8 @@ WP Auto Updater plugin enables automatic updates of WordPress Core, Themes, Plug
 * Update notification
 
 **Important**: before updating, please back up your database and files.
+
+**Note**: WordPress version 5.5 later, The auto-updates have been implemented for the WordPress Core, as well as themes and plugins. If the auto-updates are enabled, the settings for WordPress Core will take priority over WP Auto Updater plugin. This will result in issues such as no updates at all, or not being updated at the scheduled update date and time. To properly control updates, disable all auto-updates include themes and plugins before enable WP Auto Updater plugin. See [Plugin and themes auto-updates](https://wordpress.org/documentation/article/plugins-themes-auto-updates/)
 
 = Auto Update Scenario =
 
@@ -139,12 +141,19 @@ For operation compatibility between PHP version and WordPress version, see below
 
 The possible causes are as follows:
 
+* The auto-updates feature implemented in WordPress core is enabled. (WordPress 5.5 or later)
+* You have set an update Constant. (AUTOMATIC_UPDATER_DISABLED or WP_AUTO_UPDATE_CORE)
 * The cron schedule was updated somewhere else.
 * The cron schedule has been reset.
 
 For example, when updating with wp-cli, the cron schedule may be updated.
 The cron schedule does not match the one set in WP Auto Updater.
 In that case, an alert is displayed on the settings screen.
+
+The message is as follows:
+```
+The cron schedule is out of sync with the set schedule. You may have changed the cron schedule or the timezone somewhere else.
+```
 
 = Why are themes or plugins not updating at once ? =
 
@@ -312,6 +321,10 @@ We recommend shortening the update interval.
 * initial release
 
 == Upgrade Notice ==
+
+= 1.7.4 =
+* Requires at least version 5.9 of the WordPress
+* Requires PHP version 7.4
 
 = 1.6.2 =
 * Requires at least version 4.9 of the WordPress

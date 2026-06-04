@@ -43,10 +43,10 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function objectAttr() {
-		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_History() );
-		$this->assertObjectHasAttribute( 'table_name', new WP_Auto_Updater_History() );
-		$this->assertObjectHasAttribute( 'table_version', new WP_Auto_Updater_History() );
-		$this->assertObjectHasAttribute( 'nonce', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'option_group', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'table_name', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'table_version', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'nonce', new WP_Auto_Updater_History() );
 	}
 
 	/**
