@@ -136,7 +136,7 @@ class WP_Auto_Updater {
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'auto_update' ) );
 
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_data' ) );
+		add_action( 'init', array( $this, 'load_plugin_data' ) );
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
@@ -349,7 +349,6 @@ class WP_Auto_Updater {
 
 			$this->notification->send_email( $type, $info_success, $info_failed );
 		}
-
 	}
 
 	/**
@@ -871,7 +870,6 @@ class WP_Auto_Updater {
 			'wp_auto_updater',
 			'plugins'
 		);
-
 	}
 
 	/**
@@ -989,7 +987,7 @@ class WP_Auto_Updater {
 		return load_plugin_textdomain(
 			'wp-auto-updater',
 			false,
-			plugin_dir_path( __WP_AUTO_UPDATER__ ) . 'languages'
+			'wp-auto-updater/languages'
 		);
 	}
 
@@ -1493,7 +1491,7 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.0.0
 	 */
-	public function admin_enqueue_scripts( $hook_suffix = '' ) {
+	public function admin_enqueue_scripts() {
 		wp_enqueue_script(
 			'wp-auto-updater-admin',
 			plugins_url( 'js/admin.js', __WP_AUTO_UPDATER__ ),
@@ -1579,7 +1577,7 @@ class WP_Auto_Updater {
 	 *
 	 * @since 1.6.4
 	 */
-	public function hidden_auto_update_status( $auto_update_settings ) {
+	public function hidden_auto_update_status() {
 ?>
 <style>
 .auto-update-status {

@@ -3,9 +3,8 @@ parameters:
   treatPhpDocTypesAsCertain: false
   paths:
     - ./
-  excludes_analyse:
+  excludePaths:
     - ./tests
     - ./vendor
-    - ./node_modules
   bootstrapFiles:
     - ./tests/phpunit/bootstrap.php

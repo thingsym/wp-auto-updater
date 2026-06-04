@@ -284,7 +284,7 @@ class WP_Auto_Updater_Notification {
 	 *
 	 * @since 1.4.0
 	 */
-	public function change_core_update_email( $email, $type, $core_update, $result ) {
+	public function change_core_update_email( $email ) {
 		add_filter( 'wp_mail_from', array( $this, 'change_mail_from' ) );
 		$email = $this->change_email( $email, array(), array() );
 
@@ -306,7 +306,7 @@ class WP_Auto_Updater_Notification {
 	 *
 	 * @since 1.4.0
 	 */
-	public function change_email( $email, $info_success, $info_failed ) {
+	public function change_email( $email ) {
 		$options = $this->get_options( 'mail' );
 
 		if ( ! $options['admin_email'] && ! $options['recipients'] ) {
@@ -627,7 +627,6 @@ class WP_Auto_Updater_Notification {
 <p><label><input type="checkbox" name="wp_auto_updater_notification_options[mail][recipients][]" value="<?php echo esc_attr( $user->ID ); ?>"<?php checked( true, in_array( $user->ID, $recipients, true ) ); ?>> <?php echo esc_html( $user->user_login ); ?></label></p>
 			<?php
 		}
-
 	}
 
 	/**
@@ -662,5 +661,4 @@ class WP_Auto_Updater_Notification {
 
 		return $output;
 	}
-
 }

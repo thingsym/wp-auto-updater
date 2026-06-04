@@ -33,10 +33,10 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function classAttr() {
-		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater_History' );
-		$this->assertClassHasAttribute( 'table_name', 'WP_Auto_Updater_History' );
-		$this->assertClassHasAttribute( 'table_version', 'WP_Auto_Updater_History' );
-		$this->assertClassHasAttribute( 'nonce', 'WP_Auto_Updater_History' );
+		$this->assertTrue( property_exists( WP_Auto_Updater_History::class, 'option_group' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater_History::class, 'table_name' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater_History::class, 'table_version' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater_History::class, 'nonce' ) );
 	}
 
 	/**
@@ -44,10 +44,10 @@ class Test_Wp_Auto_Updater_History extends WP_UnitTestCase {
 	 * @group history
 	 */
 	public function objectAttr() {
-		$this->assertObjectHasAttribute( 'option_group', new WP_Auto_Updater_History() );
-		$this->assertObjectHasAttribute( 'table_name', new WP_Auto_Updater_History() );
-		$this->assertObjectHasAttribute( 'table_version', new WP_Auto_Updater_History() );
-		$this->assertObjectHasAttribute( 'nonce', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'option_group', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'table_name', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'table_version', new WP_Auto_Updater_History() );
+		$this->assertObjectHasProperty( 'nonce', new WP_Auto_Updater_History() );
 	}
 
 	/**
