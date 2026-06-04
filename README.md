@@ -26,7 +26,8 @@ You can choose from the following five automatic updates of WordPress Core.
 * Manual Update
 
 ### WordPress Update Process Chart
-<img src="screenshot-3.png">
+
+<img src="screenshot-3.png" alt="">
 
 ### Minor Version Update
 
@@ -88,10 +89,12 @@ At the time of automatic update, Automatically updates WordPress Core, Themes, P
 ## Screenshot
 
 ### Auto Update settings
-<img src="screenshot-1.png">
+
+<img src="screenshot-1.png" alt="">
 
 ### Auto Update History
-<img src="screenshot-2.png">
+
+<img src="screenshot-2.png" alt="">
 
 ## Frequently Asked Questions
 
@@ -170,143 +173,143 @@ For operation compatibility between PHP version and WordPress version, see below
 ## Changelog
 
 * Version 1.7.3
-	* add phpcs job to ci
-	* add test case
-	* fix sanitize for clear logs
+  * add phpcs job to ci
+  * add test case
+  * fix sanitize for clear logs
 * Version 1.7.2
-	* add php 8.3 to matrix and actions/checkout bump up for ci
-	* imporve code with phpcs
-	* change the type of a variable
-	* add phpunit-legacy job to ci
+  * add php 8.3 to matrix and actions/checkout bump up for ci
+  * imporve code with phpcs
+  * change the type of a variable
+  * add phpunit-legacy job to ci
 * Version 1.7.1
-	* tested up to 6.4.0
-	* update japanese translation
-	* update pot
-	* imporve code with phpcs, phpmd and phpstan
-	* change variable type
-	* fix Undefined property: stdClass
-	* phpunit bump up to version 8
-	* ci support php 8.0 later
+  * tested up to 6.4.0
+  * update japanese translation
+  * update pot
+  * imporve code with phpcs, phpmd and phpstan
+  * change variable type
+  * fix Undefined property: stdClass
+  * phpunit bump up to version 8
+  * ci support php 8.0 later
 * Version 1.7.0
-	* tested up to 6.2.0
-	* update japanese translation
-	* update pot
-	* add test case
-	* add last day to schedule
-	* fix composer scripts
-	* update github actions
-	* set auto_update_core_major to disable when activate
-	* add support section and enhance contribution section to README
-	* fix license
-	* fix wp-plugin-unit-test.yml
+  * tested up to 6.2.0
+  * update japanese translation
+  * update pot
+  * add test case
+  * add last day to schedule
+  * fix composer scripts
+  * update github actions
+  * set auto_update_core_major to disable when activate
+  * add support section and enhance contribution section to README
+  * fix license
+  * fix wp-plugin-unit-test.yml
 * Version 1.6.3
-	* change makepot from php script to wp cli
-	* change plugin initialization to plugins_loaded hook
-	* replace assert from assertEquals to assertSame
+  * change makepot from php script to wp cli
+  * change plugin initialization to plugins_loaded hook
+  * replace assert from assertEquals to assertSame
 * Version 1.6.2
-	* change requires at least to wordpress 4.9
-	* change requires to PHP 5.6
-	* add test case
+  * change requires at least to wordpress 4.9
+  * change requires to PHP 5.6
+  * add test case
 * Version 1.6.1
-	* update composer dependencies
-	* fix test case
-	* separate the method into print_update_message
-	* add load_plugin_data method
-	* change from protected variable to public variable for unit test
-	* add timeout-minutes to workflows
-	* add phpunit-polyfills
-	* update install-wp-tests.sh
-	* fix .editorconfig
-	* tested up to 5.8.0
+  * update composer dependencies
+  * fix test case
+  * separate the method into print_update_message
+  * add load_plugin_data method
+  * change from protected variable to public variable for unit test
+  * add timeout-minutes to workflows
+  * add phpunit-polyfills
+  * update install-wp-tests.sh
+  * fix .editorconfig
+  * tested up to 5.8.0
 * Version 1.6.0
-	* update japanese translation
-	* update pot
-	* add an option to delete logs for a specified period range
-	* add per_page screen option
-	* fix cron schedule warning
-	* add timezone string
-	* add correction for timestamp when the time has passed
+  * update japanese translation
+  * update pot
+  * add an option to delete logs for a specified period range
+  * add per_page screen option
+  * fix cron schedule warning
+  * add timezone string
+  * add correction for timestamp when the time has passed
 * Version 1.5.1
-	* tested up to 5.7.0
-	* update japanese translation
-	* update pot
-	* add comment for translators
-	* fix composer scripts
-	* add test case
-	* add sponsor link
-	* add FUNDING.yml
-	* add donate link
-	* update wordpress-test-matrix
-	* fix Trying to access array offset on value of type null on PHP7.4
-	* add GitHub actions for CI/CD, remove .travis.yml
+  * tested up to 5.7.0
+  * update japanese translation
+  * update pot
+  * add comment for translators
+  * fix composer scripts
+  * add test case
+  * add sponsor link
+  * add FUNDING.yml
+  * add donate link
+  * update wordpress-test-matrix
+  * fix Trying to access array offset on value of type null on PHP7.4
+  * add GitHub actions for CI/CD, remove .travis.yml
 * Version 1.5.0
-	* update japanese translation
-	* update pot
-	* imporve code with phpcs, phpmd and phpstan
-	* update testunit configuration
-	* fix composer.json
-	* fix test case
-	* disable auto-update UI elements
-	* disable theme and plugin auto-update notification email
-	* change hook tag
-	* fix to send only built-in core update notification email
+  * update japanese translation
+  * update pot
+  * imporve code with phpcs, phpmd and phpstan
+  * update testunit configuration
+  * fix composer.json
+  * fix test case
+  * disable auto-update UI elements
+  * disable theme and plugin auto-update notification email
+  * change hook tag
+  * fix to send only built-in core update notification email
 * Version 1.4.0
-	* fix validate
-	* fix Unexpected deprecated notice for WP_User->id
-	* update screenshot
-	* fix indent and reformat with phpcs and phpcbf
-	* refactoring with phpunit
-	* bump up phpunit version to 7
-	* add phpunit coverage composer script
-	* add test case
-	* remove duplicate load_textdomain
-	* change how options are merged
-	* display warning in case the cron schedule is out of sync
-	* fix phpdoc and add phpdoc
-	* add notification function
+  * fix validate
+  * fix Unexpected deprecated notice for WP_User->id
+  * update screenshot
+  * fix indent and reformat with phpcs and phpcbf
+  * refactoring with phpunit
+  * bump up phpunit version to 7
+  * add phpunit coverage composer script
+  * add test case
+  * remove duplicate load_textdomain
+  * change how options are merged
+  * display warning in case the cron schedule is out of sync
+  * fix phpdoc and add phpdoc
+  * add notification function
 * Version 1.3.0
-	* add link to WordPress Update Process Chart screenshot
-	* fix pot
-	* remove jQuery dependency in form_controller function
+  * add link to WordPress Update Process Chart screenshot
+  * fix pot
+  * remove jQuery dependency in form_controller function
 * Version 1.2.3
-	* add installed info
-	* add reset-wp-tests.sh, uninstall-wp-tests.sh
-	* fix pagination
+  * add installed info
+  * add reset-wp-tests.sh, uninstall-wp-tests.sh
+  * fix pagination
 * Version 1.2.2
-	* add WordPress Update Process Chart screenshot
-	* fix test case
-	* add test case for floating point
-	* refactoring with phpmd and phpstan
+  * add WordPress Update Process Chart screenshot
+  * fix test case
+  * add test case for floating point
+  * refactoring with phpmd and phpstan
 * Version 1.2.1
-	* fix float comparison with version number difference
+  * fix float comparison with version number difference
 * Version 1.2.0
-	* update japanese language
-	* update pot
-	* change hook name
-	* refactoring with phpcs
-	* fix indent and reformat with phpcs and phpcbf
-	* add composer.json for test
-	* add static code analysis config
+  * update japanese language
+  * update pot
+  * change hook name
+  * refactoring with phpcs
+  * fix indent and reformat with phpcs and phpcbf
+  * add composer.json for test
+  * add static code analysis config
 * Version 1.1.0
-	* improve CI environment
-	* add version number before the update in the logs
-	* gather present version
-	* add user in the logging
-	* improve table creation prosess
-	* add admin notice
-	* add table migration function
-	* add user column, update history table v1.0.1
+  * improve CI environment
+  * add version number before the update in the logs
+  * gather present version
+  * add user in the logging
+  * improve table creation prosess
+  * add admin notice
+  * add table migration function
+  * add user column, update history table v1.0.1
 * Version 1.0.1
-	* fix readme
-	* add PHPDoc comments
+  * fix readme
+  * add PHPDoc comments
 * Version 1.0.0
-	* initial release
+  * initial release
 
 ## Upgrade Notice
 
 * Version 1.6.2
-	* Requires at least version 4.9 of the WordPress
-	* Requires PHP version 5.6
+  * Requires at least version 4.9 of the WordPress
+  * Requires PHP version 5.6
 
 ## License
 
