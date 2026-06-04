@@ -17,11 +17,11 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function classAttr() {
-		$this->assertClassHasAttribute( 'option_group', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'option_name', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'capability', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'default_options', 'WP_Auto_Updater' );
-		$this->assertClassHasAttribute( 'upgraded_version', 'WP_Auto_Updater' );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'option_group' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'option_name' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'capability' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'default_options' ) );
+		$this->assertTrue( property_exists( WP_Auto_Updater::class, 'upgraded_version' ) );
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater, 'init' ) ) );
 		$this->assertSame( 10, has_filter( 'wp_loaded', array( $this->wp_auto_updater, 'auto_update' ) ) );
 
-		$this->assertSame( 10, has_filter( 'plugins_loaded', array( $this->wp_auto_updater, 'load_plugin_data' ) ) );
+		$this->assertSame( 10, has_filter( 'init', array( $this->wp_auto_updater, 'load_plugin_data' ) ) );
 
 		$this->assertSame( 10, has_filter( 'admin_init', array( $this->wp_auto_updater, 'register_settings' ) ) );
 		$this->assertSame( 10, has_filter( 'admin_menu', array( $this->wp_auto_updater, 'add_option_page' ) ) );
@@ -171,10 +171,23 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 	 * @group basic
 	 */
 	public function load_textdomain() {
+		global $wp_version;
 		$loaded = $this->wp_auto_updater->load_textdomain();
-		$this->assertFalse( $loaded );
+		if ( version_compare( (string) $wp_version, '6.7', '>=' ) ) {
+			$this->assertTrue( $loaded );
+		}
+		else {
+			$this->assertFalse( $loaded );
+		}
+	}
 
+	/**
+	 * @test
+	 * @group basic
+	 */
+	public function load_textdomain_change() {
 		unload_textdomain( 'wp-auto-updater' );
+		$this->assertFalse( isset( $l10n[ 'wp-auto-updater' ] ) );
 
 		add_filter( 'locale', [ $this, '_change_locale' ] );
 		add_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ], 10, 2 );
@@ -182,10 +195,13 @@ class Test_Wp_Auto_Updater_Basic extends WP_UnitTestCase {
 		$loaded = $this->wp_auto_updater->load_textdomain();
 		$this->assertTrue( $loaded );
 
+		$this->assertSame( 'ja', get_locale() );
+
 		remove_filter( 'load_textdomain_mofile', [ $this, '_change_textdomain_mofile' ] );
 		remove_filter( 'locale', [ $this, '_change_locale' ] );
 
 		unload_textdomain( 'wp-auto-updater' );
+		$this->assertFalse( isset( $l10n[ 'wp-auto-updater' ] ) );
 	}
 
 	/**

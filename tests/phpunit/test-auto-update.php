@@ -172,6 +172,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->wp_auto_updater->auto_update_wordpress_core();
 		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
+		$wp_version = $now_wp_version;
 	}
 
 	/**
@@ -269,6 +270,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->wp_auto_updater->auto_update_wordpress_core();
 		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
+		$wp_version = $now_wp_version;
 	}
 
 	/**
@@ -366,6 +368,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->wp_auto_updater->auto_update_wordpress_core();
 		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
+		$wp_version = $now_wp_version;
 	}
 
 	/**
@@ -463,6 +466,7 @@ class Test_Wp_Auto_Updater_Auto_Update extends WP_UnitTestCase {
 		$this->wp_auto_updater->auto_update_wordpress_core();
 		$this->assertSame( 10, has_filter( 'auto_update_core', '__return_false' ) );
 
+		$wp_version = $now_wp_version;
 	}
 
 	/**
