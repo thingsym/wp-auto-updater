@@ -3,7 +3,7 @@ Contributors: thingsym
 Link: https://github.com/thingsym/wp-auto-updater
 Donate link: https://github.com/sponsors/thingsym
 Tags: updates, auto update, automatic updates, background updates, core updates, theme updates, translation updates, plugin updates
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 Tested up to: 7.0
 Requires at least: 5.9
 Requires PHP: 7.4
@@ -168,6 +168,20 @@ We recommend shortening the update interval.
 3. WordPress Update Process Chart
 
 == Changelog ==
+
+= 1.7.4 =
+* tested up to 7.0
+* change requires at least to wordpress 5.9
+* change requires to PHP 7.4
+* edit README
+* improve code with phpcs
+* fix test case
+* change hook to init action, Notice: Function _load_textdomain_just_in_time was called incorrectly
+* fix plugin_textdomain rel path
+* update github workflows
+* update phpunit v9 and wpcs v3
+* update composer dependencies
+* update wp-tests script
 
 = 1.7.3 =
 * add phpcs job to ci
