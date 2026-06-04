@@ -26,4 +26,4 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/class-wp-auto-updater-notificati
 
 if ( class_exists( 'WP_Auto_Updater' ) ) {
 	new WP_Auto_Updater();
-};
+}
