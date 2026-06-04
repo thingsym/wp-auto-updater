@@ -989,7 +989,7 @@ class WP_Auto_Updater {
 		return load_plugin_textdomain(
 			'wp-auto-updater',
 			false,
-			plugin_dir_path( __WP_AUTO_UPDATER__ ) . 'languages'
+			'wp-auto-updater/languages'
 		);
 	}
 
