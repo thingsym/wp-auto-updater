@@ -136,7 +136,7 @@ class WP_Auto_Updater {
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'auto_update' ) );
 
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_data' ) );
+		add_action( 'init', array( $this, 'load_plugin_data' ) );
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'add_option_page' ) );
